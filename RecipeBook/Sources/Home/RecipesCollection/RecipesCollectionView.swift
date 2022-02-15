@@ -15,12 +15,13 @@ class RecipesCollectionView: UICollectionView {
         super.init(frame: .zero, collectionViewLayout: layout)
         
         register(RecipesCollectionViewCell.self, forCellWithReuseIdentifier: RecipesCollectionViewCell.reuseId)
-        backgroundColor = UIColor.theme.background
+        backgroundColor = .none
         layout.minimumLineSpacing = Constants.recipesMinimumLineSpacing
         contentInset = UIEdgeInsets(top: 0, left: Constants.leftDistance, bottom: 0, right: Constants.rightDistance)
         
         showsHorizontalScrollIndicator = false
         showsVerticalScrollIndicator = false
+        clipsToBounds = false
     }
     
     required init?(coder: NSCoder) {

@@ -34,6 +34,8 @@ class HomeViewController: CViewController<HomeView> {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Home"
+        self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
+        
         customView.recipesCollectionView.delegate = self
         customView.recipesCollectionView.dataSource = self
     }

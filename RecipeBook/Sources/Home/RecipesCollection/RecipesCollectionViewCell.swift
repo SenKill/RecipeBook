@@ -55,11 +55,17 @@ class RecipesCollectionViewCell: UICollectionViewCell {
     }
     
     func setViews() {
-        backgroundColor = UIColor.theme.background
+        backgroundColor = .white
+        self.layer.cornerRadius = 10
+        self.layer.shadowRadius = 5
+        layer.shadowOpacity = 0.3
+        clipsToBounds = false
+        
         contentView.addSubview(mainImageView)
         contentView.addSubview(favoriteImageView)
         contentView.addSubview(recipeNameLabel)
         contentView.addSubview(authorLabel)
+            
     }
     
     func layoutViews() {
@@ -74,14 +80,14 @@ class RecipesCollectionViewCell: UICollectionViewCell {
             favoriteImageView.trailingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: -5),
             favoriteImageView.topAnchor.constraint(equalTo: mainImageView.topAnchor, constant: 5),
             favoriteImageView.heightAnchor.constraint(equalTo: mainImageView.heightAnchor, multiplier: 0.2),
-            favoriteImageView.widthAnchor.constraint(equalTo: mainImageView.widthAnchor, multiplier: 0.25),
+            favoriteImageView.widthAnchor.constraint(equalTo: mainImageView.heightAnchor, multiplier: 0.25),
             
-            recipeNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            recipeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            recipeNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            recipeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
             recipeNameLabel.topAnchor.constraint(equalTo: mainImageView.bottomAnchor, constant: 5),
             
-            authorLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            authorLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            authorLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            authorLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
             authorLabel.topAnchor.constraint(equalTo: recipeNameLabel.bottomAnchor, constant: 5)
         ])
     }
@@ -90,9 +96,6 @@ class RecipesCollectionViewCell: UICollectionViewCell {
 /*
  Old constraints
 
- 
- 
- 
  NSLayoutConstraint.activate([
      
      authorLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
