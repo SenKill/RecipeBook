@@ -14,4 +14,5 @@ extension UIColor {
 
 class ColorTheme {
     let background = UIColor(named: "BackgroundColor")
+    let secondaryText = UIColor(named: "SecondaryTextColor")
 }

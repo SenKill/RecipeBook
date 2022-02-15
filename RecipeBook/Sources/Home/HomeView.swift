@@ -15,7 +15,7 @@ class HomeView: CView {
     private let firstWelcomingLabel: UILabel = {
         let label = UILabel()
         label.text = "Good morning!🌅"
-        label.font = UIFont(name: "Avenir-Light", size: 24.0)
+        label.font = UIFont(name: "Avenir-Light", size: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -27,18 +27,26 @@ class HomeView: CView {
         return label
     }()
     
+    private let mealLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Breakfast"
+        label.font = UIFont.systemFont(ofSize: 27, weight: .semibold)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     override func setViews() {
         super.setViews()
         backgroundColor = UIColor.theme.background
         
         addSubview(firstWelcomingLabel)
         addSubview(secondWelcomingLabel)
+        addSubview(mealLabel)
         addSubview(recipesCollectionView)
     }
     
     override func layoutViews() {
         super.layoutViews()
-        
         recipesCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             firstWelcomingLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.leftDistance),
@@ -49,10 +57,14 @@ class HomeView: CView {
             secondWelcomingLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.leftDistance),
             secondWelcomingLabel.topAnchor.constraint(equalTo: firstWelcomingLabel.bottomAnchor, constant: 10),
             
+            mealLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.leftDistance),
+            mealLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.leftDistance),
+            mealLabel.topAnchor.constraint(equalTo: secondWelcomingLabel.bottomAnchor, constant: 20),
+            
             recipesCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             recipesCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            recipesCollectionView.topAnchor.constraint(equalTo: secondWelcomingLabel.bottomAnchor, constant: 50),
-            recipesCollectionView.heightAnchor.constraint(equalToConstant: 200)
+            recipesCollectionView.topAnchor.constraint(equalTo: mealLabel.bottomAnchor, constant: 15),
+            recipesCollectionView.heightAnchor.constraint(equalToConstant: Constants.recipesCollectionHeight)
         ])
     }
 }
