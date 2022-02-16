@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RecipesCollectionViewCell: UICollectionViewCell {
+class MealCollectionViewCell: UICollectionViewCell {
     
     static let reuseId = "RecipesCollectionViewCell"
     

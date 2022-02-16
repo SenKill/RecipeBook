@@ -7,14 +7,14 @@
 
 import UIKit
 
-class RecipesCollectionView: UICollectionView {
+class MealCollectionView: UICollectionView {
     
     init() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         super.init(frame: .zero, collectionViewLayout: layout)
         
-        register(RecipesCollectionViewCell.self, forCellWithReuseIdentifier: RecipesCollectionViewCell.reuseId)
+        register(MealCollectionViewCell.self, forCellWithReuseIdentifier: MealCollectionViewCell.reuseId)
         backgroundColor = .none
         layout.minimumLineSpacing = Constants.recipesMinimumLineSpacing
         contentInset = UIEdgeInsets(top: 0, left: Constants.leftDistance, bottom: 0, right: Constants.rightDistance)

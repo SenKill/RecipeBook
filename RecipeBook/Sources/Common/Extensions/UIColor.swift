@@ -13,6 +13,8 @@ extension UIColor {
 }
 
 class ColorTheme {
-    let background = UIColor(named: "BackgroundColor")
-    let secondaryText = UIColor(named: "SecondaryTextColor")
+    let background = UIColor(named: "BackgroundColor")!
+    let gradientBackgroundFirst = UIColor(named: "GradientColorFirst")!
+    let gradientBackgroundSecond = UIColor(named: "GradientColorSecond")!
+    let secondaryText = UIColor(named: "SecondaryTextColor")!
 }

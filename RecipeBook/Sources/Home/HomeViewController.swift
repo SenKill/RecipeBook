@@ -55,14 +55,14 @@ extension HomeViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = customView.recipesCollectionView.dequeueReusableCell(withReuseIdentifier: RecipesCollectionViewCell.reuseId, for: indexPath)
+        let cell = customView.recipesCollectionView.dequeueReusableCell(withReuseIdentifier: MealCollectionViewCell.reuseId, for: indexPath)
         configureCell(cell, for: recipes[indexPath.row])
         return cell
     }
     
     func configureCell(_ cell: UICollectionViewCell, for recipe: RecipeModel) {
         
-        guard let cell = cell as? RecipesCollectionViewCell else {
+        guard let cell = cell as? MealCollectionViewCell else {
             print("ERROR: Failed to configure a cell")
             return
         }

@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class HomeView: CView {
-    let recipesCollectionView = RecipesCollectionView()
+    let recipesCollectionView = MealCollectionView()
     
     // TODO: Change label's text
     private let firstWelcomingLabel: UILabel = {
@@ -38,23 +38,12 @@ class HomeView: CView {
         return label
     }()
     
+    
     private let backgroundView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.init(red: 120/255, green: 200/255, blue: 160/255, alpha: 1)
+        let gradientView: UIView = GradientView(startColor: UIColor.theme.gradientBackgroundFirst, endColor: UIColor.theme.gradientBackgroundSecond)
         
-        /*
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = view.bounds
-        gradientLayer.colors = [
-            UIColor.init(red: 120/255, green: 200/255, blue: 160/255, alpha: 1),
-            UIColor.init(red: 135/255, green: 195/255, blue: 35/255, alpha: 1)]
-        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
-        gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.0)
-        view.layer.addSublayer(gradientLayer)
-        */
-        
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
+        gradientView.translatesAutoresizingMaskIntoConstraints = false
+        return gradientView
     }()
     
     override func setViews() {
