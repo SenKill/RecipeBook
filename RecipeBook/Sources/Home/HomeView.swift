@@ -9,7 +9,8 @@ import Foundation
 import UIKit
 
 class HomeView: CView {
-    let recipesCollectionView = MealCollectionView()
+    let mealCollectionView = MealCollectionView()
+    let popularCollectionView = PopularCollectionView()
     
     // TODO: Change label's text
     private let firstWelcomingLabel: UILabel = {
@@ -38,12 +39,19 @@ class HomeView: CView {
         return label
     }()
     
-    
     private let backgroundView: UIView = {
         let gradientView: UIView = GradientView(startColor: UIColor.theme.gradientBackgroundFirst, endColor: UIColor.theme.gradientBackgroundSecond)
         
         gradientView.translatesAutoresizingMaskIntoConstraints = false
         return gradientView
+    }()
+    
+    private let popularLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Popular"
+        label.font = UIFont.systemFont(ofSize: 27, weight: .semibold)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     override func setViews() {
@@ -54,12 +62,17 @@ class HomeView: CView {
         addSubview(firstWelcomingLabel)
         addSubview(secondWelcomingLabel)
         addSubview(mealLabel)
-        addSubview(recipesCollectionView)
+        addSubview(mealCollectionView)
+        addSubview(popularLabel)
+        addSubview(popularCollectionView)
     }
     
     override func layoutViews() {
         super.layoutViews()
-        recipesCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        mealCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        popularCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
             backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -78,10 +91,19 @@ class HomeView: CView {
             mealLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.leftDistance),
             mealLabel.topAnchor.constraint(equalTo: secondWelcomingLabel.bottomAnchor, constant: 20),
             
-            recipesCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            recipesCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            recipesCollectionView.topAnchor.constraint(equalTo: mealLabel.bottomAnchor, constant: 15),
-            recipesCollectionView.heightAnchor.constraint(equalToConstant: Constants.recipesCollectionHeight)
+            mealCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            mealCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            mealCollectionView.topAnchor.constraint(equalTo: mealLabel.bottomAnchor, constant: 15),
+            mealCollectionView.heightAnchor.constraint(equalToConstant: Constants.mealCollectionHeight),
+            
+            popularLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.leftDistance),
+            popularLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Constants.rightDistance),
+            popularLabel.topAnchor.constraint(equalTo: mealCollectionView.bottomAnchor, constant: 30),
+            
+            popularCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            popularCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            popularCollectionView.topAnchor.constraint(equalTo: popularLabel.bottomAnchor, constant: 15),
+            popularCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 }

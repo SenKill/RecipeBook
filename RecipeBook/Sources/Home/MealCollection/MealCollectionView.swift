@@ -16,7 +16,7 @@ class MealCollectionView: UICollectionView {
         
         register(MealCollectionViewCell.self, forCellWithReuseIdentifier: MealCollectionViewCell.reuseId)
         backgroundColor = .none
-        layout.minimumLineSpacing = Constants.recipesMinimumLineSpacing
+        layout.minimumLineSpacing = Constants.mealMinimumLineSpacing
         contentInset = UIEdgeInsets(top: 0, left: Constants.leftDistance, bottom: 0, right: Constants.rightDistance)
         
         showsHorizontalScrollIndicator = false

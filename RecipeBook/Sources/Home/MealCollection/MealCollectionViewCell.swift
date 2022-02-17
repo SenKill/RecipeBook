@@ -13,7 +13,6 @@ class MealCollectionViewCell: UICollectionViewCell {
     
     let mainImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .orange
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -35,7 +34,7 @@ class MealCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    let authorLabel: UILabel = {
+    let authorNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = UIColor.theme.secondaryText
@@ -64,7 +63,7 @@ class MealCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(mainImageView)
         contentView.addSubview(favoriteImageView)
         contentView.addSubview(recipeNameLabel)
-        contentView.addSubview(authorLabel)
+        contentView.addSubview(authorNameLabel)
             
     }
     
@@ -86,34 +85,9 @@ class MealCollectionViewCell: UICollectionViewCell {
             recipeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
             recipeNameLabel.topAnchor.constraint(equalTo: mainImageView.bottomAnchor, constant: 5),
             
-            authorLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            authorLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-            authorLabel.topAnchor.constraint(equalTo: recipeNameLabel.bottomAnchor, constant: 5)
+            authorNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            authorNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
+            authorNameLabel.topAnchor.constraint(equalTo: recipeNameLabel.bottomAnchor, constant: 5)
         ])
     }
 }
-
-/*
- Old constraints
-
- NSLayoutConstraint.activate([
-     
-     authorLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-     authorLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-     authorLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-     
-     recipeNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-     recipeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-     recipeNameLabel.bottomAnchor.constraint(equalTo: authorLabel.topAnchor, constant: -5),
-     
-     mainImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-     mainImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-     mainImageView.topAnchor.constraint(equalTo: topAnchor),
-     mainImageView.bottomAnchor.constraint(equalTo: recipeNameLabel.topAnchor, constant: -5),
-     
-     favoriteImageView.trailingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: -5),
-     favoriteImageView.topAnchor.constraint(equalTo: mainImageView.topAnchor, constant: 5),
-     favoriteImageView.heightAnchor.constraint(equalTo: mainImageView.heightAnchor, multiplier: 0.2),
-     favoriteImageView.widthAnchor.constraint(equalTo: mainImageView.widthAnchor, multiplier: 0.25)
- ])
- */

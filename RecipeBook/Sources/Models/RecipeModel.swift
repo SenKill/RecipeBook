@@ -11,5 +11,6 @@ struct RecipeModel {
     let name: String
     let image: String
     let author: String
+    let prepTime: Int
     let isFavorite: Bool
 }
