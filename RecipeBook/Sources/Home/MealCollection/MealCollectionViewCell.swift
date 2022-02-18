@@ -58,7 +58,6 @@ class MealCollectionViewCell: UICollectionViewCell {
         self.layer.cornerRadius = 10
         self.layer.shadowRadius = 5
         layer.shadowOpacity = 0.3
-        clipsToBounds = false
         
         contentView.addSubview(mainImageView)
         contentView.addSubview(favoriteImageView)

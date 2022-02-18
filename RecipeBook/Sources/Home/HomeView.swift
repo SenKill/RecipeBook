@@ -13,6 +13,7 @@ class HomeView: CView {
     let popularCollectionView = PopularCollectionView()
     
     // TODO: Change label's text
+    // TODO: Create UIScrollView
     private let firstWelcomingLabel: UILabel = {
         let label = UILabel()
         label.text = "Good morning!🌅"

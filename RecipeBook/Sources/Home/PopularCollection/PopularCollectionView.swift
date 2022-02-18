@@ -11,7 +11,6 @@ class PopularCollectionView: UICollectionView {
 
     init() {
         let layout = UICollectionViewFlowLayout()
-        
         super.init(frame: .zero, collectionViewLayout: layout)
         
         layout.scrollDirection = .vertical
@@ -22,11 +21,11 @@ class PopularCollectionView: UICollectionView {
             left: Constants.leftDistance,
             bottom: 0,
             right: Constants.rightDistance)
-        
         backgroundColor = .none
-        
         showsVerticalScrollIndicator = false
         showsHorizontalScrollIndicator = false
+        clipsToBounds = false
+        isScrollEnabled = false
         
         register(PopularCollectionViewCell.self, forCellWithReuseIdentifier: PopularCollectionViewCell.reuseId)
     }
