@@ -63,6 +63,14 @@ class PopularCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    let bookmarkImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "bookmark")
+        imageView.tintColor = .white
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setViews()
@@ -86,7 +94,7 @@ class PopularCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(prepTimeLabel)
         contentView.addSubview(servingsImageView)
         contentView.addSubview(servingsLabel)
-    
+        contentView.addSubview(bookmarkImageView)
     }
     
     func layoutViews() {
@@ -102,7 +110,7 @@ class PopularCollectionViewCell: UICollectionViewCell {
             
             authorNameLabel.leadingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: 10),
             authorNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            authorNameLabel.topAnchor.constraint(equalTo: recipeNameLabel.bottomAnchor, constant: 2),
+            authorNameLabel.topAnchor.constraint(equalTo: recipeNameLabel.bottomAnchor, constant: 3),
             
             prepTimeImageView.leadingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: 10),
             prepTimeImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
@@ -121,6 +129,11 @@ class PopularCollectionViewCell: UICollectionViewCell {
             servingsImageView.topAnchor.constraint(equalTo: prepTimeLabel.topAnchor),
             servingsImageView.widthAnchor.constraint(equalTo: prepTimeImageView.widthAnchor),
             servingsImageView.heightAnchor.constraint(equalTo: prepTimeImageView.heightAnchor),
+            
+            bookmarkImageView.trailingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: -10),
+            bookmarkImageView.topAnchor.constraint(equalTo: topAnchor, constant: -3),
+            bookmarkImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.23),
+            bookmarkImageView.widthAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2)
         ])
     }
 }

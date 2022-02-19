@@ -96,8 +96,8 @@ extension HomeViewController {
         cell.recipeNameLabel.text = recipe.name
         cell.authorNameLabel.text = "by: " + recipe.author
         if recipe.isFavorite {
-            cell.favoriteImageView.image = UIImage(systemName: "heart.fill")
-            cell.favoriteImageView.tintColor = .red
+            cell.bookmarkImageView.image = UIImage(systemName: "bookmark.fill")
+            cell.bookmarkImageView.tintColor = .systemGreen // or .systemYellow
         }
     }
     

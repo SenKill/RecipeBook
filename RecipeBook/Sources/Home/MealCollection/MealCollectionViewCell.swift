@@ -19,9 +19,9 @@ class MealCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    let favoriteImageView: UIImageView = {
+    let bookmarkImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "heart")
+        imageView.image = UIImage(systemName: "bookmark")
         imageView.tintColor = .white
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -60,7 +60,7 @@ class MealCollectionViewCell: UICollectionViewCell {
         layer.shadowOpacity = 0.3
         
         contentView.addSubview(mainImageView)
-        contentView.addSubview(favoriteImageView)
+        contentView.addSubview(bookmarkImageView)
         contentView.addSubview(recipeNameLabel)
         contentView.addSubview(authorNameLabel)
             
@@ -69,24 +69,23 @@ class MealCollectionViewCell: UICollectionViewCell {
     func layoutViews() {
         
         NSLayoutConstraint.activate([
+            authorNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            authorNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
+            authorNameLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            
+            recipeNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            recipeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
+            recipeNameLabel.bottomAnchor.constraint(equalTo: authorNameLabel.topAnchor, constant: -3),
             
             mainImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             mainImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             mainImageView.topAnchor.constraint(equalTo: topAnchor),
-            mainImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 2/3),
+            mainImageView.bottomAnchor.constraint(equalTo: recipeNameLabel.topAnchor, constant: -5),
             
-            favoriteImageView.trailingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: -5),
-            favoriteImageView.topAnchor.constraint(equalTo: mainImageView.topAnchor, constant: 5),
-            favoriteImageView.heightAnchor.constraint(equalTo: mainImageView.heightAnchor, multiplier: 0.2),
-            favoriteImageView.widthAnchor.constraint(equalTo: mainImageView.heightAnchor, multiplier: 0.25),
-            
-            recipeNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            recipeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-            recipeNameLabel.topAnchor.constraint(equalTo: mainImageView.bottomAnchor, constant: 5),
-            
-            authorNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            authorNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-            authorNameLabel.topAnchor.constraint(equalTo: recipeNameLabel.bottomAnchor, constant: 5)
+            bookmarkImageView.trailingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: -10),
+            bookmarkImageView.topAnchor.constraint(equalTo: topAnchor, constant: -3),
+            bookmarkImageView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 0.23),
+            bookmarkImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.2),
         ])
     }
 }
