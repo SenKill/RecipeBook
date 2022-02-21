@@ -15,7 +15,7 @@ struct Constants {
     
     static let mealMinimumLineSpacing: CGFloat = 10
     static let mealItemWidth = (UIScreen.main.bounds.width - Constants.leftDistance - Constants.rightDistance - (Constants.mealMinimumLineSpacing / 2)) / 3
-    static let mealCollectionHeight = (UIScreen.main.bounds.height) / 4
+    static let mealCollectionHeight = mealItemWidth + UIScreen.main.bounds.height * 0.07
     
     static let popularMinimumLineSpacing: CGFloat = 15
     static let popularItemWidth = (UIScreen.main.bounds.width - Constants.leftDistance - Constants.rightDistance)

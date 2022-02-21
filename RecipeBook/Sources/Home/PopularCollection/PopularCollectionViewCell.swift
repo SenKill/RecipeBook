@@ -22,6 +22,7 @@ class PopularCollectionViewCell: UICollectionViewCell {
     let recipeNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .headline)
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

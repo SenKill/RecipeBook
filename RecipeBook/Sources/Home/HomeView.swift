@@ -15,13 +15,14 @@ class HomeView: CView {
     // TODO: Change label's text
     
     private let scrollView: UIScrollView = {
-        let view = UIScrollView(frame: UIScreen.main.bounds)
-        view.backgroundColor = .none
+        let view = UIScrollView()
+        view.showsVerticalScrollIndicator = false
+        view.showsHorizontalScrollIndicator = false
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private let scrollViewContainer: UIView = {
+    private let contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -66,7 +67,6 @@ class HomeView: CView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
     
     override func setViews() {
         super.setViews()
@@ -74,23 +74,62 @@ class HomeView: CView {
         // scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: 2000)
         
         addSubview(scrollView)
-        scrollView.addSubview(scrollViewContainer)
+        scrollView.addSubview(contentView)
         
-        scrollViewContainer.addSubview(backgroundView)
-        scrollViewContainer.addSubview(firstWelcomingLabel)
-        scrollViewContainer.addSubview(secondWelcomingLabel)
-        scrollViewContainer.addSubview(mealLabel)
-        scrollViewContainer.addSubview(mealCollectionView)
-        scrollViewContainer.addSubview(popularLabel)
-        scrollViewContainer.addSubview(popularCollectionView)
-        
+        contentView.addSubview(backgroundView)
+        contentView.addSubview(firstWelcomingLabel)
+        contentView.addSubview(secondWelcomingLabel)
+        contentView.addSubview(mealLabel)
+        contentView.addSubview(mealCollectionView)
+        contentView.addSubview(popularLabel)
+        contentView.addSubview(popularCollectionView)
     }
     
     override func layoutViews() {
         super.layoutViews()
         
+        layoutScrollView()
+        
         mealCollectionView.translatesAutoresizingMaskIntoConstraints = false
         popularCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            backgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            backgroundView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            backgroundView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 4/10),
+            
+            firstWelcomingLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance),
+            firstWelcomingLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.leftDistance),
+            firstWelcomingLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 150 + safeAreaInsets.top),
+            
+            secondWelcomingLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance),
+            secondWelcomingLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.leftDistance),
+            secondWelcomingLabel.topAnchor.constraint(equalTo: firstWelcomingLabel.bottomAnchor, constant: 10),
+            
+            mealLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance),
+            mealLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.leftDistance),
+            mealLabel.topAnchor.constraint(equalTo: secondWelcomingLabel.bottomAnchor, constant: 20),
+            
+            mealCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            mealCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            mealCollectionView.topAnchor.constraint(equalTo: mealLabel.bottomAnchor, constant: 15),
+            mealCollectionView.heightAnchor.constraint(equalToConstant: Constants.mealCollectionHeight),
+            
+            popularLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance),
+            popularLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constants.rightDistance),
+            popularLabel.topAnchor.constraint(equalTo: mealCollectionView.bottomAnchor, constant: 30),
+            
+            popularCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            popularCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            popularCollectionView.topAnchor.constraint(equalTo: popularLabel.bottomAnchor, constant: 15),
+            popularCollectionView.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
+            popularCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+        ])
+    }
+    
+    private func layoutScrollView() {
+        scrollView.contentInsetAdjustmentBehavior = .never
         
         NSLayoutConstraint.activate([
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -98,42 +137,21 @@ class HomeView: CView {
             scrollView.topAnchor.constraint(equalTo: topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            scrollViewContainer.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            scrollViewContainer.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            scrollViewContainer.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            scrollViewContainer.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            scrollViewContainer.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            
-            backgroundView.leadingAnchor.constraint(equalTo: scrollViewContainer.leadingAnchor),
-            backgroundView.trailingAnchor.constraint(equalTo: scrollViewContainer.trailingAnchor),
-            backgroundView.topAnchor.constraint(equalTo: topAnchor),
-            backgroundView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 4/10),
-            
-            firstWelcomingLabel.leadingAnchor.constraint(equalTo: scrollViewContainer.leadingAnchor, constant: Constants.leftDistance),
-            firstWelcomingLabel.trailingAnchor.constraint(equalTo: scrollViewContainer.trailingAnchor, constant: -Constants.leftDistance),
-            firstWelcomingLabel.topAnchor.constraint(equalTo: scrollViewContainer.safeAreaLayoutGuide.topAnchor, constant: 20),
-            
-            secondWelcomingLabel.leadingAnchor.constraint(equalTo: scrollViewContainer.leadingAnchor, constant: Constants.leftDistance),
-            secondWelcomingLabel.trailingAnchor.constraint(equalTo: scrollViewContainer.trailingAnchor, constant: -Constants.leftDistance),
-            secondWelcomingLabel.topAnchor.constraint(equalTo: firstWelcomingLabel.bottomAnchor, constant: 10),
-            
-            mealLabel.leadingAnchor.constraint(equalTo: scrollViewContainer.leadingAnchor, constant: Constants.leftDistance),
-            mealLabel.trailingAnchor.constraint(equalTo: scrollViewContainer.trailingAnchor, constant: -Constants.leftDistance),
-            mealLabel.topAnchor.constraint(equalTo: secondWelcomingLabel.bottomAnchor, constant: 20),
-            
-            mealCollectionView.leadingAnchor.constraint(equalTo: scrollViewContainer.leadingAnchor),
-            mealCollectionView.trailingAnchor.constraint(equalTo: scrollViewContainer.trailingAnchor),
-            mealCollectionView.topAnchor.constraint(equalTo: mealLabel.bottomAnchor, constant: 15),
-            mealCollectionView.heightAnchor.constraint(equalToConstant: Constants.mealCollectionHeight),
-            
-            popularLabel.leadingAnchor.constraint(equalTo: scrollViewContainer.leadingAnchor, constant: Constants.leftDistance),
-            popularLabel.trailingAnchor.constraint(equalTo: scrollViewContainer.trailingAnchor, constant: Constants.rightDistance),
-            popularLabel.topAnchor.constraint(equalTo: mealCollectionView.bottomAnchor, constant: 30),
-            
-            popularCollectionView.leadingAnchor.constraint(equalTo: scrollViewContainer.leadingAnchor),
-            popularCollectionView.trailingAnchor.constraint(equalTo: scrollViewContainer.trailingAnchor),
-            popularCollectionView.topAnchor.constraint(equalTo: popularLabel.bottomAnchor, constant: 15),
-            popularCollectionView.bottomAnchor.constraint(equalTo: scrollViewContainer.bottomAnchor)
+            contentView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
+            contentView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor)
+        ])
+        
+        let contentViewCenterY = contentView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor)
+        contentViewCenterY.priority = .defaultLow
+        let contentViewHeight = contentView.heightAnchor.constraint(greaterThanOrEqualTo: heightAnchor)
+        contentViewHeight.priority = .defaultLow
+        
+        NSLayoutConstraint.activate([
+            contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            contentViewCenterY,
+            contentViewHeight
         ])
     }
 }
