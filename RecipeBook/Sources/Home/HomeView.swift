@@ -28,7 +28,7 @@ class HomeView: CView {
         return view
     }()
     
-    private let firstWelcomingLabel: UILabel = {
+    let firstWelcomingLabel: UILabel = {
         let label = UILabel()
         label.text = "Good morning!🌅"
         label.font = UIFont.preferredFont(forTextStyle: .title2)
@@ -45,7 +45,7 @@ class HomeView: CView {
         return label
     }()
     
-    private let mealLabel: UILabel = {
+    let mealLabel: UILabel = {
         let label = UILabel()
         label.text = "Breakfast"
         label.font = UIFont.systemFont(ofSize: 27, weight: .semibold)
@@ -71,7 +71,6 @@ class HomeView: CView {
     override func setViews() {
         super.setViews()
         backgroundColor = UIColor.theme.background
-        // scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: 2000)
         
         addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -145,13 +144,10 @@ class HomeView: CView {
         
         let contentViewCenterY = contentView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor)
         contentViewCenterY.priority = .defaultLow
-        let contentViewHeight = contentView.heightAnchor.constraint(greaterThanOrEqualTo: heightAnchor)
-        contentViewHeight.priority = .defaultLow
         
         NSLayoutConstraint.activate([
             contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             contentViewCenterY,
-            contentViewHeight
         ])
     }
 }

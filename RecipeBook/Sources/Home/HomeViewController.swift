@@ -16,7 +16,6 @@ class HomeViewController: CViewController<HomeView> {
         super.viewDidLoad()
         self.fetchData()
         
-        title = "Home"
         self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
         
         customView.mealCollectionView.delegate = self

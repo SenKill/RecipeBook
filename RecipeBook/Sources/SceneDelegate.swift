@@ -14,17 +14,49 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowsScene = (scene as? UIWindowScene) else { return }
-        let navigationController = UINavigationController()
-        let mainViewController = HomeViewController()
+        let homeNavigationController = UINavigationController(rootViewController: HomeViewController())
+        let searchNavigationController = UINavigationController(rootViewController: SearchViewController())
+        let tabBarController = UITabBarController()
         
-        navigationController.pushViewController(mainViewController, animated: true)
-        navigationController.navigationBar.prefersLargeTitles = true
+        tabBarController.setViewControllers([homeNavigationController, searchNavigationController], animated: false)
+        
+        customizeTabBar(homeNavigationController, name: "Home")
+        customizeTabBar(searchNavigationController, name: "Search")
         
         window = UIWindow(windowScene: windowsScene)
-        window?.rootViewController = navigationController
+        window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
     }
-
+    
+    private func customizeTabBar(_ controller: UINavigationController, name: String) {
+        controller.viewControllers[0].title = name
+        
+        switch name {
+        case "Home":
+            controller.tabBarItem.image = UIImage(systemName: "house")
+            controller.tabBarItem.selectedImage = UIImage(systemName: "house.fill")
+            controller.navigationBar.prefersLargeTitles = true
+            
+            guard let tabBar = controller.tabBarController?.tabBar else {
+                print("ERROR: TabBar is nil")
+                return
+            }
+            
+            tabBar.tintColor = .systemGreen
+            tabBar.layer.cornerRadius = 50
+            tabBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            tabBar.layer.masksToBounds = true
+            break
+        case "Search":
+            controller.tabBarItem.image = UIImage(systemName: "magnifyingglass")
+            controller.tabBarItem.selectedImage = UIImage(systemName: "plus.magnifyingglass")
+            break
+        default:
+            print("Undefined case")
+            break
+        }
+    }
+    
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
