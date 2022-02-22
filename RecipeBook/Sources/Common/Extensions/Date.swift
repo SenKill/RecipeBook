@@ -10,13 +10,13 @@ import Foundation
 
 extension Date {
     
-    static func getHoursOnly() -> String {
+    static func getHoursOnly() -> Int? {
         let currentDate = Date()
         let dateFormatter = DateFormatter()
         
         dateFormatter.dateFormat = "HH"
         
         let result = dateFormatter.string(from: currentDate)
-        return result
+        return Int(result)
     }
 }

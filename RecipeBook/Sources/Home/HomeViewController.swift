@@ -23,6 +23,33 @@ class HomeViewController: CViewController<HomeView> {
         
         customView.popularCollectionView.delegate = self
         customView.popularCollectionView.dataSource = self
+        
+        guard let hours = Date.getHoursOnly() else {
+            print("ERROR: Date hours is nil")
+            return
+        }
+        
+        
+        switch hours {
+        case let hour where 6...11 ~= hour:
+            customView.firstWelcomingLabel.text = "Good morning!🌅"
+            customView.mealLabel.text = "Breakfast"
+            break
+        case let hour where 12...16 ~= hour:
+            customView.firstWelcomingLabel.text = "Good afternoon!☀️"
+            customView.mealLabel.text = "Lunch"
+            break
+        case let hour where 17...23 ~= hour:
+            customView.firstWelcomingLabel.text = "Good evening!🌇"
+            customView.mealLabel.text = "Dinner"
+            break
+        case let hour where 0...5 ~= hour:
+            customView.firstWelcomingLabel.text = "Good night!🌙"
+            customView.mealLabel.text = "Snacks"
+        default:
+            print("Unexpected hours value")
+            break
+        }
     }
 }
 
