@@ -14,9 +14,9 @@ class HomeViewController: CViewController<HomeView> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.fetchData()
+        fetchData()
         
-        self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
+        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
         
         customView.mealCollectionView.delegate = self
         customView.mealCollectionView.dataSource = self
@@ -24,11 +24,56 @@ class HomeViewController: CViewController<HomeView> {
         customView.popularCollectionView.delegate = self
         customView.popularCollectionView.dataSource = self
         
+        setUpLabels()
+    }
+}
+
+
+// MARK: - Internal
+
+extension HomeViewController {
+    
+    private func fetchData() {
+        let data = RecipeData()
+        self.mealRecipes = data.getMealRecipes()
+        self.popularRecipes = data.getPopularRecipes()
+    }
+    
+    private func configureMealCell(_ cell: UICollectionViewCell, for recipe: RecipeModel) {
+        
+        guard let cell = cell as? MealCollectionViewCell else {
+            print("ERROR: Failed to configure a cell")
+            return
+        }
+        
+        cell.mainImageView.image = UIImage(named: recipe.image)
+        cell.recipeNameLabel.text = recipe.name
+        cell.authorNameLabel.text = "by: " + recipe.author
+        if recipe.isFavorite {
+            cell.bookmarkImageView.image = UIImage(systemName: "bookmark.fill")
+            cell.bookmarkImageView.tintColor = .systemGreen // or .systemYellow
+        }
+    }
+    
+    private func configurePopularCell(_ cell: UICollectionViewCell, for recipe: RecipeModel) {
+        
+        guard let cell = cell as? PopularCollectionViewCell else {
+            print("ERROR: Failed to configure a cell")
+            return
+        }
+        
+        cell.mainImageView.image = UIImage(named: recipe.image)
+        cell.recipeNameLabel.text = recipe.name
+        cell.authorNameLabel.text = "by: " + recipe.author
+        cell.prepTimeLabel.text = "\(recipe.prepTime) Min"
+        cell.servingsLabel.text = "\(recipe.servings) Servings"
+    }
+    
+    private func setUpLabels() {
         guard let hours = Date.getHoursOnly() else {
             print("ERROR: Date hours is nil")
             return
         }
-        
         
         switch hours {
         case let hour where 6...11 ~= hour:
@@ -97,47 +142,5 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         } else {
             return CGSize(width: Constants.popularItemWidth, height: Constants.popularItemHeight)
         }
-    }
-}
-
-
-// MARK: - Internal
-
-extension HomeViewController {
-    
-    func fetchData() {
-        let data = RecipeData()
-        self.mealRecipes = data.getMealRecipes()
-        self.popularRecipes = data.getPopularRecipes()
-    }
-    
-    func configureMealCell(_ cell: UICollectionViewCell, for recipe: RecipeModel) {
-        
-        guard let cell = cell as? MealCollectionViewCell else {
-            print("ERROR: Failed to configure a cell")
-            return
-        }
-        
-        cell.mainImageView.image = UIImage(named: recipe.image)
-        cell.recipeNameLabel.text = recipe.name
-        cell.authorNameLabel.text = "by: " + recipe.author
-        if recipe.isFavorite {
-            cell.bookmarkImageView.image = UIImage(systemName: "bookmark.fill")
-            cell.bookmarkImageView.tintColor = .systemGreen // or .systemYellow
-        }
-    }
-    
-    func configurePopularCell(_ cell: UICollectionViewCell, for recipe: RecipeModel) {
-        
-        guard let cell = cell as? PopularCollectionViewCell else {
-            print("ERROR: Failed to configure a cell")
-            return
-        }
-        
-        cell.mainImageView.image = UIImage(named: recipe.image)
-        cell.recipeNameLabel.text = recipe.name
-        cell.authorNameLabel.text = "by: " + recipe.author
-        cell.prepTimeLabel.text = "\(recipe.prepTime) Min"
-        cell.servingsLabel.text = "\(recipe.servings) Servings"
     }
 }
