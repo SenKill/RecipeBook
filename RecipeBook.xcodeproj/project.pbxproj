@@ -25,6 +25,8 @@
 		F77D677927B8D7EA001F02E9 /* CViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77D677827B8D7EA001F02E9 /* CViewController.swift */; };
 		F77D678A27B8E654001F02E9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77D678927B8E654001F02E9 /* HomeViewController.swift */; };
 		F77D678F27B8E661001F02E9 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77D678E27B8E661001F02E9 /* HomeView.swift */; };
+		F798E9AD27C94363008D14C0 /* MealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F798E9AC27C94363008D14C0 /* MealViewController.swift */; };
+		F798E9B527C946E6008D14C0 /* PopularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F798E9B427C946E6008D14C0 /* PopularViewController.swift */; };
 		F7A32B6627BDFFEE009AD53F /* PopularCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A32B6527BDFFEE009AD53F /* PopularCollectionView.swift */; };
 		F7A32B6B27BE0001009AD53F /* PopularCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A32B6A27BE0001009AD53F /* PopularCollectionViewCell.swift */; };
 		F7EB749427BA995200F24714 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EB749327BA995200F24714 /* Constants.swift */; };
@@ -72,6 +74,8 @@
 		F77D677827B8D7EA001F02E9 /* CViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CViewController.swift; sourceTree = "<group>"; };
 		F77D678927B8E654001F02E9 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		F77D678E27B8E661001F02E9 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		F798E9AC27C94363008D14C0 /* MealViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealViewController.swift; sourceTree = "<group>"; };
+		F798E9B427C946E6008D14C0 /* PopularViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularViewController.swift; sourceTree = "<group>"; };
 		F7A32B6527BDFFEE009AD53F /* PopularCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularCollectionView.swift; sourceTree = "<group>"; };
 		F7A32B6A27BE0001009AD53F /* PopularCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularCollectionViewCell.swift; sourceTree = "<group>"; };
 		F7EB749327BA995200F24714 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -107,6 +111,7 @@
 			children = (
 				F7A32B6527BDFFEE009AD53F /* PopularCollectionView.swift */,
 				F7A32B6A27BE0001009AD53F /* PopularCollectionViewCell.swift */,
+				F798E9B427C946E6008D14C0 /* PopularViewController.swift */,
 			);
 			path = PopularCollection;
 			sourceTree = "<group>";
@@ -142,6 +147,7 @@
 			children = (
 				F768E1FE27BA84CA00F1D61B /* MealCollectionView.swift */,
 				F768E20F27BA89B200F1D61B /* MealCollectionViewCell.swift */,
+				F798E9AC27C94363008D14C0 /* MealViewController.swift */,
 			);
 			path = MealCollection;
 			sourceTree = "<group>";
@@ -384,6 +390,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F77D673727B8D576001F02E9 /* AppDelegate.swift in Sources */,
+				F798E9AD27C94363008D14C0 /* MealViewController.swift in Sources */,
 				F77D678F27B8E661001F02E9 /* HomeView.swift in Sources */,
 				F768E21027BA89B200F1D61B /* MealCollectionViewCell.swift in Sources */,
 				F77D674127B8D576001F02E9 /* RecipeBook.xcdatamodeld in Sources */,
@@ -398,6 +405,7 @@
 				F72D489927C49E1800792DE3 /* SearchViewController.swift in Sources */,
 				F7090E0727BCBBCF00069D79 /* GradientView.swift in Sources */,
 				F768E20527BA883300F1D61B /* RecipeModel.swift in Sources */,
+				F798E9B527C946E6008D14C0 /* PopularViewController.swift in Sources */,
 				F7A32B6B27BE0001009AD53F /* PopularCollectionViewCell.swift in Sources */,
 				F7A32B6627BDFFEE009AD53F /* PopularCollectionView.swift in Sources */,
 				F7EB749427BA995200F24714 /* Constants.swift in Sources */,

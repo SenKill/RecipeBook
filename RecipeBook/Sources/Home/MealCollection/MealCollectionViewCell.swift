@@ -88,4 +88,16 @@ class MealCollectionViewCell: UICollectionViewCell {
             bookmarkImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.2),
         ])
     }
+    
+    func configureCell(for recipe: RecipeModel) {
+        let cell = self
+        
+        cell.mainImageView.image = UIImage(named: recipe.image)
+        cell.recipeNameLabel.text = recipe.name
+        cell.authorNameLabel.text = "by: " + recipe.author
+        if recipe.isFavorite {
+            cell.bookmarkImageView.image = UIImage(systemName: "bookmark.fill")
+            cell.bookmarkImageView.tintColor = .systemGreen // or .systemYellow
+        }
+    }
 }

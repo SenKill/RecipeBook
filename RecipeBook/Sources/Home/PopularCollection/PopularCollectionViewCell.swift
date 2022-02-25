@@ -137,4 +137,14 @@ class PopularCollectionViewCell: UICollectionViewCell {
             bookmarkImageView.widthAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2)
         ])
     }
+    
+    func configureCell(for recipe: RecipeModel) {
+        let cell = self
+        
+        cell.mainImageView.image = UIImage(named: recipe.image)
+        cell.recipeNameLabel.text = recipe.name
+        cell.authorNameLabel.text = "by: " + recipe.author
+        cell.prepTimeLabel.text = "\(recipe.prepTime) Min"
+        cell.servingsLabel.text = "\(recipe.servings) Servings"
+    }
 }
