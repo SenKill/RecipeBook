@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		F7090E0727BCBBCF00069D79 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7090E0627BCBBCF00069D79 /* GradientView.swift */; };
-		F72D489927C49E1800792DE3 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72D489827C49E1800792DE3 /* SearchViewController.swift */; };
-		F72D48A127C49E2100792DE3 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72D48A027C49E2100792DE3 /* SearchView.swift */; };
 		F72D48AE27C4AE5400792DE3 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72D48AD27C4AE5400792DE3 /* Date.swift */; };
+		F74355F727CB37FB008F8693 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74355F627CB37FB008F8693 /* SearchTableViewCell.swift */; };
 		F768E1E427BA115700F1D61B /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F768E1E327BA115700F1D61B /* UIColor.swift */; };
 		F768E1FF27BA84CA00F1D61B /* MealCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F768E1FE27BA84CA00F1D61B /* MealCollectionView.swift */; };
 		F768E20527BA883300F1D61B /* RecipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F768E20427BA883300F1D61B /* RecipeModel.swift */; };
 		F768E21027BA89B200F1D61B /* MealCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F768E20F27BA89B200F1D61B /* MealCollectionViewCell.swift */; };
+		F76A85F827C9F83500D284F0 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76A85F727C9F83500D284F0 /* SearchTableViewController.swift */; };
 		F77D673727B8D576001F02E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77D673627B8D576001F02E9 /* AppDelegate.swift */; };
 		F77D673927B8D576001F02E9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77D673827B8D576001F02E9 /* SceneDelegate.swift */; };
 		F77D674127B8D576001F02E9 /* RecipeBook.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F77D673F27B8D576001F02E9 /* RecipeBook.xcdatamodeld */; };
@@ -51,13 +51,13 @@
 
 /* Begin PBXFileReference section */
 		F7090E0627BCBBCF00069D79 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
-		F72D489827C49E1800792DE3 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		F72D48A027C49E2100792DE3 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		F72D48AD27C4AE5400792DE3 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		F74355F627CB37FB008F8693 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		F768E1E327BA115700F1D61B /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		F768E1FE27BA84CA00F1D61B /* MealCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealCollectionView.swift; sourceTree = "<group>"; };
 		F768E20427BA883300F1D61B /* RecipeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeModel.swift; sourceTree = "<group>"; };
 		F768E20F27BA89B200F1D61B /* MealCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealCollectionViewCell.swift; sourceTree = "<group>"; };
+		F76A85F727C9F83500D284F0 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		F77D673327B8D576001F02E9 /* RecipeBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecipeBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F77D673627B8D576001F02E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F77D673827B8D576001F02E9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -119,8 +119,8 @@
 		F72D489727C49DE100792DE3 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				F72D489827C49E1800792DE3 /* SearchViewController.swift */,
-				F72D48A027C49E2100792DE3 /* SearchView.swift */,
+				F76A85F727C9F83500D284F0 /* SearchTableViewController.swift */,
+				F74355F627CB37FB008F8693 /* SearchTableViewCell.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -394,15 +394,15 @@
 				F77D678F27B8E661001F02E9 /* HomeView.swift in Sources */,
 				F768E21027BA89B200F1D61B /* MealCollectionViewCell.swift in Sources */,
 				F77D674127B8D576001F02E9 /* RecipeBook.xcdatamodeld in Sources */,
+				F76A85F827C9F83500D284F0 /* SearchTableViewController.swift in Sources */,
 				F77D677127B8D7DD001F02E9 /* CView.swift in Sources */,
 				F768E1E427BA115700F1D61B /* UIColor.swift in Sources */,
-				F72D48A127C49E2100792DE3 /* SearchView.swift in Sources */,
 				F72D48AE27C4AE5400792DE3 /* Date.swift in Sources */,
+				F74355F727CB37FB008F8693 /* SearchTableViewCell.swift in Sources */,
 				F768E1FF27BA84CA00F1D61B /* MealCollectionView.swift in Sources */,
 				F77D677927B8D7EA001F02E9 /* CViewController.swift in Sources */,
 				F77D673927B8D576001F02E9 /* SceneDelegate.swift in Sources */,
 				F77D678A27B8E654001F02E9 /* HomeViewController.swift in Sources */,
-				F72D489927C49E1800792DE3 /* SearchViewController.swift in Sources */,
 				F7090E0727BCBBCF00069D79 /* GradientView.swift in Sources */,
 				F768E20527BA883300F1D61B /* RecipeModel.swift in Sources */,
 				F798E9B527C946E6008D14C0 /* PopularViewController.swift in Sources */,

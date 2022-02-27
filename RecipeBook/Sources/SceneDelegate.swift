@@ -15,7 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowsScene = (scene as? UIWindowScene) else { return }
         let homeNavigationController = UINavigationController(rootViewController: HomeViewController())
-        let searchNavigationController = UINavigationController(rootViewController: SearchViewController())
+        let searchNavigationController = UINavigationController(rootViewController: SearchTableViewController())
         let tabBarController = UITabBarController()
         
         tabBarController.setViewControllers([homeNavigationController, searchNavigationController], animated: false)

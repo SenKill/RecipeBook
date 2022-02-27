@@ -11,7 +11,7 @@ class PopularCollectionViewCell: UICollectionViewCell {
     
     static let reuseId = "PopularCollectionViewCell"
     
-    let mainImageView: UIImageView = {
+    private let mainImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
@@ -19,7 +19,7 @@ class PopularCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    let recipeNameLabel: UILabel = {
+    private let recipeNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .headline)
         label.numberOfLines = 0
@@ -27,7 +27,7 @@ class PopularCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    let authorNameLabel: UILabel = {
+    private let authorNameLabel: UILabel = {
        let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -42,7 +42,7 @@ class PopularCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    let prepTimeLabel: UILabel = {
+    private let prepTimeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .footnote)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -57,14 +57,14 @@ class PopularCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    let servingsLabel: UILabel = {
+    private let servingsLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .footnote)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let bookmarkImageView: UIImageView = {
+    private let bookmarkImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "bookmark")
         imageView.tintColor = .white
@@ -82,7 +82,7 @@ class PopularCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setViews() {
+    private func setViews() {
         backgroundColor = .white
         layer.cornerRadius = 10
         layer.shadowRadius = 2
@@ -98,7 +98,7 @@ class PopularCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(bookmarkImageView)
     }
     
-    func layoutViews() {
+    private func layoutViews() {
         NSLayoutConstraint.activate([
             mainImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             mainImageView.topAnchor.constraint(equalTo: topAnchor),

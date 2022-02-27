@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class MealViewController: UIViewController {
     var recipes: [RecipeModel] = []
 }

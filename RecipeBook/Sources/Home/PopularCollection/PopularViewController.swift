@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class PopularViewController: UIViewController {
     var recipes: [RecipeModel] = []
 }

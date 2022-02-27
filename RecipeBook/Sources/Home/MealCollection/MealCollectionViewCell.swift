@@ -11,7 +11,7 @@ class MealCollectionViewCell: UICollectionViewCell {
     
     static let reuseId = "RecipesCollectionViewCell"
     
-    let mainImageView: UIImageView = {
+    private let mainImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
@@ -19,7 +19,7 @@ class MealCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    let bookmarkImageView: UIImageView = {
+    private let bookmarkImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "bookmark")
         imageView.tintColor = .white
@@ -27,14 +27,14 @@ class MealCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    let recipeNameLabel: UILabel = {
+    private let recipeNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let authorNameLabel: UILabel = {
+    private let authorNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = UIColor.theme.secondaryText
@@ -53,7 +53,7 @@ class MealCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setViews() {
+    private func setViews() {
         backgroundColor = .white
         self.layer.cornerRadius = 10
         self.layer.shadowRadius = 5
@@ -66,7 +66,7 @@ class MealCollectionViewCell: UICollectionViewCell {
             
     }
     
-    func layoutViews() {
+    private func layoutViews() {
         
         NSLayoutConstraint.activate([
             authorNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
