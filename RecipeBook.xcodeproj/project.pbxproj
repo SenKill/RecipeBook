@@ -10,6 +10,8 @@
 		F7090E0727BCBBCF00069D79 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7090E0627BCBBCF00069D79 /* GradientView.swift */; };
 		F72D48AE27C4AE5400792DE3 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72D48AD27C4AE5400792DE3 /* Date.swift */; };
 		F74355F727CB37FB008F8693 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74355F627CB37FB008F8693 /* SearchTableViewCell.swift */; };
+		F743560427CB9790008F8693 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F743560327CB9790008F8693 /* NetworkService.swift */; };
+		F743560927CBA2A2008F8693 /* SearchType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F743560827CBA2A2008F8693 /* SearchType.swift */; };
 		F768E1E427BA115700F1D61B /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F768E1E327BA115700F1D61B /* UIColor.swift */; };
 		F768E1FF27BA84CA00F1D61B /* MealCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F768E1FE27BA84CA00F1D61B /* MealCollectionView.swift */; };
 		F768E20527BA883300F1D61B /* RecipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F768E20427BA883300F1D61B /* RecipeModel.swift */; };
@@ -53,6 +55,8 @@
 		F7090E0627BCBBCF00069D79 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		F72D48AD27C4AE5400792DE3 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		F74355F627CB37FB008F8693 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
+		F743560327CB9790008F8693 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		F743560827CBA2A2008F8693 /* SearchType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchType.swift; sourceTree = "<group>"; };
 		F768E1E327BA115700F1D61B /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		F768E1FE27BA84CA00F1D61B /* MealCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealCollectionView.swift; sourceTree = "<group>"; };
 		F768E20427BA883300F1D61B /* RecipeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeModel.swift; sourceTree = "<group>"; };
@@ -138,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				F768E20427BA883300F1D61B /* RecipeModel.swift */,
+				F743560327CB9790008F8693 /* NetworkService.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -245,10 +250,11 @@
 		F77D679827B9229E001F02E9 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				F7EB749327BA995200F24714 /* Constants.swift */,
 				F77D676F27B8D79E001F02E9 /* Base */,
 				F768E1DA27BA113000F1D61B /* Extensions */,
 				F77D679927B922A4001F02E9 /* Views */,
+				F7EB749327BA995200F24714 /* Constants.swift */,
+				F743560827CBA2A2008F8693 /* SearchType.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -390,6 +396,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F77D673727B8D576001F02E9 /* AppDelegate.swift in Sources */,
+				F743560927CBA2A2008F8693 /* SearchType.swift in Sources */,
 				F798E9AD27C94363008D14C0 /* MealViewController.swift in Sources */,
 				F77D678F27B8E661001F02E9 /* HomeView.swift in Sources */,
 				F768E21027BA89B200F1D61B /* MealCollectionViewCell.swift in Sources */,
@@ -402,6 +409,7 @@
 				F768E1FF27BA84CA00F1D61B /* MealCollectionView.swift in Sources */,
 				F77D677927B8D7EA001F02E9 /* CViewController.swift in Sources */,
 				F77D673927B8D576001F02E9 /* SceneDelegate.swift in Sources */,
+				F743560427CB9790008F8693 /* NetworkService.swift in Sources */,
 				F77D678A27B8E654001F02E9 /* HomeViewController.swift in Sources */,
 				F7090E0727BCBBCF00069D79 /* GradientView.swift in Sources */,
 				F768E20527BA883300F1D61B /* RecipeModel.swift in Sources */,

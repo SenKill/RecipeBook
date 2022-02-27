@@ -7,110 +7,94 @@
 
 import Foundation
 
-struct RecipeModel {
-    let name: String
-    let image: String
-    let author: String
-    let prepTime: Int
-    let isFavorite: Bool
-    let servings: Int
-    let calories: Int
-    let ingridientsCount: Int
+struct RecipeModel: Codable {
+    let recipes: [Recipe]
 }
 
-class RecipeData {
-    // Temperary data
-    func getMealRecipes() -> [RecipeModel] {
-        return [
-            RecipeModel(
-                name: "Omelet",
-                image: "omelet",
-                author: "Food Network",
-                prepTime: 20,
-                isFavorite: false,
-                servings: 2,
-                calories: 350,
-                ingridientsCount: 4
-            ),
-            RecipeModel(
-                name: "Bostom Creamy Pancakes",
-                image: "pancake",
-                author: "Delish",
-                prepTime: 20,
-                isFavorite: true,
-                servings: 4,
-                calories: 270,
-                ingridientsCount: 5
-            ),
-            RecipeModel(
-                name: "Quick and Easy Breakfast",
-                image: "breakfast",
-                author: "Honest Cooking",
-                prepTime: 20,
-                isFavorite: false,
-                servings: 5,
-                calories: 500,
-                ingridientsCount: 4
-            )
-        ]
-    }
-    
-    func getPopularRecipes() -> [RecipeModel] {
-        return [
-            RecipeModel(
-                name: "Best Ever Bolognese Sauce",
-                image: "1",
-                author: "Foodista",
-                prepTime: 45,
-                isFavorite: false,
-                servings: 3,
-                calories: 247,
-                ingridientsCount: 5
-            ),
-            
-            RecipeModel(
-                name: "Mint Chocolate Chip Ice Cream",
-                image: "2",
-                author: "Foodista",
-                prepTime: 45,
-                isFavorite: false,
-                servings: 5,
-                calories: 450,
-                ingridientsCount: 3
-            ),
-            
-            RecipeModel(
-                name: "Chicken with Grape Tomatoes and Mushrooms",
-                image: "3",
-                author: "Foodista",
-                prepTime: 45,
-                isFavorite: false,
-                servings: 4,
-                calories: 575,
-                ingridientsCount: 7
-            ),
-            
-            RecipeModel(
-                name: "Dreamy Chai Rice Pudding",
-                image: "4",
-                author: "Foodista",
-                prepTime: 45,
-                isFavorite: false,
-                servings: 3,
-                calories: 195,
-                ingridientsCount: 5
-            ),
-            
-            RecipeModel(
-                name: "Triple Citrus Cake",
-                image: "5",
-                author: "Foodista",
-                prepTime: 45,
-                isFavorite: false,
-                servings: 1,
-                calories: 454,
-                ingridientsCount: 6
-            )
-        ]
-    }
+struct Recipe: Codable {
+    let vegetarian: Bool
+    let vegan: Bool
+    let glutenFree: Bool
+    let dairyFree: Bool
+    let veryHealthy: Bool
+    let cheap: Bool
+    let veryPopular: Bool
+    let sustainable: Bool
+    let weightWatcherSmartPoints: Int
+    let gaps: String
+    let lowFodmap: Bool
+    let aggregateLikes: Int
+    let spoonacularScore: Int
+    let healthScore: Int
+    let creditsText: String
+    let license: String
+    let sourceName: String
+    let pricePerServing: Float
+    let extendedIngredients: [Ingridient]
+    let id: Int
+    let title: String
+    let readyInMinutes: Int
+    let servings: Int
+    let sourceUrl: String
+    let image: String
+    let imageType: String
+    let summary: String
+    let cuisines: [String]
+    let dishTypes: [String]
+    let diets: [String]
+    let occasions: [String]
+    let instructions: String
+    let analyzedInstructions: [Instruction]
+}
+
+struct Ingridient: Codable {
+    let id: Int
+    let aisle: String
+    let image: String
+    let consistency: String
+    let name: String
+    let nameClean: String
+    let original: String
+    let originalName: String
+    let amount: Int
+    let unit: String
+    // Not sure about these properties
+    let meta: [String]
+    let measures: [String: Measure]
+}
+
+struct Measure: Codable {
+    let us: MeasureInfo
+    let metric: MeasureInfo
+}
+
+struct MeasureInfo: Codable {
+    let amount: Int
+    let unitShort: String
+    let unitLong: String
+}
+
+struct Instruction: Codable {
+    let name: String
+    let steps: [InstuctionStep]
+}
+
+struct InstuctionStep: Codable {
+    let number: Int
+    let step: String
+    let ingredients: [Ingridient]
+    let equipment: [Equipment]
+    let lenght: [Lenght]
+}
+
+struct Equipment: Codable {
+    let id: Int
+    let name: String
+    let localizedName: String
+    let image: String
+}
+
+struct Lenght: Codable {
+    let number: Int
+    let unit: String
 }

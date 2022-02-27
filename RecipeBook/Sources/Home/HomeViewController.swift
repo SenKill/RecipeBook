@@ -48,9 +48,7 @@ extension HomeViewController {
     }
     
     private func fetchData() {
-        let data = RecipeData()
-        self.mealRecipes = data.getMealRecipes()
-        self.popularRecipes = data.getPopularRecipes()
+        
     }
     
     private func setUpLabels() {
