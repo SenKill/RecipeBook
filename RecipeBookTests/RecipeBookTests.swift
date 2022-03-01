@@ -22,11 +22,9 @@ class RecipeBookTests: XCTestCase {
             switch result {
             case .success(let data):
                 self.testableData = data
-                break
                 
             case .failure(let error):
                 self.error = error
-                break
             }
             expectation.fulfill()
         }
@@ -48,18 +46,22 @@ class RecipeBookTests: XCTestCase {
     func testGetRecipesCount() {
         XCTAssertEqual(self.testableData?.recipes.count, 10)
     }
-    /*
+    
     func testGetRecipesDifferentCount() {
+        
+        let expectation = self.expectation(description: "TestingDifferentRecipesCount")
+        
         NetworkService.getRecipes(.search(for: .random, count: 5)) { result in
             switch result {
             case .success(let data):
-                print(data.recipes.count)
                 XCTAssertEqual(data.recipes.count, 5)
-                
+                expectation.fulfill()
             case .failure(let error):
                 XCTAssertNotNil(error, "Error should appear")
-                break
+                expectation.fulfill()
             }
         }
-    }*/
+        
+        waitForExpectations(timeout: 3, handler: nil)
+    }
 }

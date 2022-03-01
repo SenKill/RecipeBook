@@ -142,14 +142,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		F768E20327BA880200F1D61B /* Models */ = {
+		F768E20327BA880200F1D61B /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				F7B3BFAB27CCCEF700EEC050 /* Endpoint.swift */,
 				F768E20427BA883300F1D61B /* RecipeModel.swift */,
 				F743560327CB9790008F8693 /* NetworkService.swift */,
 			);
-			path = Models;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		F768E21427BA89B900F1D61B /* MealCollection */ = {
@@ -234,10 +234,11 @@
 			children = (
 				F77D673627B8D576001F02E9 /* AppDelegate.swift */,
 				F77D673827B8D576001F02E9 /* SceneDelegate.swift */,
+				F768E1DA27BA113000F1D61B /* Extensions */,
 				F77D679827B9229E001F02E9 /* Common */,
 				F77D677D27B8E625001F02E9 /* Home */,
 				F72D489727C49DE100792DE3 /* Search */,
-				F768E20327BA880200F1D61B /* Models */,
+				F768E20327BA880200F1D61B /* Model */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -256,7 +257,6 @@
 			isa = PBXGroup;
 			children = (
 				F77D676F27B8D79E001F02E9 /* Base */,
-				F768E1DA27BA113000F1D61B /* Extensions */,
 				F77D679927B922A4001F02E9 /* Views */,
 				F7EB749327BA995200F24714 /* Constants.swift */,
 				F743560827CBA2A2008F8693 /* SearchType.swift */,

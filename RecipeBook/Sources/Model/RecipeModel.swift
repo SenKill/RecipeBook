@@ -26,8 +26,8 @@ struct Recipe: Codable {
     let aggregateLikes: Int
     let spoonacularScore: Int
     let healthScore: Int
-    let creditsText: String
-    let license: String
+    let creditsText: String?
+    let license: String?
     let sourceName: String
     let pricePerServing: Float
     let extendedIngredients: [Ingridient]
@@ -36,7 +36,7 @@ struct Recipe: Codable {
     let readyInMinutes: Int
     let servings: Int
     let sourceUrl: String
-    let image: String
+    let image: String?
     let imageType: String
     let summary: String
     let cuisines: [String]
@@ -48,19 +48,19 @@ struct Recipe: Codable {
 }
 
 struct Ingridient: Codable {
-    let id: Int
-    let aisle: String
-    let image: String
-    let consistency: String
+    let id: Int?
+    let aisle: String?
+    let image: String?
+    let consistency: String?
     let name: String
-    let nameClean: String
-    let original: String
-    let originalName: String
-    let amount: Int
-    let unit: String
+    let nameClean: String?
+    let original: String?
+    let originalName: String?
+    let amount: Float?
+    let unit: String?
     // Not sure about these properties
-    let meta: [String]
-    let measures: [String: Measure]
+    let meta: [String]?
+    let measures: Measure?
 }
 
 struct Measure: Codable {
@@ -69,7 +69,7 @@ struct Measure: Codable {
 }
 
 struct MeasureInfo: Codable {
-    let amount: Int
+    let amount: Float
     let unitShort: String
     let unitLong: String
 }
@@ -84,7 +84,7 @@ struct InstuctionStep: Codable {
     let step: String
     let ingredients: [Ingridient]
     let equipment: [Equipment]
-    let lenght: [Lenght]
+    let length: Length?
 }
 
 struct Equipment: Codable {
@@ -94,7 +94,7 @@ struct Equipment: Codable {
     let image: String
 }
 
-struct Lenght: Codable {
+struct Length: Codable {
     let number: Int
     let unit: String
 }
