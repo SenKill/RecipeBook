@@ -30,6 +30,7 @@ class MealCollectionViewCell: UICollectionViewCell {
     private let recipeNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.text = "Loading..."
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -59,11 +60,10 @@ class MealCollectionViewCell: UICollectionViewCell {
         self.layer.shadowRadius = 5
         layer.shadowOpacity = 0.3
         
+        contentView.addSubview(authorNameLabel)
+        contentView.addSubview(recipeNameLabel)
         contentView.addSubview(mainImageView)
         contentView.addSubview(bookmarkImageView)
-        contentView.addSubview(recipeNameLabel)
-        contentView.addSubview(authorNameLabel)
-            
     }
     
     private func layoutViews() {
@@ -89,16 +89,20 @@ class MealCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    func configureCell(for recipe: RecipeModel) {
+    func configureCell(for recipe: Recipe, with image: UIImage?) {
         let cell = self
+        
+        
+        cell.authorNameLabel.text = "by: " + (recipe.sourceName ?? "")
+        cell.recipeNameLabel.text = recipe.title
+        if let image = image {
+            cell.mainImageView.image = image
+        }
         /*
-        cell.mainImageView.image = UIImage(named: recipe.image)
-        cell.recipeNameLabel.text = recipe.name
-        cell.authorNameLabel.text = "by: " + recipe.author
         if recipe.isFavorite {
             cell.bookmarkImageView.image = UIImage(systemName: "bookmark.fill")
             cell.bookmarkImageView.tintColor = .systemGreen // or .systemYellow
         }
-         */
+        */
     }
 }

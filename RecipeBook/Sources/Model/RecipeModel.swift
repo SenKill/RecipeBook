@@ -28,7 +28,7 @@ struct Recipe: Codable {
     let healthScore: Int
     let creditsText: String?
     let license: String?
-    let sourceName: String
+    let sourceName: String?
     let pricePerServing: Float
     let extendedIngredients: [Ingridient]
     let id: Int
@@ -37,7 +37,7 @@ struct Recipe: Codable {
     let servings: Int
     let sourceUrl: String
     let image: String?
-    let imageType: String
+    let imageType: String?
     let summary: String
     let cuisines: [String]
     let dishTypes: [String]

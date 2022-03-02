@@ -8,7 +8,7 @@
 import UIKit
 
 class MealViewController: UIViewController {
-    var recipes: [RecipeModel] = []
+    var recipes: [Recipe] = []
 }
 
 
@@ -35,7 +35,23 @@ extension MealViewController: UICollectionViewDataSource {
             return cell
         }
         
-        mealCell.configureCell(for: recipes[indexPath.row])
+        let recipe = recipes[indexPath.row]
+        guard let imageName = recipe.image else {
+            print("ERROR: Cannot find recipe image")
+            return cell
+        }
+        
+        NetworkService.fetchImage(for: .recipe, from: imageName, size: nil) { result in
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    mealCell.configureCell(for: recipe, with: UIImage(data: data))
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        
         return mealCell
     }
 }

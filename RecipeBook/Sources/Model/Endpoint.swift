@@ -23,6 +23,7 @@ extension Endpoint {
             endpoint = Endpoint(
                 path: search.rawValue,
                 queryItems: [
+                    URLQueryItem(name: "apiKey", value: APIKeys.spoonacular),
                     URLQueryItem(name: "number", value: String(number))
                 ]
             )
@@ -31,6 +32,7 @@ extension Endpoint {
             endpoint = Endpoint(
                 path: search.rawValue,
                 queryItems: [
+                    URLQueryItem(name: "apiKey", value: APIKeys.spoonacular),
                     URLQueryItem(name: "number", value: String(number))
                 ]
             )

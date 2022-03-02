@@ -8,7 +8,7 @@
 import XCTest
 @testable import RecipeBook
 
-class RecipeBookTests: XCTestCase {
+class RecipeDataTests: XCTestCase {
     
     var testableData: RecipeModel?
     var error: (Error?)
@@ -18,7 +18,7 @@ class RecipeBookTests: XCTestCase {
         
         let expectation = self.expectation(description: "GettingRecipes")
         
-        NetworkService.getRecipes(.search(for: .random, count: 10)) { result in
+        NetworkService.fetchRecipes(.search(for: .random, count: 10)) { result in
             switch result {
             case .success(let data):
                 self.testableData = data
@@ -51,7 +51,7 @@ class RecipeBookTests: XCTestCase {
         
         let expectation = self.expectation(description: "TestingDifferentRecipesCount")
         
-        NetworkService.getRecipes(.search(for: .random, count: 5)) { result in
+        NetworkService.fetchRecipes(.search(for: .random, count: 5)) { result in
             switch result {
             case .success(let data):
                 XCTAssertEqual(data.recipes.count, 5)
@@ -63,5 +63,28 @@ class RecipeBookTests: XCTestCase {
         }
         
         waitForExpectations(timeout: 3, handler: nil)
+    }
+}
+
+
+class FetchImageTests: XCTestCase {
+    func testFetchRecipeImage() {
+        
+        let expectation = self.expectation(description: "FetchingImage")
+        
+        NetworkService.fetchImage(for: .recipe,
+                                  from: "https://spoonacular.com/recipeImages/631890-556x370.jpg",
+                                  size: nil) { (result) in
+            switch result {
+            case .success(let data):
+                XCTAssert(true)
+                expectation.fulfill()
+            case .failure(let error):
+                XCTAssertNotNil(error, "Error should appear")
+                expectation.fulfill()
+            }
+        }
+        
+        waitForExpectations(timeout: 2, handler: nil)
     }
 }

@@ -9,20 +9,24 @@ import Foundation
 import UIKit
 
 class HomeViewController: CViewController<HomeView> {
-    private var mealRecipes: [RecipeModel] = []
-    private var popularRecipes: [RecipeModel] = []
+    private var mealRecipes: [Recipe] = []
+    private var popularRecipes: [Recipe] = []
     
     lazy var mealVC = MealViewController()
     lazy var popularVC = PopularViewController()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchData()
         
         navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
         
         setUpLabels()
-        addChildVCs()
+        
     }
 }
 
@@ -48,7 +52,18 @@ extension HomeViewController {
     }
     
     private func fetchData() {
-        
+        NetworkService.fetchRecipes(.search(for: .random, count: 10)) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let data):
+                    self.mealRecipes = data.recipes
+                    self.addChildVCs()
+                case .failure(let error):
+                    // TODO: Handle error better
+                    print("Data loading failure: \(error.localizedDescription)")
+                }
+            }
+        }
     }
     
     private func setUpLabels() {
@@ -57,25 +72,9 @@ extension HomeViewController {
             return
         }
         
-        switch hours {
-        case let hour where 6...11 ~= hour:
-            customView.firstWelcomingLabel.text = "Good morning!🌅"
-            customView.mealLabel.text = "Breakfast"
-            break
-        case let hour where 12...16 ~= hour:
-            customView.firstWelcomingLabel.text = "Good afternoon!☀️"
-            customView.mealLabel.text = "Lunch"
-            break
-        case let hour where 17...23 ~= hour:
-            customView.firstWelcomingLabel.text = "Good evening!🌇"
-            customView.mealLabel.text = "Dinner"
-            break
-        case let hour where 0...5 ~= hour:
-            customView.firstWelcomingLabel.text = "Good night!🌙"
-            customView.mealLabel.text = "Snacks"
-        default:
-            print("Unexpected hours value")
-            break
-        }
+        let labelTexts = TimeLogic.getLabels(from: hours)
+        
+        customView.firstWelcomingLabel.text = labelTexts[0]
+        customView.mealLabel.text = labelTexts[1]
     }
 }

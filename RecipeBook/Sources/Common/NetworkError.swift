@@ -10,4 +10,5 @@ import Foundation
 enum NetworkError: LocalizedError {
     case wrongUrl
     case notFoundData
+    case wrongImageType
 }

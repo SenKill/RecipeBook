@@ -8,7 +8,7 @@
 import UIKit
 
 class PopularViewController: UIViewController {
-    var recipes: [RecipeModel] = []
+    var recipes: [Recipe] = []
 }
 
 // MARK: - UICollectionViewDelegate

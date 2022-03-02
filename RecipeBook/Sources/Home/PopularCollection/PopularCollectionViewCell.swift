@@ -15,6 +15,7 @@ class PopularCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -138,14 +139,13 @@ class PopularCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    func configureCell(for recipe: RecipeModel) {
+    func configureCell(for recipe: Recipe) {
         let cell = self
-        /*
-        cell.mainImageView.image = UIImage(named: recipe.image)
-        cell.recipeNameLabel.text = recipe.name
-        cell.authorNameLabel.text = "by: " + recipe.author
-        cell.prepTimeLabel.text = "\(recipe.prepTime) Min"
+        
+        // cell.mainImageView.image = UIImage(named: recipe.image)
+        cell.recipeNameLabel.text = recipe.title
+        cell.authorNameLabel.text = "by: " + (recipe.sourceName ?? "")
+        cell.prepTimeLabel.text = "\(recipe.readyInMinutes) Min"
         cell.servingsLabel.text = "\(recipe.servings) Servings"
-         */
     }
 }
