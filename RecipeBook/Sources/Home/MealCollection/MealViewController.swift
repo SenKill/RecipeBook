@@ -41,6 +41,8 @@ extension MealViewController: UICollectionViewDataSource {
             return cell
         }
         
+        mealCell.configureCell(for: recipe, with: nil)
+        
         NetworkService.fetchImage(for: .recipe, from: imageName, size: nil) { result in
             switch result {
             case .success(let data):
@@ -48,7 +50,7 @@ extension MealViewController: UICollectionViewDataSource {
                     mealCell.configureCell(for: recipe, with: UIImage(data: data))
                 }
             case .failure(let error):
-                print(error.localizedDescription)
+                print("Fetching image error: \(error.localizedDescription)")
             }
         }
         

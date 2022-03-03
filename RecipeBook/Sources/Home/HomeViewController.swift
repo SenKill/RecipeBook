@@ -12,21 +12,22 @@ class HomeViewController: CViewController<HomeView> {
     private var mealRecipes: [Recipe] = []
     private var popularRecipes: [Recipe] = []
     
+    private var meal: String = ""
+    private var welcomingText: String = ""
+    
     lazy var mealVC = MealViewController()
     lazy var popularVC = PopularViewController()
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        fetchData()
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        assignLabelTexts()
+        fetchData()
+        
         navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
         
-        setUpLabels()
-        
+        customView.firstWelcomingLabel.text = welcomingText
+        customView.mealLabel.text = meal
     }
 }
 
@@ -52,7 +53,7 @@ extension HomeViewController {
     }
     
     private func fetchData() {
-        NetworkService.fetchRecipes(.search(for: .random, count: 10)) { result in
+        NetworkService.fetchRecipes(.search(for: .random, count: 15, tags: [meal])) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let data):
@@ -66,15 +67,14 @@ extension HomeViewController {
         }
     }
     
-    private func setUpLabels() {
+    private func assignLabelTexts() {
         guard let hours = Date.getHoursOnly() else {
             print("ERROR: Date hours is nil")
             return
         }
         
         let labelTexts = TimeLogic.getLabels(from: hours)
-        
-        customView.firstWelcomingLabel.text = labelTexts[0]
-        customView.mealLabel.text = labelTexts[1]
+        welcomingText = labelTexts[0]
+        meal = labelTexts[1]
     }
 }

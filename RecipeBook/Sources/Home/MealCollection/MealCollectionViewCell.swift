@@ -10,11 +10,13 @@ import UIKit
 class MealCollectionViewCell: UICollectionViewCell {
     
     static let reuseId = "RecipesCollectionViewCell"
+    private let spinner: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
     
     private let mainImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -29,7 +31,7 @@ class MealCollectionViewCell: UICollectionViewCell {
     
     private let recipeNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         label.text = "Loading..."
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -37,7 +39,7 @@ class MealCollectionViewCell: UICollectionViewCell {
     
     private let authorNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.font = UIFont.systemFont(ofSize: 10)
         label.textColor = UIColor.theme.secondaryText
         label.text = "by: "
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -92,17 +94,29 @@ class MealCollectionViewCell: UICollectionViewCell {
     func configureCell(for recipe: Recipe, with image: UIImage?) {
         let cell = self
         
-        
         cell.authorNameLabel.text = "by: " + (recipe.sourceName ?? "")
         cell.recipeNameLabel.text = recipe.title
         if let image = image {
+            spinner.removeFromSuperview()
             cell.mainImageView.image = image
+        } else if cell.mainImageView.image == nil {
+            cell.mainImageView.addSubview(spinner)
+            setUpSpinner(spinner: spinner)
         }
+        
+        // TODO: Create favorite property
         /*
         if recipe.isFavorite {
             cell.bookmarkImageView.image = UIImage(systemName: "bookmark.fill")
             cell.bookmarkImageView.tintColor = .systemGreen // or .systemYellow
         }
         */
+    }
+    
+    private func setUpSpinner(spinner: UIActivityIndicatorView) {
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        spinner.startAnimating()
+        spinner.centerXAnchor.constraint(equalTo: mainImageView.centerXAnchor).isActive = true
+        spinner.centerYAnchor.constraint(equalTo: mainImageView.centerYAnchor).isActive = true
     }
 }

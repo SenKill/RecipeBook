@@ -15,10 +15,10 @@ class RecipeDataTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        
+        // Initializing data for testing methods below
         let expectation = self.expectation(description: "GettingRecipes")
         
-        NetworkService.fetchRecipes(.search(for: .random, count: 10)) { result in
+        NetworkService.fetchRecipes(.search(for: .random, count: 10, tags: [])) { result in
             switch result {
             case .success(let data):
                 self.testableData = data
@@ -28,7 +28,6 @@ class RecipeDataTests: XCTestCase {
             }
             expectation.fulfill()
         }
-        
         waitForExpectations(timeout: 3, handler: nil)
     }
     
@@ -46,18 +45,21 @@ class RecipeDataTests: XCTestCase {
     func testGetRecipesCount() {
         XCTAssertEqual(self.testableData?.recipes.count, 10)
     }
-    
-    func testGetRecipesDifferentCount() {
+}
+
+class RandomRecipeTests: XCTestCase {
+    func testFetchRandomRecipeWithTag() {
+        let expectation = self.expectation(description: "FetchingRecipeTag")
         
-        let expectation = self.expectation(description: "TestingDifferentRecipesCount")
-        
-        NetworkService.fetchRecipes(.search(for: .random, count: 5)) { result in
+        NetworkService.fetchRecipes(.search(for: .random, count: 5, tags: ["Breakfast"])) { (result) in
             switch result {
             case .success(let data):
-                XCTAssertEqual(data.recipes.count, 5)
+                for recipe in data.recipes {
+                    XCTAssertTrue(recipe.dishTypes.contains("Breakfast"), "Recipe must contain breakfast in dishTypes")
+                }
                 expectation.fulfill()
-            case .failure(let error):
-                XCTAssertNotNil(error, "Error should appear")
+            case .failure:
+                XCTFail()
                 expectation.fulfill()
             }
         }
@@ -66,8 +68,7 @@ class RecipeDataTests: XCTestCase {
     }
 }
 
-
-class FetchImageTests: XCTestCase {
+class ImageTests: XCTestCase {
     func testFetchRecipeImage() {
         
         let expectation = self.expectation(description: "FetchingImage")
@@ -76,7 +77,7 @@ class FetchImageTests: XCTestCase {
                                   from: "https://spoonacular.com/recipeImages/631890-556x370.jpg",
                                   size: nil) { (result) in
             switch result {
-            case .success(let data):
+            case .success:
                 XCTAssert(true)
                 expectation.fulfill()
             case .failure(let error):
