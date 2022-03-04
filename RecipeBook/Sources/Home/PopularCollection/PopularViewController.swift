@@ -33,8 +33,23 @@ extension PopularViewController: UICollectionViewDataSource {
             print("ERROR: Cannot convert cell to PopularCollectionCell")
             return cell
         }
+        let recipe = recipes[indexPath.row]
         
-        popularCell.configureCell(for: recipes[indexPath.row])
+        popularCell.configureCell(for: recipe, with: nil)
+        
+        if let imageName = recipe.image {
+            NetworkService.fetchImage(for: .recipe, from: imageName, size: nil) { result in
+                switch result {
+                case .success(let data):
+                    DispatchQueue.main.async {
+                        popularCell.configureCell(for: recipe, with: UIImage(data: data))
+                    }
+                case .failure(let error):
+                    print("Fetching image error: \(error.localizedDescription)")
+                }
+            }
+        }
+        
         return popularCell
     }
 }

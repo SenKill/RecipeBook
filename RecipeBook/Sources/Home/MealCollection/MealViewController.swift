@@ -36,21 +36,19 @@ extension MealViewController: UICollectionViewDataSource {
         }
         
         let recipe = recipes[indexPath.row]
-        guard let imageName = recipe.image else {
-            print("ERROR: Cannot find recipe image")
-            return cell
-        }
         
         mealCell.configureCell(for: recipe, with: nil)
         
-        NetworkService.fetchImage(for: .recipe, from: imageName, size: nil) { result in
-            switch result {
-            case .success(let data):
-                DispatchQueue.main.async {
-                    mealCell.configureCell(for: recipe, with: UIImage(data: data))
+        if let imageName = recipe.image {
+            NetworkService.fetchImage(for: .recipe, from: imageName, size: nil) { result in
+                switch result {
+                case .success(let data):
+                    DispatchQueue.main.async {
+                        mealCell.configureCell(for: recipe, with: UIImage(data: data))
+                    }
+                case .failure(let error):
+                    print("Fetching image error: \(error.localizedDescription)")
                 }
-            case .failure(let error):
-                print("Fetching image error: \(error.localizedDescription)")
             }
         }
         

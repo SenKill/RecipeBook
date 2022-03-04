@@ -10,11 +10,13 @@ import UIKit
 
 final class NetworkService {
     static func fetchRecipes(_ endpoint: Endpoint, then handler: @escaping (Result<RecipeModel, Error>) -> Void)  {
+        // Unwrapping optional property from endpoint
         guard let url = endpoint.url else {
             handler(.failure(NetworkError.wrongUrl))
             return
         }
         print(url)
+        // Calling URLSessian.dataTask for getting data with given url
         URLSession.shared.dataTask(with: url) { data, _, error in
             if let error = error {
                 handler(.failure(error))
@@ -25,6 +27,7 @@ final class NetworkService {
                 return
             }
             
+            // Trying to decode data because it's formatted in JSON
             do {
                 let recipeData = try JSONDecoder().decode(RecipeModel.self, from: data)
                 handler(.success(recipeData))
@@ -40,6 +43,7 @@ final class NetworkService {
         from name: String,
         size: String?,
         handler: @escaping (Result<Data, Error>) -> Void) {
+        
         let baseURL = "https://spoonacular.com"
         var assembledUrl: String = ""
         

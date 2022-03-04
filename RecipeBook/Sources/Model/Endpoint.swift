@@ -19,7 +19,7 @@ extension Endpoint {
                        tags: [String]) -> Endpoint {
         var endpoint: Endpoint
         
-        // Checking search type passed in with method parameters, for initializing the endpoint
+        // Checking search type passed in with method parameters for initializing the endpoint
         switch search {
         case .random:
             endpoint = Endpoint(
@@ -30,6 +30,7 @@ extension Endpoint {
                 ]
             )
             if tags != [] {
+                // Converting array of strings to single string for QueryItem
                 var tagsInString: String = ""
                 for tag in tags {
                     if tag != tags.last {

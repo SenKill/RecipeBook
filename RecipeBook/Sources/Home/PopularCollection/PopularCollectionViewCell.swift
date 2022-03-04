@@ -10,6 +10,7 @@ import UIKit
 class PopularCollectionViewCell: UICollectionViewCell {
     
     static let reuseId = "PopularCollectionViewCell"
+    private let spinner = UIActivityIndicatorView(style: .large)
     
     private let mainImageView: UIImageView = {
         let imageView = UIImageView()
@@ -23,7 +24,7 @@ class PopularCollectionViewCell: UICollectionViewCell {
     private let recipeNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .headline)
-        label.numberOfLines = 0
+        label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -139,13 +140,26 @@ class PopularCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    func configureCell(for recipe: Recipe) {
+    func configureCell(for recipe: Recipe, with image: UIImage?) {
         let cell = self
         
-        // cell.mainImageView.image = UIImage(named: recipe.image)
+        if let image = image {
+            spinner.removeFromSuperview()
+            cell.mainImageView.image = image
+        } else {
+            cell.addSubview(spinner)
+            setUpSpinner(spinner: spinner)
+        }
         cell.recipeNameLabel.text = recipe.title
         cell.authorNameLabel.text = "by: " + (recipe.sourceName ?? "")
         cell.prepTimeLabel.text = "\(recipe.readyInMinutes) Min"
         cell.servingsLabel.text = "\(recipe.servings) Servings"
+    }
+    
+    private func setUpSpinner(spinner: UIActivityIndicatorView) {
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        spinner.centerYAnchor.constraint(equalTo: mainImageView.centerYAnchor).isActive = true
+        spinner.centerXAnchor.constraint(equalTo: mainImageView.centerXAnchor).isActive = true
+        spinner.startAnimating()
     }
 }

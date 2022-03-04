@@ -53,17 +53,37 @@ extension HomeViewController {
     }
     
     private func fetchData() {
+        let group = DispatchGroup()
+        
+        group.enter()
         NetworkService.fetchRecipes(.search(for: .random, count: 15, tags: [meal])) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let data):
                     self.mealRecipes = data.recipes
-                    self.addChildVCs()
+                    group.leave()
                 case .failure(let error):
                     // TODO: Handle error better
-                    print("Data loading failure: \(error.localizedDescription)")
+                    print("Meal data loading failure: \(error.localizedDescription)")
+                    group.leave()
                 }
             }
+        }
+        
+        group.enter()
+        NetworkService.fetchRecipes(.search(for: .random, count: 10, tags: [])) { result in
+            switch result {
+            case .success(let data):
+                self.popularRecipes = data.recipes
+                group.leave()
+            case .failure(let error):
+                print("Popular data loading failure: \(error.localizedDescription)")
+                group.leave()
+            }
+        }
+        
+        group.notify(queue: DispatchQueue.main) {
+            self.addChildVCs()
         }
     }
     

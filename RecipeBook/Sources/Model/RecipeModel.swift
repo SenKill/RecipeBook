@@ -58,7 +58,6 @@ struct Ingridient: Codable {
     let originalName: String?
     let amount: Float?
     let unit: String?
-    // Not sure about these properties
     let meta: [String]?
     let measures: Measure?
 }

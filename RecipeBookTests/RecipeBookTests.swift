@@ -48,7 +48,7 @@ class RecipeDataTests: XCTestCase {
 }
 
 class RandomRecipeTests: XCTestCase {
-    func testFetchRandomRecipeWithTag() {
+    func testFetchRandomBreakfastRecipe() {
         let expectation = self.expectation(description: "FetchingRecipeTag")
         
         NetworkService.fetchRecipes(.search(for: .random, count: 5, tags: ["Breakfast"])) { (result) in
@@ -65,6 +65,42 @@ class RandomRecipeTests: XCTestCase {
         }
         
         waitForExpectations(timeout: 3, handler: nil)
+    }
+    
+    func testTwoNetworkCalls() {
+        let group = DispatchGroup()
+        var mealData: RecipeModel?
+        var popularData: RecipeModel?
+        
+        group.enter()
+        NetworkService.fetchRecipes(.search(for: .random, count: 3, tags: [])) { result in
+            switch result {
+            case .success(let data):
+                mealData = data
+                group.leave()
+            case .failure:
+                XCTFail("Error shouldn't appear")
+                group.leave()
+            }
+        }
+        
+        group.enter()
+        NetworkService.fetchRecipes(.search(for: .random, count: 3, tags: ["Dinner"])) { result in
+            switch result {
+            case .success(let data):
+                popularData = data
+                group.leave()
+            case .failure:
+                XCTFail("Error shouldn't appear")
+                group.leave()
+            }
+        }
+        
+        group.notify(queue: DispatchQueue.main) {
+            print("Complete network calls")
+            XCTAssertNotNil(mealData, "Meal Data shouldn't be nil")
+            XCTAssertNotNil(popularData, "Popular Data shouldn't be nil")
+        }
     }
 }
 
