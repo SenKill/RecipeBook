@@ -56,7 +56,7 @@ extension HomeViewController {
         let group = DispatchGroup()
         
         group.enter()
-        NetworkService.fetchRecipes(.search(for: .random, count: 15, tags: [meal])) { result in
+        NetworkService.fetchRecipes(.search(for: .random, count: Constants.mealRows, tags: [meal])) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let data):
@@ -71,7 +71,7 @@ extension HomeViewController {
         }
         
         group.enter()
-        NetworkService.fetchRecipes(.search(for: .random, count: 10, tags: [])) { result in
+        NetworkService.fetchRecipes(.search(for: .random, count: Constants.popularRows, tags: [])) { result in
             switch result {
             case .success(let data):
                 self.popularRecipes = data.recipes

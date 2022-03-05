@@ -122,7 +122,7 @@ class HomeView: CView {
             popularCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             popularCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             popularCollectionView.topAnchor.constraint(equalTo: popularLabel.bottomAnchor, constant: 15),
-            popularCollectionView.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
+            popularCollectionView.heightAnchor.constraint(equalToConstant: Constants.popularCollectionHeight),
             popularCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
     }
@@ -139,15 +139,8 @@ class HomeView: CView {
             contentView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
             contentView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor)
-        ])
-        
-        let contentViewCenterY = contentView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor)
-        contentViewCenterY.priority = .defaultLow
-        
-        NSLayoutConstraint.activate([
-            contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            contentViewCenterY,
+            contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
+            contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor)
         ])
     }
 }

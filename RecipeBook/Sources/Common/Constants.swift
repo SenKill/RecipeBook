@@ -10,6 +10,9 @@ import UIKit
 
 
 struct Constants {
+    static let mealRows: Int = 15
+    static let popularRows: Int = 10
+    
     static let leftDistance: CGFloat = 20
     static let rightDistance: CGFloat = 20
     
@@ -18,6 +21,7 @@ struct Constants {
     static let mealCollectionHeight = mealItemWidth + UIScreen.main.bounds.height * 0.07
     
     static let popularMinimumLineSpacing: CGFloat = 15
-    static let popularItemWidth = (UIScreen.main.bounds.width - Constants.leftDistance - Constants.rightDistance)
-    static let popularItemHeight = (UIScreen.main.bounds.height - (Constants.popularMinimumLineSpacing / 2)) / 6
+    static let popularItemWidth: CGFloat = (UIScreen.main.bounds.width - Constants.leftDistance - Constants.rightDistance)
+    static let popularItemHeight: CGFloat = (UIScreen.main.bounds.height - (Constants.popularMinimumLineSpacing / 2)) / 6
+    static let popularCollectionHeight: CGFloat = (popularItemHeight + popularMinimumLineSpacing) * CGFloat(popularRows) + 50
 }
