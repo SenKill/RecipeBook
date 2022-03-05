@@ -139,7 +139,9 @@ class PopularCollectionViewCell: UICollectionViewCell {
             bookmarkImageView.widthAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2)
         ])
     }
-    
+}
+
+extension PopularCollectionViewCell: ConfigurableCell {
     func configureCell(for recipe: Recipe, with image: UIImage?) {
         let cell = self
         

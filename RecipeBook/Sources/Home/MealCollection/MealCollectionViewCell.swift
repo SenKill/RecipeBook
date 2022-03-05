@@ -90,7 +90,9 @@ class MealCollectionViewCell: UICollectionViewCell {
             bookmarkImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.2),
         ])
     }
-    
+}
+
+extension MealCollectionViewCell: ConfigurableCell {
     func configureCell(for recipe: Recipe, with image: UIImage?) {
         let cell = self
         

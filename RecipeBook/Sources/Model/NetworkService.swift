@@ -57,7 +57,7 @@ final class NetworkService {
         }
         
         guard let url = URL(string: assembledUrl) else {
-            print(NetworkError.wrongUrl)
+            handler(.failure(NetworkError.wrongUrl))
             return
         }
         

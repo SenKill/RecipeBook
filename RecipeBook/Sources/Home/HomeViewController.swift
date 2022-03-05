@@ -15,8 +15,8 @@ class HomeViewController: CViewController<HomeView> {
     private var meal: String = ""
     private var welcomingText: String = ""
     
-    lazy var mealVC = MealViewController()
-    lazy var popularVC = PopularViewController()
+    lazy var mealVC = RecipesCollectionViewController()
+    lazy var popularVC = RecipesCollectionViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
