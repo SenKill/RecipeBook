@@ -43,7 +43,7 @@ class RecipeDataTests: XCTestCase {
     }
     
     func testGetRecipesCount() {
-        XCTAssertEqual(self.testableData?.recipes.count, 10)
+        XCTAssertEqual(self.testableData?.recipes?.count, 10)
     }
 }
 
@@ -54,7 +54,7 @@ class RandomRecipeTests: XCTestCase {
         NetworkService.fetchRecipes(.search(for: .random, count: 5, tags: ["Breakfast"])) { (result) in
             switch result {
             case .success(let data):
-                for recipe in data.recipes {
+                for recipe in data.recipes! {
                     XCTAssertTrue(recipe.dishTypes.contains("Breakfast"), "Recipe must contain breakfast in dishTypes")
                 }
                 expectation.fulfill()
@@ -101,6 +101,26 @@ class RandomRecipeTests: XCTestCase {
             XCTAssertNotNil(mealData, "Meal Data shouldn't be nil")
             XCTAssertNotNil(popularData, "Popular Data shouldn't be nil")
         }
+    }
+}
+
+class ComplexSearchTests: XCTestCase {
+    func testComplexRecipeModel() {
+        let expectatiton = expectation(description: "FetchingLasagna")
+        
+        NetworkService.fetchRecipes(.search(for: .complexSearch, matching: "Lasagna", count: 3, tags: [])) { result in
+            switch result {
+            case .success(let data):
+                XCTAssertNotNil(data, "Data should appear")
+                XCTAssertEqual(data.results?.count, 3)
+                expectatiton.fulfill()
+            case .failure(let error):
+                XCTFail("Error: \(error.localizedDescription)")
+                expectatiton.fulfill()
+            }
+        }
+        
+        waitForExpectations(timeout: 3, handler: nil)
     }
 }
 

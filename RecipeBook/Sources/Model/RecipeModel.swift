@@ -8,7 +8,8 @@
 import Foundation
 
 struct RecipeModel: Codable {
-    let recipes: [Recipe]
+    var recipes: [Recipe]?
+    var results: [Recipe]?
 }
 
 struct Recipe: Codable {
@@ -30,7 +31,7 @@ struct Recipe: Codable {
     let license: String?
     let sourceName: String?
     let pricePerServing: Float
-    let extendedIngredients: [Ingridient]
+    let extendedIngredients: [Ingridient]?
     let id: Int
     let title: String
     let readyInMinutes: Int
@@ -43,8 +44,9 @@ struct Recipe: Codable {
     let dishTypes: [String]
     let diets: [String]
     let occasions: [String]
-    let instructions: String
+    let instructions: String?
     let analyzedInstructions: [Instruction]
+    let spoonacularSourceUrl: String?
 }
 
 struct Ingridient: Codable {

@@ -41,6 +41,17 @@ extension Endpoint {
                 }
                 endpoint.queryItems.append(URLQueryItem(name: "tags", value: tagsInString))
             }
+        case .complexSearch:
+            endpoint = Endpoint(
+                path: search.rawValue,
+                queryItems: [
+                    URLQueryItem(name: "apiKey", value: APIKeys.spoonacular),
+                    URLQueryItem(name: "query", value: query ?? ""),
+                    URLQueryItem(name: "number", value: String(number)),
+                    URLQueryItem(name: "instructionsRequired", value: "true"),
+                    URLQueryItem(name: "addRecipeInformation", value: "true")
+                ]
+            )
         default:
             endpoint = Endpoint(
                 path: search.rawValue,

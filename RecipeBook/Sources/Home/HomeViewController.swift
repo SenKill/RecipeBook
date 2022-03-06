@@ -60,7 +60,9 @@ extension HomeViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let data):
-                    self.mealRecipes = data.recipes
+                    if let recipes = data.recipes {
+                        self.mealRecipes = recipes
+                    }
                     group.leave()
                 case .failure(let error):
                     // TODO: Handle error better
@@ -74,7 +76,9 @@ extension HomeViewController {
         NetworkService.fetchRecipes(.search(for: .random, count: Constants.popularRows, tags: [])) { result in
             switch result {
             case .success(let data):
-                self.popularRecipes = data.recipes
+                if let recipes = data.recipes {
+                    self.popularRecipes = recipes
+                }
                 group.leave()
             case .failure(let error):
                 print("Popular data loading failure: \(error.localizedDescription)")

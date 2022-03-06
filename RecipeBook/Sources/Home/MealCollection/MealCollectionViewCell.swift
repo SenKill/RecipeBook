@@ -96,15 +96,17 @@ extension MealCollectionViewCell: ConfigurableCell {
     func configureCell(for recipe: Recipe, with image: UIImage?) {
         let cell = self
         
-        cell.authorNameLabel.text = "by: " + (recipe.sourceName ?? "")
-        cell.recipeNameLabel.text = recipe.title
         if let image = image {
             spinner.removeFromSuperview()
             cell.mainImageView.image = image
-        } else if cell.mainImageView.image == nil {
+        } else {
             cell.mainImageView.addSubview(spinner)
-            setUpSpinner(spinner: spinner)
+            // Custom method from extension
+            spinner.setUpSpinner(loadingImageView: mainImageView)
         }
+        
+        cell.authorNameLabel.text = "by: " + (recipe.sourceName ?? "")
+        cell.recipeNameLabel.text = recipe.title
         
         // TODO: Create favorite property
         /*
@@ -113,12 +115,5 @@ extension MealCollectionViewCell: ConfigurableCell {
             cell.bookmarkImageView.tintColor = .systemGreen // or .systemYellow
         }
         */
-    }
-    
-    private func setUpSpinner(spinner: UIActivityIndicatorView) {
-        spinner.translatesAutoresizingMaskIntoConstraints = false
-        spinner.startAnimating()
-        spinner.centerXAnchor.constraint(equalTo: mainImageView.centerXAnchor).isActive = true
-        spinner.centerYAnchor.constraint(equalTo: mainImageView.centerYAnchor).isActive = true
     }
 }

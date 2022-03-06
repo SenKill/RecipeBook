@@ -8,6 +8,9 @@
 import UIKit
 
 class SearchTableViewCell: UITableViewCell {
+    static let reuseId = "SearchTableViewCell"
+    
+    private let spinner = UIActivityIndicatorView(style: .large)
     
     private let mainImageView: UIImageView = {
         let imageView = UIImageView()
@@ -79,8 +82,30 @@ class SearchTableViewCell: UITableViewCell {
             authorLabel.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 10)
         ])
     }
-    
-    func configureCell(for recipe: RecipeModel) {
-        // Set up content
+}
+
+extension SearchTableViewCell {
+    func configureCell(for recipe: Recipe, with image: UIImage?) {
+        let cell = self
+        
+        if let image = image {
+            spinner.removeFromSuperview()
+            cell.mainImageView.image = image
+        } else {
+            cell.mainImageView.addSubview(spinner)
+            spinner.setUpSpinner(loadingImageView: mainImageView)
+        }
+        
+        recipeNameLabel.text = recipe.title
+        
+        let prepTime = recipe.readyInMinutes
+        var dishTypes = ""
+        
+        for dishType in recipe.dishTypes {
+            dishTypes += dishType + " · "
+        }
+        
+        cell.infoLabel.text = "\(prepTime) · " + dishTypes
+        cell.authorLabel.text = "by: " + (recipe.sourceName ?? "")
     }
 }

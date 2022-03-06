@@ -150,18 +150,11 @@ extension PopularCollectionViewCell: ConfigurableCell {
             cell.mainImageView.image = image
         } else {
             cell.addSubview(spinner)
-            setUpSpinner(spinner: spinner)
+            spinner.setUpSpinner(loadingImageView: mainImageView)
         }
         cell.recipeNameLabel.text = recipe.title
         cell.authorNameLabel.text = "by: " + (recipe.sourceName ?? "")
         cell.prepTimeLabel.text = "\(recipe.readyInMinutes) Min"
         cell.servingsLabel.text = "\(recipe.servings) Servings"
-    }
-    
-    private func setUpSpinner(spinner: UIActivityIndicatorView) {
-        spinner.translatesAutoresizingMaskIntoConstraints = false
-        spinner.centerYAnchor.constraint(equalTo: mainImageView.centerYAnchor).isActive = true
-        spinner.centerXAnchor.constraint(equalTo: mainImageView.centerXAnchor).isActive = true
-        spinner.startAnimating()
     }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F705881C27D4E9AA006394EC /* UIActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F705881B27D4E9AA006394EC /* UIActivityIndicatorView.swift */; };
 		F7090E0727BCBBCF00069D79 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7090E0627BCBBCF00069D79 /* GradientView.swift */; };
 		F72D48AE27C4AE5400792DE3 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72D48AD27C4AE5400792DE3 /* Date.swift */; };
 		F74355F727CB37FB008F8693 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74355F627CB37FB008F8693 /* SearchTableViewCell.swift */; };
@@ -56,6 +57,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F705881B27D4E9AA006394EC /* UIActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIActivityIndicatorView.swift; sourceTree = "<group>"; };
 		F7090E0627BCBBCF00069D79 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		F72D48AD27C4AE5400792DE3 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		F74355F627CB37FB008F8693 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				F768E1E327BA115700F1D61B /* UIColor.swift */,
+				F705881B27D4E9AA006394EC /* UIActivityIndicatorView.swift */,
 				F72D48AD27C4AE5400792DE3 /* Date.swift */,
 			);
 			path = Extensions;
@@ -426,6 +429,7 @@
 				F7E374EA27CF8FD700A8835C /* ImageType.swift in Sources */,
 				F743560427CB9790008F8693 /* NetworkService.swift in Sources */,
 				F77D678A27B8E654001F02E9 /* HomeViewController.swift in Sources */,
+				F705881C27D4E9AA006394EC /* UIActivityIndicatorView.swift in Sources */,
 				F7090E0727BCBBCF00069D79 /* GradientView.swift in Sources */,
 				F7B3BFAC27CCCEF700EEC050 /* Endpoint.swift in Sources */,
 				F768E20527BA883300F1D61B /* RecipeModel.swift in Sources */,
