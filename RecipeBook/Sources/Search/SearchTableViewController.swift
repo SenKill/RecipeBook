@@ -20,7 +20,7 @@ class SearchTableViewController: UITableViewController {
         return searchController.isActive && !searchBarIsEmpty
     }
     
-    private let queue = OperationQueue()
+    private var debounceTimer: Timer?
     
     override func loadView() {
         super.loadView()
@@ -86,7 +86,7 @@ class SearchTableViewController: UITableViewController {
 // MARK: - Internal
 extension SearchTableViewController {
     private func fetchRandomRecipes() {
-        NetworkService.fetchRecipes(.search(for: .random, count: 3, tags: [])) { result in
+        NetworkService.fetchRecipes(.search(for: .random, count: Constants.searchDefaultRows, tags: [])) { result in
             switch result {
             case .success(let data):
                 if let recipes = data.recipes {
@@ -106,18 +106,18 @@ extension SearchTableViewController {
 // MARK: - UISearchResultsUpdating
 extension SearchTableViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        queue.cancelAllOperations()
-        if let text = searchController.searchBar.text, text != "" && text != " " {
-            queue.addOperation {
-                DispatchQueue.main.asyncAfter(deadline: .now()+2) {
-                    self.findContentForSearchText(text)
-                }
+        debounceTimer?.invalidate()
+        if let text = searchController.searchBar.text, isFiltering {
+            debounceTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { _ in
+                self.findContentForSearchText(text)
             }
+        } else {
+            tableView.reloadData()
         }
     }
     
-    @objc private func findContentForSearchText(_ searchText: String) {
-        NetworkService.fetchRecipes(.search(for: .complexSearch, matching: searchText, count: 10, tags: [])) { result in
+    private func findContentForSearchText(_ searchText: String) {
+        NetworkService.fetchRecipes(.search(for: .complexSearch, matching: searchText, count: Constants.searchRows, tags: [])) { result in
             switch result {
             case .success(let data):
                 if let recipes = data.results {

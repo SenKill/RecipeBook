@@ -76,7 +76,7 @@ class SearchTableViewCell: UITableViewCell {
             
             recipeNameLabel.leadingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: 15),
             recipeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            recipeNameLabel.topAnchor.constraint(equalTo: mainImageView.topAnchor, constant: 5),
+            recipeNameLabel.topAnchor.constraint(equalTo: mainImageView.topAnchor, constant: 3),
             
             infoLabel.leadingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: 15),
             infoLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
