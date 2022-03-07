@@ -66,15 +66,3 @@ extension RecipesCollectionViewController: UICollectionViewDataSource {
         return newCell
     }
 }
-
-
-// MARK: - UICollectionViewDelegateFlowLayout
-
-extension RecipesCollectionViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView.tag == 1 {
-            return CGSize(width: Constants.mealItemWidth, height: collectionView.frame.height)
-        }
-        return CGSize(width: Constants.popularItemWidth, height: Constants.popularItemHeight)
-    }
-}

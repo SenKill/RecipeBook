@@ -28,3 +28,11 @@ class MealCollectionView: UICollectionView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension MealCollectionView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: Constants.mealItemWidth, height: collectionView.frame.height)
+    }
+}

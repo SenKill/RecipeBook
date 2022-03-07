@@ -22,7 +22,7 @@ class HomeViewController: CViewController<HomeView> {
         super.viewDidLoad()
         
         assignLabelTexts()
-        fetchData()
+        // fetchData()
         
         navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
         

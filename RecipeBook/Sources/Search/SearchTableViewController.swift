@@ -20,12 +20,16 @@ class SearchTableViewController: UITableViewController {
         return searchController.isActive && !searchBarIsEmpty
     }
     
+    private let queue = OperationQueue()
+    
+    override func loadView() {
+        super.loadView()
+        tableView = SearchTableView()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         fetchRandomRecipes()
-        tableView.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.reuseId)
-        tableView.rowHeight = 100
         // Setup the Search Controller
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -82,7 +86,7 @@ class SearchTableViewController: UITableViewController {
 // MARK: - Internal
 extension SearchTableViewController {
     private func fetchRandomRecipes() {
-        NetworkService.fetchRecipes(.search(for: .random, count: 10, tags: [])) { result in
+        NetworkService.fetchRecipes(.search(for: .random, count: 3, tags: [])) { result in
             switch result {
             case .success(let data):
                 if let recipes = data.recipes {
@@ -102,10 +106,17 @@ extension SearchTableViewController {
 // MARK: - UISearchResultsUpdating
 extension SearchTableViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        findContentForSearchText(searchController.searchBar.text!)
+        queue.cancelAllOperations()
+        if let text = searchController.searchBar.text, text != "" && text != " " {
+            queue.addOperation {
+                DispatchQueue.main.asyncAfter(deadline: .now()+2) {
+                    self.findContentForSearchText(text)
+                }
+            }
+        }
     }
     
-    private func findContentForSearchText(_ searchText: String) {
+    @objc private func findContentForSearchText(_ searchText: String) {
         NetworkService.fetchRecipes(.search(for: .complexSearch, matching: searchText, count: 10, tags: [])) { result in
             switch result {
             case .success(let data):

@@ -15,14 +15,16 @@ class SearchTableViewCell: UITableViewCell {
     private let mainImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 15
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
     private let recipeNameLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 1
-        label.font = UIFont.preferredFont(forTextStyle: .title1)
+        label.numberOfLines = 2
+        label.font = UIFont.preferredFont(forTextStyle: .title3)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -31,6 +33,7 @@ class SearchTableViewCell: UITableViewCell {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        label.textColor = UIColor.secondaryLabel
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -39,6 +42,7 @@ class SearchTableViewCell: UITableViewCell {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        label.textColor = UIColor.secondaryLabel
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -54,31 +58,32 @@ class SearchTableViewCell: UITableViewCell {
     }
     
     func setViews() {
-        addSubview(mainImageView)
-        addSubview(recipeNameLabel)
-        addSubview(infoLabel)
-        addSubview(authorLabel)
+        clipsToBounds = false
+        contentView.addSubview(mainImageView)
+        contentView.addSubview(recipeNameLabel)
+        contentView.addSubview(infoLabel)
+        contentView.addSubview(authorLabel)
     }
     
     func layoutViews() {
         
         // TODO: Change constraints from constant to flexible
         NSLayoutConstraint.activate([
-            mainImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            mainImageView.topAnchor.constraint(equalTo: topAnchor),
-            mainImageView.heightAnchor.constraint(equalToConstant: 100),
-            mainImageView.widthAnchor.constraint(equalToConstant: 100),
-            
-            infoLabel.leadingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: 15),
-            infoLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            infoLabel.centerYAnchor.constraint(equalTo: mainImageView.centerYAnchor),
+            mainImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            mainImageView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            mainImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            mainImageView.widthAnchor.constraint(equalTo: mainImageView.heightAnchor),
             
             recipeNameLabel.leadingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: 15),
-            recipeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            recipeNameLabel.bottomAnchor.constraint(equalTo: infoLabel.topAnchor, constant: -10),
+            recipeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            recipeNameLabel.topAnchor.constraint(equalTo: mainImageView.topAnchor, constant: 5),
+            
+            infoLabel.leadingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: 15),
+            infoLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            infoLabel.topAnchor.constraint(equalTo: recipeNameLabel.bottomAnchor, constant: 10),
             
             authorLabel.leadingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: 15),
-            authorLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            authorLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             authorLabel.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 10)
         ])
     }
@@ -102,10 +107,10 @@ extension SearchTableViewCell {
         var dishTypes = ""
         
         for dishType in recipe.dishTypes {
-            dishTypes += dishType + " · "
+            dishTypes += " · " + dishType
         }
         
-        cell.infoLabel.text = "\(prepTime) · " + dishTypes
+        cell.infoLabel.text = "\(prepTime)m" + dishTypes
         cell.authorLabel.text = "by: " + (recipe.sourceName ?? "")
     }
 }
