@@ -47,7 +47,7 @@ class SearchTableViewController: UITableViewController {
         if isFiltering {
             return fetchedRecipes.count
         }
-        return randomRecipes.count
+        return Constants.searchDefaultCount
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -57,16 +57,17 @@ class SearchTableViewController: UITableViewController {
             return cell
         }
         
-        var recipe: Recipe
+        var recipe: Recipe?
         
         if isFiltering {
             recipe = fetchedRecipes[indexPath.row]
-        } else {
+        } else if randomRecipes.count != 0 {
             recipe = randomRecipes[indexPath.row]
         }
+        
         newCell.configureCell(for: recipe, with: nil)
         
-        if let image = recipe.image {
+        if let image = recipe?.image {
             NetworkService.fetchImage(for: .recipe, from: image, size: nil) { result in
                 switch result {
                 case .success(let data):
@@ -86,7 +87,7 @@ class SearchTableViewController: UITableViewController {
 // MARK: - Internal
 extension SearchTableViewController {
     private func fetchRandomRecipes() {
-        NetworkService.fetchRecipes(.search(for: .random, count: Constants.searchDefaultRows, tags: [])) { result in
+        NetworkService.fetchRecipes(.search(for: .random, count: Constants.searchDefaultCount, tags: [])) { result in
             switch result {
             case .success(let data):
                 if let recipes = data.recipes {
@@ -117,7 +118,7 @@ extension SearchTableViewController: UISearchResultsUpdating {
     }
     
     private func findContentForSearchText(_ searchText: String) {
-        NetworkService.fetchRecipes(.search(for: .complexSearch, matching: searchText, count: Constants.searchRows, tags: [])) { result in
+        NetworkService.fetchRecipes(.search(for: .complexSearch, matching: searchText, count: Constants.searchCount, tags: [])) { result in
             switch result {
             case .success(let data):
                 if let recipes = data.results {

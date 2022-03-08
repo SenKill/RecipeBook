@@ -93,8 +93,10 @@ class MealCollectionViewCell: UICollectionViewCell {
 }
 
 extension MealCollectionViewCell: ConfigurableCell {
-    func configureCell(for recipe: Recipe, with image: UIImage?) {
+    func configureCell(for recipe: Recipe?, with image: UIImage?) {
         let cell = self
+        
+        removeContentFromCell(cell)
         
         if let image = image {
             spinner.removeFromSuperview()
@@ -105,15 +107,28 @@ extension MealCollectionViewCell: ConfigurableCell {
             spinner.setUpSpinner(loadingImageView: mainImageView)
         }
         
+        // Setting up spinner if image didn't load yet
+        guard let recipe = recipe else {
+            return
+        }
+        
         cell.authorNameLabel.text = "by: " + (recipe.sourceName ?? "")
         cell.recipeNameLabel.text = recipe.title
         
-        // TODO: Create favorite property
+        // TODO: Add isFavorite property
         /*
         if recipe.isFavorite {
             cell.bookmarkImageView.image = UIImage(systemName: "bookmark.fill")
             cell.bookmarkImageView.tintColor = .systemGreen // or .systemYellow
         }
         */
+    }
+    
+    func removeContentFromCell(_ cell: MealCollectionViewCell) {
+        cell.mainImageView.image = nil
+        cell.bookmarkImageView.image = nil
+        cell.recipeNameLabel.text = nil
+        cell.recipeNameLabel.text = nil
+        cell.authorNameLabel.text = nil
     }
 }

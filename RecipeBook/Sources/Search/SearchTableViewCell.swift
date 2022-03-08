@@ -90,15 +90,22 @@ class SearchTableViewCell: UITableViewCell {
 }
 
 extension SearchTableViewCell {
-    func configureCell(for recipe: Recipe, with image: UIImage?) {
+    func configureCell(for recipe: Recipe?, with image: UIImage?) {
         let cell = self
         
+        removeContentFromCell(cell)
+        
+        // Setting up spinner if image didn't load yet
         if let image = image {
             spinner.removeFromSuperview()
             cell.mainImageView.image = image
         } else {
             cell.mainImageView.addSubview(spinner)
             spinner.setUpSpinner(loadingImageView: mainImageView)
+        }
+        
+        guard let recipe = recipe else {
+            return
         }
         
         recipeNameLabel.text = recipe.title
@@ -112,5 +119,12 @@ extension SearchTableViewCell {
         
         cell.infoLabel.text = "\(prepTime)m" + dishTypes
         cell.authorLabel.text = "by: " + (recipe.sourceName ?? "")
+    }
+    
+    private func removeContentFromCell(_ cell: SearchTableViewCell) {
+        cell.mainImageView.image = nil
+        cell.recipeNameLabel.text = nil
+        cell.infoLabel.text = nil
+        cell.authorLabel.text = nil
     }
 }

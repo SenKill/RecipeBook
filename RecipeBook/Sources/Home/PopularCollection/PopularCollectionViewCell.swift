@@ -142,8 +142,10 @@ class PopularCollectionViewCell: UICollectionViewCell {
 }
 
 extension PopularCollectionViewCell: ConfigurableCell {
-    func configureCell(for recipe: Recipe, with image: UIImage?) {
+    func configureCell(for recipe: Recipe?, with image: UIImage?) {
         let cell = self
+        
+        removeContentFromCell(cell)
         
         if let image = image {
             spinner.removeFromSuperview()
@@ -152,9 +154,22 @@ extension PopularCollectionViewCell: ConfigurableCell {
             cell.addSubview(spinner)
             spinner.setUpSpinner(loadingImageView: mainImageView)
         }
+        
+        guard let recipe = recipe else {
+            return
+        }
+        
         cell.recipeNameLabel.text = recipe.title
         cell.authorNameLabel.text = "by: " + (recipe.sourceName ?? "")
         cell.prepTimeLabel.text = "\(recipe.readyInMinutes) Min"
         cell.servingsLabel.text = "\(recipe.servings) Servings"
+    }
+    
+    private func removeContentFromCell(_ cell: PopularCollectionViewCell) {
+        mainImageView.image = nil
+        recipeNameLabel.text = nil
+        authorNameLabel.text = nil
+        prepTimeLabel.text = nil
+        servingsLabel.text = nil
     }
 }

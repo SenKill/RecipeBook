@@ -9,20 +9,18 @@ import Foundation
 import UIKit
 
 class HomeViewController: CViewController<HomeView> {
-    private var mealRecipes: [Recipe] = []
-    private var popularRecipes: [Recipe] = []
-    
     private var meal: String = ""
     private var welcomingText: String = ""
     
-    lazy var mealVC = RecipesCollectionViewController()
-    lazy var popularVC = RecipesCollectionViewController()
+    private let mealVC = RecipesCollectionViewController()
+    private let popularVC = RecipesCollectionViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         assignLabelTexts()
-        // fetchData()
+        fetchData()
+        addChildVCs()
         
         navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
         
@@ -41,53 +39,43 @@ extension HomeViewController {
         customView.mealCollectionView.dataSource = mealVC
         
         addChild(mealVC)
-        mealVC.recipes = mealRecipes
         mealVC.didMove(toParent: self)
         
         customView.popularCollectionView.delegate = popularVC
         customView.popularCollectionView.dataSource = popularVC
         
         addChild(popularVC)
-        popularVC.recipes = popularRecipes
         popularVC.didMove(toParent: self)
     }
     
     private func fetchData() {
-        let group = DispatchGroup()
-        
-        group.enter()
-        NetworkService.fetchRecipes(.search(for: .random, count: Constants.mealRows, tags: [meal])) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let data):
-                    if let recipes = data.recipes {
-                        self.mealRecipes = recipes
-                    }
-                    group.leave()
-                case .failure(let error):
-                    // TODO: Handle error better
-                    print("Meal data loading failure: \(error.localizedDescription)")
-                    group.leave()
-                }
-            }
-        }
-        
-        group.enter()
-        NetworkService.fetchRecipes(.search(for: .random, count: Constants.popularRows, tags: [])) { result in
+        NetworkService.fetchRecipes(.search(for: .random, count: Constants.mealCount, tags: [meal])) { result in
             switch result {
             case .success(let data):
                 if let recipes = data.recipes {
-                    self.popularRecipes = recipes
+                    DispatchQueue.main.async {
+                        self.mealVC.recipes = recipes
+                        self.customView.mealCollectionView.reloadData()
+                    }
                 }
-                group.leave()
             case .failure(let error):
-                print("Popular data loading failure: \(error.localizedDescription)")
-                group.leave()
+                // TODO: Handle error better
+                print("Meal data loading failure: \(error.localizedDescription)")
             }
         }
         
-        group.notify(queue: DispatchQueue.main) {
-            self.addChildVCs()
+        NetworkService.fetchRecipes(.search(for: .random, count: Constants.popularCount, tags: [])) { result in
+            switch result {
+            case .success(let data):
+                if let recipes = data.recipes {
+                    DispatchQueue.main.async {
+                        self.popularVC.recipes = recipes
+                        self.customView.popularCollectionView.reloadData()
+                    }
+                }
+            case .failure(let error):
+                print("Popular data loading failure: \(error.localizedDescription)")
+            }
         }
     }
     

@@ -34,11 +34,3 @@ class PopularCollectionView: UICollectionView {
         fatalError("init(coder:) has not been implemented")
     }
 }
-
-// MARK: - UICollectionViewDelegateFlowLayout
-
-extension PopularCollectionView: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: Constants.popularItemWidth, height: Constants.popularItemHeight)
-    }
-}

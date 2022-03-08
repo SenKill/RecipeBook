@@ -8,7 +8,7 @@
 import UIKit
 
 protocol ConfigurableCell where Self: UICollectionViewCell {
-    func configureCell(for recipe: Recipe, with image: UIImage?)
+    func configureCell(for recipe: Recipe?, with image: UIImage?)
 }
 
 class RecipesCollectionViewController: UIViewController {
@@ -26,7 +26,10 @@ extension RecipesCollectionViewController: UICollectionViewDelegate {
 extension RecipesCollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return recipes.count
+        if collectionView.tag == 1 {
+            return Constants.mealCount
+        }
+        return Constants.popularCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -42,12 +45,16 @@ extension RecipesCollectionViewController: UICollectionViewDataSource {
             newCell = cell as! PopularCollectionViewCell
         }
         
-        let recipe = recipes[indexPath.row]
+        var recipe: Recipe?
+        
+        if recipes.count != 0 {
+            recipe = recipes[indexPath.row]
+        }
         
         newCell.configureCell(for: recipe, with: nil)
         
         // Checking image property that stored in model, and fetching if it exists
-        if let imageName = recipe.image {
+        if let imageName = recipe?.image {
             NetworkService.fetchImage(for: .recipe, from: imageName, size: nil) { result in
                 switch result {
                 case .success(let data):
@@ -64,5 +71,16 @@ extension RecipesCollectionViewController: UICollectionViewDataSource {
             }
         }
         return newCell
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension RecipesCollectionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView.tag == 1 {
+            return CGSize(width: Constants.mealItemWidth, height: collectionView.frame.height)
+        }
+        return CGSize(width: Constants.popularItemWidth, height: Constants.popularItemHeight)
     }
 }
