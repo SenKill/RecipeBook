@@ -147,6 +147,7 @@ extension PopularCollectionViewCell: ConfigurableCell {
         
         removeContentFromCell(cell)
         
+        // Setting up spinner if image didn't load yet
         if let image = image {
             spinner.removeFromSuperview()
             cell.mainImageView.image = image

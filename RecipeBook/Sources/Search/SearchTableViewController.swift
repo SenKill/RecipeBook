@@ -30,11 +30,7 @@ class SearchTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchRandomRecipes()
-        // Setup the Search Controller
-        searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        navigationItem.searchController = searchController
-        definesPresentationContext = true
+        configureSearchController()
     }
 
     // MARK: - Table view data source
@@ -78,6 +74,8 @@ class SearchTableViewController: UITableViewController {
                     print("Loading image error: \(error.localizedDescription)")
                 }
             }
+        } else if recipe?.title != nil {
+            newCell.configureCell(for: recipe, with: UIImage.image.defaultRecipe)
         }
         
         return newCell
@@ -86,6 +84,13 @@ class SearchTableViewController: UITableViewController {
 
 // MARK: - Internal
 extension SearchTableViewController {
+    private func configureSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+    }
+    
     private func fetchRandomRecipes() {
         NetworkService.fetchRecipes(.search(for: .random, count: Constants.searchDefaultCount, tags: [])) { result in
             switch result {

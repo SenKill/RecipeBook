@@ -13,6 +13,7 @@
 		F74355F727CB37FB008F8693 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74355F627CB37FB008F8693 /* SearchTableViewCell.swift */; };
 		F743560427CB9790008F8693 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F743560327CB9790008F8693 /* NetworkService.swift */; };
 		F743560927CBA2A2008F8693 /* SearchType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F743560827CBA2A2008F8693 /* SearchType.swift */; };
+		F7612D1E27D8F574009D4142 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7612D1D27D8F574009D4142 /* UIImage.swift */; };
 		F768E1E427BA115700F1D61B /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F768E1E327BA115700F1D61B /* UIColor.swift */; };
 		F768E1FF27BA84CA00F1D61B /* MealCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F768E1FE27BA84CA00F1D61B /* MealCollectionView.swift */; };
 		F768E20527BA883300F1D61B /* RecipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F768E20427BA883300F1D61B /* RecipeModel.swift */; };
@@ -64,6 +65,7 @@
 		F74355F627CB37FB008F8693 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		F743560327CB9790008F8693 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		F743560827CBA2A2008F8693 /* SearchType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchType.swift; sourceTree = "<group>"; };
+		F7612D1D27D8F574009D4142 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		F768E1E327BA115700F1D61B /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		F768E1FE27BA84CA00F1D61B /* MealCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealCollectionView.swift; sourceTree = "<group>"; };
 		F768E20427BA883300F1D61B /* RecipeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeModel.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 			children = (
 				F768E1E327BA115700F1D61B /* UIColor.swift */,
 				F705881B27D4E9AA006394EC /* UIActivityIndicatorView.swift */,
+				F7612D1D27D8F574009D4142 /* UIImage.swift */,
 				F72D48AD27C4AE5400792DE3 /* Date.swift */,
 			);
 			path = Extensions;
@@ -432,6 +435,7 @@
 				F77D673927B8D576001F02E9 /* SceneDelegate.swift in Sources */,
 				F7E374EA27CF8FD700A8835C /* ImageType.swift in Sources */,
 				F743560427CB9790008F8693 /* NetworkService.swift in Sources */,
+				F7612D1E27D8F574009D4142 /* UIImage.swift in Sources */,
 				F77D678A27B8E654001F02E9 /* HomeViewController.swift in Sources */,
 				F705881C27D4E9AA006394EC /* UIActivityIndicatorView.swift in Sources */,
 				F7090E0727BCBBCF00069D79 /* GradientView.swift in Sources */,

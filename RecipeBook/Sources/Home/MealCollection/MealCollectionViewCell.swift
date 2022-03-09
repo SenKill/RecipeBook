@@ -98,6 +98,7 @@ extension MealCollectionViewCell: ConfigurableCell {
         
         removeContentFromCell(cell)
         
+        // Setting up spinner if image didn't load yet
         if let image = image {
             spinner.removeFromSuperview()
             cell.mainImageView.image = image
@@ -107,7 +108,6 @@ extension MealCollectionViewCell: ConfigurableCell {
             spinner.setUpSpinner(loadingImageView: mainImageView)
         }
         
-        // Setting up spinner if image didn't load yet
         guard let recipe = recipe else {
             return
         }

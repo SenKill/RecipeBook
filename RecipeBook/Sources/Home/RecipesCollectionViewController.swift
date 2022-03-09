@@ -69,6 +69,8 @@ extension RecipesCollectionViewController: UICollectionViewDataSource {
                     }
                 }
             }
+        } else if recipe?.title != nil {
+            newCell.configureCell(for: recipe, with: UIImage.image.defaultRecipe)
         }
         return newCell
     }
