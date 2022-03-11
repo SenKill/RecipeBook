@@ -59,6 +59,7 @@ class SearchTableViewCell: UITableViewCell {
     
     func setViews() {
         clipsToBounds = false
+        backgroundColor = UIColor.theme.background
         contentView.addSubview(mainImageView)
         contentView.addSubview(recipeNameLabel)
         contentView.addSubview(infoLabel)

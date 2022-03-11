@@ -9,7 +9,7 @@ import UIKit
 
 class SearchTableViewController: UITableViewController {
 
-    private let searchController = UISearchController(searchResultsController: nil)
+    private var searchController: RecipesSearchController!
     private var randomRecipes: [Recipe] = []
     private var fetchedRecipes: [Recipe] = []
     private var searchBarIsEmpty: Bool {
@@ -29,8 +29,9 @@ class SearchTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchRandomRecipes()
+        // fetchRandomRecipes()
         configureSearchController()
+        definesPresentationContext = true
     }
 
     // MARK: - Table view data source
@@ -82,13 +83,24 @@ class SearchTableViewController: UITableViewController {
     }
 }
 
+// MARK: - UISearchBarDelegate
+extension SearchTableViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if let text = searchBar.text {
+            debounceTimer?.invalidate()
+            findContentForSearchText(text)
+        }
+    }
+}
+
 // MARK: - Internal
 extension SearchTableViewController {
     private func configureSearchController() {
+        searchController = RecipesSearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.delegate = self
         navigationItem.searchController = searchController
-        definesPresentationContext = true
     }
     
     private func fetchRandomRecipes() {
@@ -98,7 +110,6 @@ extension SearchTableViewController {
                 if let recipes = data.recipes {
                     DispatchQueue.main.async {
                         self.randomRecipes = recipes
-                        print(recipes.count)
                         self.tableView.reloadData()
                     }
                 }

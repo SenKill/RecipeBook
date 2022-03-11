@@ -35,6 +35,8 @@
 		F7B3BFCC27CD01CD00EEC050 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B3BFCB27CD01CD00EEC050 /* NetworkError.swift */; };
 		F7CC844727D5DBB5004EE60C /* SearchTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CC844627D5DBB5004EE60C /* SearchTableView.swift */; };
 		F7CE36FF27CE70F100B30FD9 /* TimeLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CE36FE27CE70F100B30FD9 /* TimeLogic.swift */; };
+		F7D341F127DA259C00EDAB1D /* RecipesSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D341F027DA259C00EDAB1D /* RecipesSearchBar.swift */; };
+		F7D341F927DA35AA00EDAB1D /* RecipesSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D341F827DA35AA00EDAB1D /* RecipesSearchController.swift */; };
 		F7E374EA27CF8FD700A8835C /* ImageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E374E927CF8FD700A8835C /* ImageType.swift */; };
 		F7E374FA27CFA9E000A8835C /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E374F927CFA9DF00A8835C /* APIKeys.swift */; };
 		F7EB749427BA995200F24714 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EB749327BA995200F24714 /* Constants.swift */; };
@@ -93,6 +95,8 @@
 		F7B3BFCB27CD01CD00EEC050 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		F7CC844627D5DBB5004EE60C /* SearchTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableView.swift; sourceTree = "<group>"; };
 		F7CE36FE27CE70F100B30FD9 /* TimeLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLogic.swift; sourceTree = "<group>"; };
+		F7D341F027DA259C00EDAB1D /* RecipesSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesSearchBar.swift; sourceTree = "<group>"; };
+		F7D341F827DA35AA00EDAB1D /* RecipesSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesSearchController.swift; sourceTree = "<group>"; };
 		F7E374E927CF8FD700A8835C /* ImageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageType.swift; sourceTree = "<group>"; };
 		F7E374F927CFA9DF00A8835C /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
 		F7EB749327BA995200F24714 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -136,6 +140,7 @@
 		F72D489727C49DE100792DE3 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				F7D341EE27DA255700EDAB1D /* CustomClasses */,
 				F76A85F727C9F83500D284F0 /* SearchTableViewController.swift */,
 				F74355F627CB37FB008F8693 /* SearchTableViewCell.swift */,
 				F7CC844627D5DBB5004EE60C /* SearchTableView.swift */,
@@ -288,6 +293,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		F7D341EE27DA255700EDAB1D /* CustomClasses */ = {
+			isa = PBXGroup;
+			children = (
+				F7D341F027DA259C00EDAB1D /* RecipesSearchBar.swift */,
+				F7D341F827DA35AA00EDAB1D /* RecipesSearchController.swift */,
+			);
+			path = CustomClasses;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -425,12 +439,14 @@
 				F76A85F827C9F83500D284F0 /* SearchTableViewController.swift in Sources */,
 				F77D677127B8D7DD001F02E9 /* CView.swift in Sources */,
 				F768E1E427BA115700F1D61B /* UIColor.swift in Sources */,
+				F7D341F927DA35AA00EDAB1D /* RecipesSearchController.swift in Sources */,
 				F7B3BFCC27CD01CD00EEC050 /* NetworkError.swift in Sources */,
 				F72D48AE27C4AE5400792DE3 /* Date.swift in Sources */,
 				F74355F727CB37FB008F8693 /* SearchTableViewCell.swift in Sources */,
 				F7E374FA27CFA9E000A8835C /* APIKeys.swift in Sources */,
 				F768E1FF27BA84CA00F1D61B /* MealCollectionView.swift in Sources */,
 				F7F417F727D39C40003654E2 /* RecipesCollectionViewController.swift in Sources */,
+				F7D341F127DA259C00EDAB1D /* RecipesSearchBar.swift in Sources */,
 				F77D677927B8D7EA001F02E9 /* CViewController.swift in Sources */,
 				F77D673927B8D576001F02E9 /* SceneDelegate.swift in Sources */,
 				F7E374EA27CF8FD700A8835C /* ImageType.swift in Sources */,
