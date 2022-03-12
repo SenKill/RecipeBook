@@ -39,7 +39,6 @@ class RecipesSearchBar: UISearchBar {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setViews()
         layoutViews()
     }
@@ -53,12 +52,15 @@ class RecipesSearchBar: UISearchBar {
         guard let textField = textField else {
             return
         }
+        
+        textField.leftView?.tintColor = .systemGreen
         textField.layer.shadowOffset = CGSize(width: 0, height: 4)
         textField.layer.shadowOpacity = 0.25
         
         let textFieldBackground = textField.subviews.first
-        textFieldBackground?.backgroundColor = .white
+        // Allows to change searchTextField's background color
         textFieldBackground?.subviews.forEach({ $0.removeFromSuperview() })
+        
         filterButton.addSubview(filterIcon)
         textField.addSubview(filterButton)
     }

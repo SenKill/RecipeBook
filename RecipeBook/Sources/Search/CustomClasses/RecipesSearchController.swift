@@ -18,18 +18,20 @@ class RecipesSearchController: UISearchController {
     override init(searchResultsController: UIViewController?) {
         super.init(searchResultsController: searchResultsController)
         searchBar.showsCancelButton = false
-        searchBar.showsScopeBar = true
-        searchBar.showsBookmarkButton = false
         searchBar.searchTextField.backgroundColor = .white
-        searchBar.searchTextField.textColor = .blue
         obscuresBackgroundDuringPresentation = false
-    }
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        customSearchBar.searchTextField.delegate = self
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension RecipesSearchController: UITextFieldDelegate {
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        isActive = false
+        return true
     }
 }

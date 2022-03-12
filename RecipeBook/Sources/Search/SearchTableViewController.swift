@@ -12,6 +12,7 @@ class SearchTableViewController: UITableViewController {
     private var searchController: RecipesSearchController!
     private var randomRecipes: [Recipe] = []
     private var fetchedRecipes: [Recipe] = []
+    
     private var searchBarIsEmpty: Bool {
         guard let text = searchController.searchBar.text else { return false }
         return text.isEmpty
@@ -19,8 +20,9 @@ class SearchTableViewController: UITableViewController {
     private var isFiltering: Bool {
         return searchController.isActive && !searchBarIsEmpty
     }
-    
-    private var debounceTimer: Timer?
+    private var isRandomPresented: Bool {
+        return tableView.numberOfRows(inSection: 0) == Constants.searchDefaultCount
+    }
     
     override func loadView() {
         super.loadView()
@@ -29,13 +31,12 @@ class SearchTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // fetchRandomRecipes()
+        fetchRandomRecipes()
         configureSearchController()
         definesPresentationContext = true
     }
 
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -71,7 +72,7 @@ class SearchTableViewController: UITableViewController {
                     DispatchQueue.main.async {
                         newCell.configureCell(for: recipe, with: UIImage(data: data))
                     }
-                case . failure(let error):
+                case .failure(let error):
                     print("Loading image error: \(error.localizedDescription)")
                 }
             }
@@ -85,11 +86,16 @@ class SearchTableViewController: UITableViewController {
 
 // MARK: - UISearchBarDelegate
 extension SearchTableViewController: UISearchBarDelegate {
-    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let text = searchBar.text {
-            debounceTimer?.invalidate()
-            findContentForSearchText(text)
+            fetchRecipesForSearchText(text)
+        }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        // Updates the table view only if the text field is empty and default recipes don't already present.
+        if !isFiltering && !isRandomPresented {
+            tableView.reloadData()
         }
     }
 }
@@ -98,7 +104,6 @@ extension SearchTableViewController: UISearchBarDelegate {
 extension SearchTableViewController {
     private func configureSearchController() {
         searchController = RecipesSearchController(searchResultsController: nil)
-        searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         navigationItem.searchController = searchController
     }
@@ -118,22 +123,8 @@ extension SearchTableViewController {
             }
         }
     }
-}
-
-// MARK: - UISearchResultsUpdating
-extension SearchTableViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        debounceTimer?.invalidate()
-        if let text = searchController.searchBar.text, isFiltering {
-            debounceTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { _ in
-                self.findContentForSearchText(text)
-            }
-        } else {
-            tableView.reloadData()
-        }
-    }
     
-    private func findContentForSearchText(_ searchText: String) {
+    private func fetchRecipesForSearchText(_ searchText: String) {
         NetworkService.fetchRecipes(.search(for: .complexSearch, matching: searchText, count: Constants.searchCount, tags: [])) { result in
             switch result {
             case .success(let data):
