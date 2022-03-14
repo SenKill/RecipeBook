@@ -13,13 +13,8 @@ class SearchTableViewController: UITableViewController {
     private var randomRecipes: [Recipe] = []
     private var fetchedRecipes: [Recipe] = []
     
-    private var searchBarIsEmpty: Bool {
-        guard let text = searchController.searchBar.text else { return false }
-        return text.isEmpty
-    }
-    private var isFiltering: Bool {
-        return searchController.isActive && !searchBarIsEmpty
-    }
+    private var isFiltering: Bool = false
+    
     private var isRandomPresented: Bool {
         return tableView.numberOfRows(inSection: 0) == Constants.searchDefaultCount
     }
@@ -89,12 +84,14 @@ extension SearchTableViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let text = searchBar.text {
             fetchRecipesForSearchText(text)
+            isFiltering = true
         }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // Updates the table view only if the text field is empty and default recipes don't already present.
-        if !isFiltering && !isRandomPresented {
+        if let text = searchBar.text, text.isEmpty && !isRandomPresented {
+            isFiltering = false
             tableView.reloadData()
         }
     }
@@ -106,6 +103,7 @@ extension SearchTableViewController {
         searchController = RecipesSearchController(searchResultsController: nil)
         searchController.searchBar.delegate = self
         navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
     
     private func fetchRandomRecipes() {
