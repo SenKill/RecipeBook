@@ -41,7 +41,7 @@
 		F7E374FA27CFA9E000A8835C /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E374F927CFA9DF00A8835C /* APIKeys.swift */; };
 		F7EB749427BA995200F24714 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EB749327BA995200F24714 /* Constants.swift */; };
 		F7F417F727D39C40003654E2 /* RecipesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F417F627D39C40003654E2 /* RecipesCollectionViewController.swift */; };
-		F7FE8A2B27DCBE3F00F1949B /* FilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FE8A2A27DCBE3F00F1949B /* FilterTableViewController.swift */; };
+		F7F6FD2E27E21AEE000C70DC /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F6FD2D27E21AEE000C70DC /* FilterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,7 +102,7 @@
 		F7E374F927CFA9DF00A8835C /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
 		F7EB749327BA995200F24714 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F7F417F627D39C40003654E2 /* RecipesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesCollectionViewController.swift; sourceTree = "<group>"; };
-		F7FE8A2A27DCBE3F00F1949B /* FilterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewController.swift; sourceTree = "<group>"; };
+		F7F6FD2D27E21AEE000C70DC /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,7 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				F7D341EE27DA255700EDAB1D /* CustomClasses */,
-				F7FE8A2A27DCBE3F00F1949B /* FilterTableViewController.swift */,
+				F7F6FD2627E2158C000C70DC /* Filter */,
 				F76A85F727C9F83500D284F0 /* SearchTableViewController.swift */,
 				F74355F627CB37FB008F8693 /* SearchTableViewCell.swift */,
 				F7CC844627D5DBB5004EE60C /* SearchTableView.swift */,
@@ -305,6 +305,14 @@
 			path = CustomClasses;
 			sourceTree = "<group>";
 		};
+		F7F6FD2627E2158C000C70DC /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				F7F6FD2D27E21AEE000C70DC /* FilterView.swift */,
+			);
+			path = Filter;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -445,6 +453,7 @@
 				F7D341F927DA35AA00EDAB1D /* RecipesSearchController.swift in Sources */,
 				F7B3BFCC27CD01CD00EEC050 /* NetworkError.swift in Sources */,
 				F72D48AE27C4AE5400792DE3 /* Date.swift in Sources */,
+				F7F6FD2E27E21AEE000C70DC /* FilterView.swift in Sources */,
 				F74355F727CB37FB008F8693 /* SearchTableViewCell.swift in Sources */,
 				F7E374FA27CFA9E000A8835C /* APIKeys.swift in Sources */,
 				F768E1FF27BA84CA00F1D61B /* MealCollectionView.swift in Sources */,
@@ -454,7 +463,6 @@
 				F77D673927B8D576001F02E9 /* SceneDelegate.swift in Sources */,
 				F7E374EA27CF8FD700A8835C /* ImageType.swift in Sources */,
 				F743560427CB9790008F8693 /* NetworkService.swift in Sources */,
-				F7FE8A2B27DCBE3F00F1949B /* FilterTableViewController.swift in Sources */,
 				F7612D1E27D8F574009D4142 /* UIImage.swift in Sources */,
 				F77D678A27B8E654001F02E9 /* HomeViewController.swift in Sources */,
 				F705881C27D4E9AA006394EC /* UIActivityIndicatorView.swift in Sources */,

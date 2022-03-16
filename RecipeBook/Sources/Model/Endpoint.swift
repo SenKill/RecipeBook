@@ -16,7 +16,8 @@ extension Endpoint {
     static func search(for search: SearchType,
                        matching query: String? = nil,
                        count number: Int,
-                       tags: [String]) -> Endpoint {
+                       tags: [String] = [],
+                       type: String? = nil) -> Endpoint {
         var endpoint: Endpoint
         
         // Checking search type passed in with method parameters for initializing the endpoint
@@ -49,7 +50,8 @@ extension Endpoint {
                     URLQueryItem(name: "query", value: query ?? ""),
                     URLQueryItem(name: "number", value: String(number)),
                     URLQueryItem(name: "instructionsRequired", value: "true"),
-                    URLQueryItem(name: "addRecipeInformation", value: "true")
+                    URLQueryItem(name: "addRecipeInformation", value: "true"),
+                    URLQueryItem(name: "type", value: type)
                 ]
             )
         default:

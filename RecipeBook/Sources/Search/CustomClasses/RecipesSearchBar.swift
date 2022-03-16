@@ -22,7 +22,7 @@ class RecipesSearchBar: UISearchBar {
         let button = UIButton()
         button.backgroundColor = .white
         
-        button.layer.cornerRadius = 15
+        button.layer.cornerRadius = 13
         button.layer.shadowOffset = CGSize(width: 0, height: 4)
         button.layer.shadowOpacity = 0.25
         
@@ -47,8 +47,11 @@ class RecipesSearchBar: UISearchBar {
         super.init(coder: coder)
     }
     
+    var filterDelegate: UISearchBarFilterDelegate?
+    
     func setViews() {
         placeholder = "Search recipes here..."
+        scopeButtonTitles = ["Brekfast", "Main course", "Side dish", "Snack"]
         guard let textField = textField else {
             return
         }
@@ -56,13 +59,12 @@ class RecipesSearchBar: UISearchBar {
         textField.leftView?.tintColor = .systemGreen
         textField.layer.shadowOffset = CGSize(width: 0, height: 4)
         textField.layer.shadowOpacity = 0.25
-        
         let textFieldBackground = textField.subviews.first
         // Allows to change searchTextField's background color
         textFieldBackground?.subviews.forEach({ $0.removeFromSuperview() })
-        
         filterButton.addSubview(filterIcon)
-        textField.addSubview(filterButton)
+        filterButton.addTarget(self, action: #selector(didTapFilterButton), for: .touchUpInside)
+        addSubview(filterButton)
     }
     
     func layoutViews() {
@@ -74,7 +76,6 @@ class RecipesSearchBar: UISearchBar {
             textField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             textField.trailingAnchor.constraint(equalTo: filterButton.leadingAnchor, constant: -15),
             textField.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-            textField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
             
             filterButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             filterButton.topAnchor.constraint(equalTo: textField.topAnchor),
@@ -85,4 +86,14 @@ class RecipesSearchBar: UISearchBar {
             filterIcon.centerXAnchor.constraint(equalTo: filterButton.centerXAnchor)
         ])
     }
+}
+
+private extension RecipesSearchBar {
+    @objc func didTapFilterButton() {
+        filterDelegate?.presentFilterViewController()
+    }
+}
+
+protocol UISearchBarFilterDelegate {
+    func presentFilterViewController()
 }

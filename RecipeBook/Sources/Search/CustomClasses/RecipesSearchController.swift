@@ -9,9 +9,9 @@ import UIKit
 
 class RecipesSearchController: UISearchController {
 
-    let customSearchBar = RecipesSearchBar()
+    private let customSearchBar = RecipesSearchBar()
     
-    override var searchBar: UISearchBar {
+    override var searchBar: RecipesSearchBar {
         return customSearchBar
     }
     

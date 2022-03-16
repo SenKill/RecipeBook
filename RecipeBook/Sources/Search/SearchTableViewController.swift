@@ -10,13 +10,22 @@ import UIKit
 class SearchTableViewController: UITableViewController {
 
     private var searchController: RecipesSearchController!
+    
     private var randomRecipes: [Recipe] = []
     private var fetchedRecipes: [Recipe] = []
     
     private var isFiltering: Bool = false
     
     private var isRandomPresented: Bool {
-        return tableView.numberOfRows(inSection: 0) == Constants.searchDefaultCount
+        return tableView?.numberOfRows(inSection: 0) == Constants.searchDefaultCount
+    }
+    
+    private var selectedSegment: Int = 0
+    private var selectedMealType: String? {
+        guard let scopeTitles = searchController?.searchBar.scopeButtonTitles else {
+            return nil
+        }
+        return scopeTitles[selectedSegment]
     }
     
     override func loadView() {
@@ -31,7 +40,7 @@ class SearchTableViewController: UITableViewController {
         definesPresentationContext = true
     }
 
-    // MARK: - Table view data source
+    // MARK: - UITableViewDataSource
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -92,28 +101,42 @@ extension SearchTableViewController: UISearchBarDelegate {
         // Updates the table view only if the text field is empty and default recipes don't already present.
         if let text = searchBar.text, text.isEmpty && !isRandomPresented {
             isFiltering = false
-            tableView.reloadData()
+            tableView?.reloadData()
         }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        selectedSegment = selectedScope
+    }
+}
+
+// MARK: - UISearchBarFilterDelegate
+extension SearchTableViewController: UISearchBarFilterDelegate {
+    func presentFilterViewController() {
+        print("Check")
+        self.view = UIView()
     }
 }
 
 // MARK: - Internal
-extension SearchTableViewController {
-    private func configureSearchController() {
+private extension SearchTableViewController {
+    func configureSearchController() {
         searchController = RecipesSearchController(searchResultsController: nil)
         searchController.searchBar.delegate = self
+        searchController.searchBar.filterDelegate = self
+        navigationController?.navigationItem.searchController = searchController
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
     }
     
-    private func fetchRandomRecipes() {
-        NetworkService.fetchRecipes(.search(for: .random, count: Constants.searchDefaultCount, tags: [])) { result in
+    func fetchRandomRecipes() {
+        NetworkService.fetchRecipes(.search(for: .random, count: Constants.searchDefaultCount)) { result in
             switch result {
             case .success(let data):
                 if let recipes = data.recipes {
                     DispatchQueue.main.async {
                         self.randomRecipes = recipes
-                        self.tableView.reloadData()
+                        self.tableView?.reloadData()
                     }
                 }
             case .failure(let error):
@@ -122,14 +145,14 @@ extension SearchTableViewController {
         }
     }
     
-    private func fetchRecipesForSearchText(_ searchText: String) {
-        NetworkService.fetchRecipes(.search(for: .complexSearch, matching: searchText, count: Constants.searchCount, tags: [])) { result in
+    func fetchRecipesForSearchText(_ searchText: String) {
+        NetworkService.fetchRecipes(.search(for: .complexSearch, matching: searchText, count: Constants.searchCount, type: selectedMealType)) { result in
             switch result {
             case .success(let data):
                 if let recipes = data.results {
                     DispatchQueue.main.async {
                         self.fetchedRecipes = recipes
-                        self.tableView.reloadData()
+                        self.tableView?.reloadData()
                     }
                 }
             case .failure(let error):
