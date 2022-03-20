@@ -70,7 +70,6 @@ class HomeView: CView {
     
     override func setViews() {
         super.setViews()
-        backgroundColor = UIColor.theme.background
         
         mealCollectionView.tag = 1
         popularCollectionView.tag = 2

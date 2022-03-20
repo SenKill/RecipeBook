@@ -24,7 +24,7 @@ class CView: UIView {
     }
     
     func setViews() {
-        backgroundColor = .white
+        backgroundColor = UIColor.theme.background
     }
     
     func layoutViews() {

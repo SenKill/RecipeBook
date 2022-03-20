@@ -9,6 +9,8 @@ import UIKit
 
 class RecipesSearchBar: UISearchBar {
     
+    var filterDelegate: UISearchBarFilterDelegate?
+    
     private lazy var textField: UITextField? = {
         guard let textField = value(forKey: "searchField") as? UITextField else {
             print("ERROR: Can't get UITextField from SearchBar")
@@ -18,9 +20,12 @@ class RecipesSearchBar: UISearchBar {
         return textField
     }()
     
-    private lazy var filterButton: UIButton = {
+    lazy var filterButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .white
+        
+        button.setImage(UIImage(systemName: "slider.horizontal.3"), for: .normal)
+        button.tintColor = .systemGreen
         
         button.layer.cornerRadius = 13
         button.layer.shadowOffset = CGSize(width: 0, height: 4)
@@ -28,13 +33,6 @@ class RecipesSearchBar: UISearchBar {
         
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
-    }()
-    
-    private lazy var filterIcon: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: "slider.horizontal.3"))
-        imageView.tintColor = .systemGreen
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
     }()
     
     override init(frame: CGRect) {
@@ -46,8 +44,6 @@ class RecipesSearchBar: UISearchBar {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
-    var filterDelegate: UISearchBarFilterDelegate?
     
     func setViews() {
         placeholder = "Search recipes here..."
@@ -62,7 +58,6 @@ class RecipesSearchBar: UISearchBar {
         let textFieldBackground = textField.subviews.first
         // Allows to change searchTextField's background color
         textFieldBackground?.subviews.forEach({ $0.removeFromSuperview() })
-        filterButton.addSubview(filterIcon)
         filterButton.addTarget(self, action: #selector(didTapFilterButton), for: .touchUpInside)
         addSubview(filterButton)
     }
@@ -81,19 +76,16 @@ class RecipesSearchBar: UISearchBar {
             filterButton.topAnchor.constraint(equalTo: textField.topAnchor),
             filterButton.bottomAnchor.constraint(equalTo: textField.bottomAnchor),
             filterButton.widthAnchor.constraint(equalTo: filterButton.heightAnchor),
-            
-            filterIcon.centerYAnchor.constraint(equalTo: filterButton.centerYAnchor),
-            filterIcon.centerXAnchor.constraint(equalTo: filterButton.centerXAnchor)
         ])
     }
 }
 
 private extension RecipesSearchBar {
     @objc func didTapFilterButton() {
-        filterDelegate?.presentFilterViewController()
+        filterDelegate?.presentFilterView()
     }
 }
 
 protocol UISearchBarFilterDelegate {
-    func presentFilterViewController()
+    func presentFilterView()
 }

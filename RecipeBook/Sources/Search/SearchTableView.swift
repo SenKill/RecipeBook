@@ -14,10 +14,9 @@ class SearchTableView: UITableView {
         backgroundColor = UIColor.theme.background
         register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.reuseId)
         rowHeight = 125
-        // separatorStyle = .none
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
 }

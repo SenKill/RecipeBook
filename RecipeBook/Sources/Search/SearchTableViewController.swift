@@ -14,11 +14,15 @@ class SearchTableViewController: UITableViewController {
     private var randomRecipes: [Recipe] = []
     private var fetchedRecipes: [Recipe] = []
     
-    private var isFiltering: Bool = false
+    private var isSearching: Bool = false
+    private var isChangingFilters: Bool = false
     
     private var isRandomPresented: Bool {
         return tableView?.numberOfRows(inSection: 0) == Constants.searchDefaultCount
     }
+    
+    private var defaultView: UIView!
+    private var filterView: FilterView!
     
     private var selectedSegment: Int = 0
     private var selectedMealType: String? {
@@ -31,6 +35,8 @@ class SearchTableViewController: UITableViewController {
     override func loadView() {
         super.loadView()
         tableView = SearchTableView()
+        defaultView = view
+        filterView = FilterView()
     }
     
     override func viewDidLoad() {
@@ -39,14 +45,16 @@ class SearchTableViewController: UITableViewController {
         configureSearchController()
         definesPresentationContext = true
     }
+}
 
-    // MARK: - UITableViewDataSource
+// MARK: - UITableViewDataSource
+extension SearchTableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isFiltering {
+        if isSearching {
             return fetchedRecipes.count
         }
         return Constants.searchDefaultCount
@@ -61,7 +69,7 @@ class SearchTableViewController: UITableViewController {
         
         var recipe: Recipe?
         
-        if isFiltering {
+        if isSearching {
             recipe = fetchedRecipes[indexPath.row]
         } else if randomRecipes.count != 0 {
             recipe = randomRecipes[indexPath.row]
@@ -93,14 +101,14 @@ extension SearchTableViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let text = searchBar.text {
             fetchRecipesForSearchText(text)
-            isFiltering = true
+            isSearching = true
         }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // Updates the table view only if the text field is empty and default recipes don't already present.
         if let text = searchBar.text, text.isEmpty && !isRandomPresented {
-            isFiltering = false
+            isSearching = false
             tableView?.reloadData()
         }
     }
@@ -112,9 +120,17 @@ extension SearchTableViewController: UISearchBarDelegate {
 
 // MARK: - UISearchBarFilterDelegate
 extension SearchTableViewController: UISearchBarFilterDelegate {
-    func presentFilterViewController() {
-        print("Check")
-        self.view = UIView()
+    func presentFilterView() {
+        if isChangingFilters {
+            view = defaultView
+            changeFilterButtonAppearance(with: .systemGreen, and: .white)
+            searchController.searchBar.setShowsScope(false, animated: true)
+        } else {
+            view = filterView
+            changeFilterButtonAppearance(with: .white, and: .systemGreen)
+            searchController.searchBar.setShowsScope(true, animated: true)
+        }
+        isChangingFilters.toggle()
     }
 }
 
@@ -124,7 +140,6 @@ private extension SearchTableViewController {
         searchController = RecipesSearchController(searchResultsController: nil)
         searchController.searchBar.delegate = self
         searchController.searchBar.filterDelegate = self
-        navigationController?.navigationItem.searchController = searchController
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
     }
@@ -140,7 +155,7 @@ private extension SearchTableViewController {
                     }
                 }
             case .failure(let error):
-                print("Error: \(error.localizedDescription)")
+                print("Error while fetching from random: \(error.localizedDescription)")
             }
         }
     }
@@ -159,5 +174,11 @@ private extension SearchTableViewController {
                 print("Error while fetching from complex search: \(error.localizedDescription)")
             }
         }
+    }
+    
+    func changeFilterButtonAppearance(with firstColor: UIColor, and secondColor: UIColor) {
+        let button: UIButton = searchController.searchBar.filterButton
+        button.tintColor = firstColor
+        button.backgroundColor = secondColor
     }
 }
