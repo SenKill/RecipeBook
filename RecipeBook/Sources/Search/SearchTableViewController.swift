@@ -21,8 +21,7 @@ class SearchTableViewController: UITableViewController {
         return tableView?.numberOfRows(inSection: 0) == Constants.searchDefaultCount
     }
     
-    private var defaultView: UIView!
-    private var filterView: FilterView!
+    private var filterViewController: FilterViewController!
     
     private var selectedSegment: Int = 0
     private var selectedMealType: String? {
@@ -35,14 +34,13 @@ class SearchTableViewController: UITableViewController {
     override func loadView() {
         super.loadView()
         tableView = SearchTableView()
-        defaultView = view
-        filterView = FilterView()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchRandomRecipes()
+        // fetchRandomRecipes()
         configureSearchController()
+        configureFilterViewController()
         definesPresentationContext = true
     }
 }
@@ -98,13 +96,18 @@ extension SearchTableViewController {
 
 // MARK: - UISearchBarDelegate
 extension SearchTableViewController: UISearchBarDelegate {
+    // Presents searched recipes
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let text = searchBar.text {
             fetchRecipesForSearchText(text)
+            if isChangingFilters {
+                toggleFilterView()
+            }
             isSearching = true
         }
     }
     
+    // Presents default recipes
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // Updates the table view only if the text field is empty and default recipes don't already present.
         if let text = searchBar.text, text.isEmpty && !isRandomPresented {
@@ -120,16 +123,15 @@ extension SearchTableViewController: UISearchBarDelegate {
 
 // MARK: - UISearchBarFilterDelegate
 extension SearchTableViewController: UISearchBarFilterDelegate {
-    func presentFilterView() {
+    func toggleFilterView() {
         if isChangingFilters {
-            view = defaultView
             changeFilterButtonAppearance(with: .systemGreen, and: .white)
-            searchController.searchBar.setShowsScope(false, animated: true)
+            navigationController?.popViewController(animated: true)
         } else {
-            view = filterView
             changeFilterButtonAppearance(with: .white, and: .systemGreen)
-            searchController.searchBar.setShowsScope(true, animated: true)
+            navigationController?.pushViewController(filterViewController, animated: true)
         }
+        searchController.searchBar.setShowsScope(!isChangingFilters, animated: true)
         isChangingFilters.toggle()
     }
 }
@@ -142,6 +144,14 @@ private extension SearchTableViewController {
         searchController.searchBar.filterDelegate = self
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
+        // TODO: Fix bug with oversized search bar
+        // NOTE: This is temporary solution
+        searchController.searchBar.setShowsScope(true, animated: false)
+    }
+    
+    func configureFilterViewController() {
+        filterViewController = FilterViewController()
+        filterViewController.navigationItem.searchController = searchController
     }
     
     func fetchRandomRecipes() {

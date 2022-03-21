@@ -13,7 +13,7 @@ class FilterView: CView {
         createLabel(with: "Select Cuisine")
     }()
     
-    private let cuisineFieldContainer: UIView = {
+    let cuisineFieldContainer: UIView = {
         createTextField(with: "Choose cuisine...", rightView: "chevron.down")
     }()
     
@@ -21,7 +21,7 @@ class FilterView: CView {
         createLabel(with: "Diets")
     }()
     
-    private let dietsFieldContainer: UIView = {
+    let dietsFieldContainer: UIView = {
         createTextField(with: "You can add multiple diets..", rightView: "plus.circle")
     }()
     
@@ -29,9 +29,11 @@ class FilterView: CView {
         createLabel(with: "Intolerances")
     }()
     
-    private let intolerancesContainer: UIView = {
+    let intolerancesContainer: UIView = {
         createTextField(with: "Add intolerances here...", rightView: "plus.circle")
     }()
+    
+    let pickerView = UIPickerView()
     
     override func setViews() {
         super.setViews()
@@ -41,6 +43,9 @@ class FilterView: CView {
         addSubview(dietsFieldContainer)
         addSubview(intolerancesLabel)
         addSubview(intolerancesContainer)
+        if let textField = cuisineFieldContainer.subviews.first as? UITextField {
+            textField.inputView = pickerView
+        }
     }
     
     override func layoutViews() {

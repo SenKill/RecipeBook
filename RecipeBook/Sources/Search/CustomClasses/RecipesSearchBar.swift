@@ -7,12 +7,21 @@
 
 import UIKit
 
+protocol UISearchBarFilterDelegate: class {
+    func toggleFilterView()
+}
+
 class RecipesSearchBar: UISearchBar {
     
-    var filterDelegate: UISearchBarFilterDelegate?
+    enum Names {
+        static let searchField = "searchField"
+        static let slider = "slider.horizontal.3"
+    }
+    
+    weak var filterDelegate: UISearchBarFilterDelegate?
     
     private lazy var textField: UITextField? = {
-        guard let textField = value(forKey: "searchField") as? UITextField else {
+        guard let textField = value(forKey: Names.searchField) as? UITextField else {
             print("ERROR: Can't get UITextField from SearchBar")
             return nil
         }
@@ -24,7 +33,7 @@ class RecipesSearchBar: UISearchBar {
         let button = UIButton()
         button.backgroundColor = .white
         
-        button.setImage(UIImage(systemName: "slider.horizontal.3"), for: .normal)
+        button.setImage(UIImage(systemName: Names.slider), for: .normal)
         button.tintColor = .systemGreen
         
         button.layer.cornerRadius = 13
@@ -82,10 +91,6 @@ class RecipesSearchBar: UISearchBar {
 
 private extension RecipesSearchBar {
     @objc func didTapFilterButton() {
-        filterDelegate?.presentFilterView()
+        filterDelegate?.toggleFilterView()
     }
-}
-
-protocol UISearchBarFilterDelegate {
-    func presentFilterView()
 }
