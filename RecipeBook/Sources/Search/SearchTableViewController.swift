@@ -28,6 +28,9 @@ class SearchTableViewController: UITableViewController {
         guard let scopeTitles = searchController?.searchBar.scopeButtonTitles else {
             return nil
         }
+        if scopeTitles[selectedSegment] == "Any" {
+            return nil
+        }
         return scopeTitles[selectedSegment]
     }
     
@@ -171,7 +174,13 @@ private extension SearchTableViewController {
     }
     
     func fetchRecipesForSearchText(_ searchText: String) {
-        NetworkService.fetchRecipes(.search(for: .complexSearch, matching: searchText, count: Constants.searchCount, type: selectedMealType)) { result in
+        let filterParameters = filterViewController.getFilterParameters()
+        NetworkService.fetchRecipes(.search(
+                                        for: .complexSearch,
+                                        matching: searchText,
+                                        count: Constants.searchCount,
+                                        type: selectedMealType,
+                                        filter: filterParameters)) { result in
             switch result {
             case .success(let data):
                 if let recipes = data.results {

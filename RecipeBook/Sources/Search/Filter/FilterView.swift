@@ -14,15 +14,15 @@ class FilterView: CView {
     }()
     
     let cuisineFieldContainer: UIView = {
-        createTextField(with: "Choose cuisine...", rightView: "chevron.down")
+        createTextField(with: "Select cuisine", rightView: "chevron.down")
     }()
     
-    private let dietsLabel: UILabel = {
-        createLabel(with: "Diets")
+    private let dietLabel: UILabel = {
+        createLabel(with: "Diet")
     }()
     
-    let dietsFieldContainer: UIView = {
-        createTextField(with: "You can add multiple diets..", rightView: "plus.circle")
+    let dietFieldContainer: UIView = {
+        createTextField(with: "Select diet", rightView: "chevron.down")
     }()
     
     private let intolerancesLabel: UILabel = {
@@ -30,21 +30,25 @@ class FilterView: CView {
     }()
     
     let intolerancesContainer: UIView = {
-        createTextField(with: "Add intolerances here...", rightView: "plus.circle")
+        createTextField(with: "You can add multiple intolerances..", rightView: "plus.circle")
     }()
     
-    let pickerView = UIPickerView()
+    let cuisinePicker = UIPickerView()
+    let dietPicker = UIPickerView()
     
     override func setViews() {
         super.setViews()
         addSubview(cuisineLabel)
         addSubview(cuisineFieldContainer)
-        addSubview(dietsLabel)
-        addSubview(dietsFieldContainer)
+        addSubview(dietLabel)
+        addSubview(dietFieldContainer)
         addSubview(intolerancesLabel)
         addSubview(intolerancesContainer)
-        if let textField = cuisineFieldContainer.subviews.first as? UITextField {
-            textField.inputView = pickerView
+        
+        if let cuisineTextField = cuisineFieldContainer.subviews.first as? UITextField,
+           let dietTextField = dietFieldContainer.subviews.first as? UITextField {
+            cuisineTextField.inputView = cuisinePicker
+            dietTextField.inputView = dietPicker
         }
     }
     
@@ -60,18 +64,18 @@ class FilterView: CView {
             cuisineFieldContainer.topAnchor.constraint(equalTo: cuisineLabel.bottomAnchor, constant: 10),
             cuisineFieldContainer.heightAnchor.constraint(equalToConstant: 55),
             
-            dietsLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            dietsLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            dietsLabel.topAnchor.constraint(equalTo: cuisineFieldContainer.bottomAnchor, constant: 20),
+            dietLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            dietLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            dietLabel.topAnchor.constraint(equalTo: cuisineFieldContainer.bottomAnchor, constant: 20),
             
-            dietsFieldContainer.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            dietsFieldContainer.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            dietsFieldContainer.topAnchor.constraint(equalTo: dietsLabel.bottomAnchor, constant: 10),
-            dietsFieldContainer.heightAnchor.constraint(equalToConstant: 50),
+            dietFieldContainer.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            dietFieldContainer.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            dietFieldContainer.topAnchor.constraint(equalTo: dietLabel.bottomAnchor, constant: 10),
+            dietFieldContainer.heightAnchor.constraint(equalToConstant: 50),
             
             intolerancesLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             intolerancesLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            intolerancesLabel.topAnchor.constraint(equalTo: dietsFieldContainer.bottomAnchor, constant: 20),
+            intolerancesLabel.topAnchor.constraint(equalTo: dietFieldContainer.bottomAnchor, constant: 20),
             
             intolerancesContainer.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             intolerancesContainer.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),

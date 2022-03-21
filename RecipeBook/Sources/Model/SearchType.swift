@@ -9,7 +9,7 @@ import Foundation
 
 enum SearchType: String {
     case complexSearch = "/recipes/complexSearch"
+    case random = "/recipes/random"
     case findByNutrients = "/recipes/findByNutrients"
     case findByIngredients = "/recipes/findByIngredients"
-    case random = "/recipes/random"
 }

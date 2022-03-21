@@ -169,9 +169,11 @@
 		F768E20327BA880200F1D61B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F743560827CBA2A2008F8693 /* SearchType.swift */,
+				F7B3BFCB27CD01CD00EEC050 /* NetworkError.swift */,
+				F768E20427BA883300F1D61B /* RecipeModel.swift */,
 				F7940E3427E85BFC000B0CFB /* FilterParameters.swift */,
 				F7B3BFAB27CCCEF700EEC050 /* Endpoint.swift */,
-				F768E20427BA883300F1D61B /* RecipeModel.swift */,
 				F743560327CB9790008F8693 /* NetworkService.swift */,
 				F7CE36FE27CE70F100B30FD9 /* TimeLogic.swift */,
 				F7E374F927CFA9DF00A8835C /* APIKeys.swift */,
@@ -286,8 +288,6 @@
 				F77D676F27B8D79E001F02E9 /* Base */,
 				F77D679927B922A4001F02E9 /* Views */,
 				F7EB749327BA995200F24714 /* Constants.swift */,
-				F743560827CBA2A2008F8693 /* SearchType.swift */,
-				F7B3BFCB27CD01CD00EEC050 /* NetworkError.swift */,
 				F7E374E927CF8FD700A8835C /* ImageType.swift */,
 			);
 			path = Common;

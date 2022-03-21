@@ -17,7 +17,8 @@ extension Endpoint {
                        matching query: String? = nil,
                        count number: Int,
                        tags: [String] = [],
-                       type: String? = nil) -> Endpoint {
+                       type: String? = nil,
+                       filter: FilterParameters? = nil) -> Endpoint {
         var endpoint: Endpoint
         
         // Checking search type passed in with method parameters for initializing the endpoint
@@ -47,11 +48,13 @@ extension Endpoint {
                 path: search.rawValue,
                 queryItems: [
                     URLQueryItem(name: "apiKey", value: APIKeys.spoonacular),
-                    URLQueryItem(name: "query", value: query ?? ""),
+                    URLQueryItem(name: "query", value: query),
                     URLQueryItem(name: "number", value: String(number)),
                     URLQueryItem(name: "instructionsRequired", value: "true"),
                     URLQueryItem(name: "addRecipeInformation", value: "true"),
-                    URLQueryItem(name: "type", value: type)
+                    URLQueryItem(name: "type", value: type),
+                    URLQueryItem(name: "cuisine", value: filter?.cuisine),
+                    URLQueryItem(name: "diet", value: filter?.diet)
                 ]
             )
         default:

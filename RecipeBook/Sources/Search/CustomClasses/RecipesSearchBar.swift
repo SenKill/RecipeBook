@@ -56,7 +56,7 @@ class RecipesSearchBar: UISearchBar {
     
     func setViews() {
         placeholder = "Search recipes here..."
-        scopeButtonTitles = ["Brekfast", "Main course", "Side dish", "Snack"]
+        scopeButtonTitles = ["Any", "Brekfast", "Main course", "Side dish", "Snack"]
         guard let textField = textField else {
             return
         }
