@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F705881C27D4E9AA006394EC /* UIActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F705881B27D4E9AA006394EC /* UIActivityIndicatorView.swift */; };
 		F7090E0727BCBBCF00069D79 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7090E0627BCBBCF00069D79 /* GradientView.swift */; };
+		F713438E27E9B5E600343C44 /* [String].swift in Sources */ = {isa = PBXBuildFile; fileRef = F713438D27E9B5E600343C44 /* [String].swift */; };
 		F72D48AE27C4AE5400792DE3 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72D48AD27C4AE5400792DE3 /* Date.swift */; };
 		F74355F727CB37FB008F8693 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74355F627CB37FB008F8693 /* SearchTableViewCell.swift */; };
 		F743560427CB9790008F8693 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F743560327CB9790008F8693 /* NetworkService.swift */; };
@@ -66,6 +67,7 @@
 /* Begin PBXFileReference section */
 		F705881B27D4E9AA006394EC /* UIActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIActivityIndicatorView.swift; sourceTree = "<group>"; };
 		F7090E0627BCBBCF00069D79 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		F713438D27E9B5E600343C44 /* [String].swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "[String].swift"; sourceTree = "<group>"; };
 		F72D48AD27C4AE5400792DE3 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		F74355F627CB37FB008F8693 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		F743560327CB9790008F8693 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 				F705881B27D4E9AA006394EC /* UIActivityIndicatorView.swift */,
 				F7612D1D27D8F574009D4142 /* UIImage.swift */,
 				F72D48AD27C4AE5400792DE3 /* Date.swift */,
+				F713438D27E9B5E600343C44 /* [String].swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 				F7F6FD2E27E21AEE000C70DC /* FilterView.swift in Sources */,
 				F74355F727CB37FB008F8693 /* SearchTableViewCell.swift in Sources */,
 				F7E374FA27CFA9E000A8835C /* APIKeys.swift in Sources */,
+				F713438E27E9B5E600343C44 /* [String].swift in Sources */,
 				F768E1FF27BA84CA00F1D61B /* MealCollectionView.swift in Sources */,
 				F7F417F727D39C40003654E2 /* RecipesCollectionViewController.swift in Sources */,
 				F7D341F127DA259C00EDAB1D /* RecipesSearchBar.swift in Sources */,

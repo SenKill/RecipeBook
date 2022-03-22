@@ -49,7 +49,7 @@ extension HomeViewController {
     }
     
     private func fetchData() {
-        NetworkService.fetchRecipes(.search(for: .random, count: Constants.mealCount, tags: [meal])) { result in
+        NetworkService.fetchRecipes(.randomSearch(number: Constants.mealCount, tags: [meal])) { result in
             switch result {
             case .success(let data):
                 if let recipes = data.recipes {
@@ -64,7 +64,7 @@ extension HomeViewController {
             }
         }
         
-        NetworkService.fetchRecipes(.search(for: .random, count: Constants.popularCount, tags: [])) { result in
+        NetworkService.fetchRecipes(.randomSearch(number: Constants.popularCount)) { result in
             switch result {
             case .success(let data):
                 if let recipes = data.recipes {

@@ -14,7 +14,7 @@ enum NetworkError: LocalizedError {
 }
 
 extension NetworkError {
-    var errorDescription: String {
+    var localizedDescription: String {
         switch self {
         case .wrongUrl:
             return NSLocalizedString("Invalid url was entered", comment: "")

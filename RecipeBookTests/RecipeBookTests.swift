@@ -9,7 +9,6 @@ import XCTest
 @testable import RecipeBook
 
 class RecipeDataTests: XCTestCase {
-    
     var testableData: RecipeModel?
     var error: (Error?)
     
@@ -18,7 +17,7 @@ class RecipeDataTests: XCTestCase {
         // Initializing data for testing methods below
         let expectation = self.expectation(description: "GettingRecipes")
         
-        NetworkService.fetchRecipes(.search(for: .random, count: 10, tags: [])) { result in
+        NetworkService.fetchRecipes(.randomSearch(number: 10)) { result in
             switch result {
             case .success(let data):
                 self.testableData = data
@@ -51,7 +50,7 @@ class RandomRecipeTests: XCTestCase {
     func testFetchRandomBreakfastRecipe() {
         let expectation = self.expectation(description: "FetchingRecipeTag")
         
-        NetworkService.fetchRecipes(.search(for: .random, count: 5, tags: ["Breakfast"])) { (result) in
+        NetworkService.fetchRecipes(.randomSearch(number: 5, tags: ["Breakfast"])) { (result) in
             switch result {
             case .success(let data):
                 for recipe in data.recipes! {
@@ -73,7 +72,7 @@ class RandomRecipeTests: XCTestCase {
         var popularData: RecipeModel?
         
         group.enter()
-        NetworkService.fetchRecipes(.search(for: .random, count: 3, tags: [])) { result in
+        NetworkService.fetchRecipes(.randomSearch(number: 3)) { result in
             switch result {
             case .success(let data):
                 mealData = data
@@ -85,7 +84,7 @@ class RandomRecipeTests: XCTestCase {
         }
         
         group.enter()
-        NetworkService.fetchRecipes(.search(for: .random, count: 3, tags: ["Dinner"])) { result in
+        NetworkService.fetchRecipes(.randomSearch(number: 3, tags: ["Dinner"])) { result in
             switch result {
             case .success(let data):
                 popularData = data
@@ -107,8 +106,9 @@ class RandomRecipeTests: XCTestCase {
 class ComplexSearchTests: XCTestCase {
     func testComplexRecipeModel() {
         let expectatiton = expectation(description: "FetchingLasagna")
+        let filter = FilterParameters(cuisine: nil, diet: nil, type: nil, intolerances: [])
         
-        NetworkService.fetchRecipes(.search(for: .complexSearch, matching: "Lasagna", count: 3, tags: [])) { result in
+        NetworkService.fetchRecipes(.searchWithFilter(filter, query: "Lasagna", number: 3)) { result in
             switch result {
             case .success(let data):
                 XCTAssertNotNil(data, "Data should appear")
@@ -122,16 +122,31 @@ class ComplexSearchTests: XCTestCase {
         
         waitForExpectations(timeout: 3, handler: nil)
     }
+    
+    func testComplexSearchWithFilters() {
+        let expecation = expectation(description: "FetchingWithFilters")
+        let filter = FilterParameters(cuisine: "German", diet: nil, type: "Main course", intolerances: ["Soy"])
+        
+        NetworkService.fetchRecipes(.searchWithFilter(filter, query: "", number: 5)) { result in
+            switch result {
+            case .success(let data):
+                XCTAssertEqual(data.results?.count, 5)
+                expecation.fulfill()
+            case .failure(let error):
+                XCTFail("Error: \(error.localizedDescription)")
+                expecation.fulfill()
+            }
+        }
+        
+        waitForExpectations(timeout: 3, handler: nil)
+    }
 }
 
 class ImageTests: XCTestCase {
     func testFetchRecipeImage() {
-        
         let expectation = self.expectation(description: "FetchingImage")
         
-        NetworkService.fetchImage(for: .recipe,
-                                  from: "https://spoonacular.com/recipeImages/631890-556x370.jpg",
-                                  size: nil) { (result) in
+        NetworkService.fetchImage(for: .recipe, from: "https://spoonacular.com/recipeImages/631890-556x370.jpg", size: nil) { (result) in
             switch result {
             case .success:
                 XCTAssert(true)

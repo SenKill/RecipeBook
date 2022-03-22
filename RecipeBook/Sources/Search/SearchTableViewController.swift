@@ -158,7 +158,7 @@ private extension SearchTableViewController {
     }
     
     func fetchRandomRecipes() {
-        NetworkService.fetchRecipes(.search(for: .random, count: Constants.searchDefaultCount)) { result in
+        NetworkService.fetchRecipes(.randomSearch(number: Constants.searchDefaultCount)) { result in
             switch result {
             case .success(let data):
                 if let recipes = data.recipes {
@@ -174,13 +174,10 @@ private extension SearchTableViewController {
     }
     
     func fetchRecipesForSearchText(_ searchText: String) {
-        let filterParameters = filterViewController.getFilterParameters()
-        NetworkService.fetchRecipes(.search(
-                                        for: .complexSearch,
-                                        matching: searchText,
-                                        count: Constants.searchCount,
-                                        type: selectedMealType,
-                                        filter: filterParameters)) { result in
+        var filterParameters = filterViewController.getFilterParameters()
+        filterParameters.type = selectedMealType
+        
+        NetworkService.fetchRecipes(.searchWithFilter(filterParameters, query: searchText, number: Constants.searchCount)) { result in
             switch result {
             case .success(let data):
                 if let recipes = data.results {
