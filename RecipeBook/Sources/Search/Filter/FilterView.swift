@@ -30,7 +30,7 @@ class FilterView: CView {
         createLabel(with: "Intolerances")
     }()
     
-    let intolerances: TagListView = {
+    let intolerancesView: TagListView = {
         let tagList = TagListView()
         // Change properties here
         tagList.textFont = UIFont.preferredFont(forTextStyle: .body)
@@ -58,6 +58,48 @@ class FilterView: CView {
     let cuisinePicker = UIPickerView()
     let dietPicker = UIPickerView()
     
+    private let caloriesLabel: UILabel = {
+        createLabel(with: "Calories")
+    }()
+    
+    let caloriesSlider: UISlider = {
+        let slider = UISlider()
+        slider.minimumValue = 0
+        slider.maximumValue = 2500
+        slider.tintColor = .systemGreen
+        slider.minimumValueImage = UIImage(systemName: "flame")
+        slider.maximumValueImage = UIImage(systemName: "flame.fill")
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        return slider
+    }()
+    
+    private let leftCaloriesLabel: UILabel = {
+        let label = UILabel()
+        label.text = "0"
+        label.textColor = .secondaryLabel
+        label.font = UIFont.preferredFont(forTextStyle: .footnote)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let rightCaloriesLabel: UILabel = {
+        let label = UILabel()
+        label.text = "2500"
+        label.textColor = .secondaryLabel
+        label.font = UIFont.preferredFont(forTextStyle: .footnote)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let currentCalories: UILabel = {
+        let label = UILabel()
+        label.text = "Max calories: 0"
+        label.textColor = UIColor.theme.primaryText
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     override func setViews() {
         super.setViews()
         addSubview(cuisineLabel)
@@ -65,7 +107,12 @@ class FilterView: CView {
         addSubview(dietLabel)
         addSubview(dietFieldContainer)
         addSubview(intolerancesLabel)
-        addSubview(intolerances)
+        addSubview(intolerancesView)
+        addSubview(caloriesLabel)
+        addSubview(caloriesSlider)
+        addSubview(leftCaloriesLabel)
+        addSubview(rightCaloriesLabel)
+        addSubview(currentCalories)
         
         if let cuisineTextField = cuisineFieldContainer.subviews.first as? FilterTextField,
            let dietTextField = dietFieldContainer.subviews.first as? FilterTextField {
@@ -99,9 +146,26 @@ class FilterView: CView {
             intolerancesLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             intolerancesLabel.topAnchor.constraint(equalTo: dietFieldContainer.bottomAnchor, constant: 25),
             
-            intolerances.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            intolerances.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            intolerances.topAnchor.constraint(equalTo: intolerancesLabel.bottomAnchor, constant: 10),
+            intolerancesView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            intolerancesView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            intolerancesView.topAnchor.constraint(equalTo: intolerancesLabel.bottomAnchor, constant: 10),
+            
+            caloriesLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            caloriesLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            caloriesLabel.topAnchor.constraint(equalTo: intolerancesView.bottomAnchor, constant: 25),
+            
+            caloriesSlider.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            caloriesSlider.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            caloriesSlider.topAnchor.constraint(equalTo: caloriesLabel.bottomAnchor, constant: 10),
+            
+            leftCaloriesLabel.leadingAnchor.constraint(equalTo: caloriesSlider.leadingAnchor),
+            leftCaloriesLabel.topAnchor.constraint(equalTo: caloriesSlider.bottomAnchor, constant: 3),
+            
+            rightCaloriesLabel.trailingAnchor.constraint(equalTo: caloriesSlider.trailingAnchor),
+            rightCaloriesLabel.topAnchor.constraint(equalTo: caloriesSlider.bottomAnchor, constant: 3),
+            
+            currentCalories.trailingAnchor.constraint(equalTo: caloriesSlider.trailingAnchor),
+            currentCalories.bottomAnchor.constraint(equalTo: caloriesSlider.topAnchor, constant: -3)
         ])
     }
 }

@@ -31,7 +31,7 @@ struct Recipe: Codable {
     let license: String?
     let sourceName: String?
     let pricePerServing: Float
-    let extendedIngredients: [Ingridient]?
+    let extendedIngredients: [Ingredient]?
     let id: Int
     let title: String
     let readyInMinutes: Int
@@ -39,6 +39,7 @@ struct Recipe: Codable {
     let sourceUrl: String
     let image: String?
     let imageType: String?
+    let nutrition: Nutrition?
     let summary: String
     let cuisines: [String]
     let dishTypes: [String]
@@ -49,7 +50,7 @@ struct Recipe: Codable {
     let spoonacularSourceUrl: String?
 }
 
-struct Ingridient: Codable {
+struct Ingredient: Codable {
     let id: Int?
     let aisle: String?
     let image: String?
@@ -83,7 +84,7 @@ struct Instruction: Codable {
 struct InstuctionStep: Codable {
     let number: Int
     let step: String
-    let ingredients: [Ingridient]
+    let ingredients: [Ingredient]
     let equipment: [Equipment]
     let length: Length?
 }
@@ -97,5 +98,40 @@ struct Equipment: Codable {
 
 struct Length: Codable {
     let number: Int
+    let unit: String
+}
+
+struct Nutrition: Codable {
+    let nutrients: [Nutrient]
+    let properties: [Nutrient]
+    let flavonoids: [Nutrient]
+    let ingredients: [Ingredient]
+    let caloricBreakdown: CaloricBreakdown
+    let weightPerServing: Weight
+}
+
+struct Nutrient: Codable {
+    let name: String
+    let amount: Float
+    let unit: String
+    let percentOfDailyNeeds: Float?
+}
+
+struct NutritionIngredient: Codable {
+    let id: Int
+    let name: String
+    let amount: Float
+    let unit: String
+    let nutrients: [Nutrient]
+}
+
+struct CaloricBreakdown: Codable {
+    let percentProtein: Float
+    let percentFat: Float
+    let percentCarbs: Float
+}
+
+struct Weight: Codable {
+    let amount: Int
     let unit: String
 }

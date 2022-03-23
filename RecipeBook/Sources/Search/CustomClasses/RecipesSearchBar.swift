@@ -64,8 +64,7 @@ class RecipesSearchBar: UISearchBar {
         textField.leftView?.tintColor = .systemGreen
         textField.layer.shadowOffset = CGSize(width: 0, height: 4)
         textField.layer.shadowOpacity = 0.25
-        textField.textColor = UIColor.theme.primaryText
-        
+        searchTextField.textColor = UIColor.theme.primaryText
         let textFieldBackground = textField.subviews.first
         // Allows to change searchTextField's background color
         textFieldBackground?.subviews.forEach({ $0.removeFromSuperview() })

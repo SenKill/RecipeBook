@@ -26,6 +26,7 @@ extension Endpoint {
     }
     
     static func searchWithFilter(_ filter: FilterParameters, query: String, number: Int) -> Endpoint {
+        let maxCalories: String? = filter.maxCalories != nil ? String(filter.maxCalories!) : nil
         let endpoint = Endpoint(
             path: SearchType.complexSearch.rawValue,
             queryItems: [
@@ -33,11 +34,12 @@ extension Endpoint {
                 URLQueryItem(name: "query", value: query),
                 URLQueryItem(name: "number", value: String(number)),
                 URLQueryItem(name: "instructionsRequired", value: "true"),
-                URLQueryItem(name: "addRecipeInformation", value: "true"),
+                URLQueryItem(name: "addRecipeNutrition", value: "true"),
                 URLQueryItem(name: "type", value: filter.type),
                 URLQueryItem(name: "cuisine", value: filter.cuisine),
                 URLQueryItem(name: "diet", value: filter.diet),
-                URLQueryItem(name: "intolerances", value: filter.intolerances.convertStringArrayToString())
+                URLQueryItem(name: "intolerances", value: filter.intolerances.convertStringArrayToString()),
+                URLQueryItem(name: "maxCalories", value: maxCalories)
             ]
         )
         return endpoint

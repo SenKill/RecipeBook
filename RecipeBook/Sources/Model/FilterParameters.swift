@@ -11,14 +11,15 @@ struct FilterParameters {
     var cuisine: String?
     var diet: String?
     var type: String?
-    var query: String?
     var intolerances: [String]
+    var maxCalories: Int?
     
-    init(cuisine: String?, diet: String?, type: String?, intolerances: [String]) {
+    init(cuisine: String?, diet: String?, type: String?, intolerances: [String], maxCalories: Int?) {
         self.cuisine = cuisine
         self.diet = diet
         self.type = type
         self.intolerances = intolerances
+        self.maxCalories = maxCalories
     }
     
     init() {
@@ -26,5 +27,6 @@ struct FilterParameters {
         diet = nil
         type = nil
         intolerances = []
+        maxCalories = nil
     }
 }

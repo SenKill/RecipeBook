@@ -42,21 +42,31 @@ class FilterViewController: CViewController<FilterView> {
         customView.dietPicker.dataSource = self
         customView.dietPicker.delegate = self
         
-        customView.intolerances.delegate = self
+        customView.intolerancesView.delegate = self
+        customView.caloriesSlider.addTarget(self, action: #selector(sliderDidChanged(_:)), for: .valueChanged)
+        
+        // Removing picker view if user taps on empty screen
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapOnScreen))
+        customView.addGestureRecognizer(tapRecognizer)
     }
     
     func getFilterParameters() -> FilterParameters {
         parameters.intolerances = []
-        for intolerance in customView.intolerances.selectedTags() {
+        for intolerance in customView.intolerancesView.selectedTags() {
             if let title = intolerance.currentTitle {
                 parameters.intolerances.append(title)
             }
         }
-        print(parameters.intolerances)
+        
+        let maxCalories: Int = Int(customView.caloriesSlider.value)
+        // Prevents searching with max calories filter set to 0
+        parameters.maxCalories = maxCalories == 0 ? 100000 : maxCalories
+        
         return parameters
     }
 }
 
+// MARK: - UIPickerViewDataSource
 extension FilterViewController: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         1
@@ -77,6 +87,7 @@ extension FilterViewController: UIPickerViewDataSource {
     }
 }
 
+// MARK: - UIPickerViewDelegate
 extension FilterViewController: UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -104,8 +115,28 @@ extension FilterViewController: UIPickerViewDelegate {
     }
 }
 
+// MARK: - TagListViewDelegate
 extension FilterViewController: TagListViewDelegate {
     func tagPressed(_ title: String, tagView: TagView, sender: TagListView) {
         tagView.isSelected.toggle()
+    }
+}
+
+// MARK: - Internal
+private extension FilterViewController {
+    @objc func didTapOnScreen() {
+        guard let cuisineTextField = customView.cuisineFieldContainer.subviews.first as? UITextField,
+              let dietTextField = customView.dietFieldContainer.subviews.first as? UITextField else {
+            return
+        }
+        if cuisineTextField.isEditing {
+            cuisineTextField.resignFirstResponder()
+        } else if dietTextField.isEditing {
+            dietTextField.resignFirstResponder()
+        }
+    }
+    
+    @objc func sliderDidChanged(_ slider: UISlider) {
+        customView.currentCalories.text = "Max calories: \(Int(slider.value))"
     }
 }
