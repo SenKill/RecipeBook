@@ -16,5 +16,9 @@ class ColorTheme {
     let background = UIColor(named: "BackgroundColor")!
     let gradientBackgroundFirst = UIColor(named: "GradientColorFirst")!
     let gradientBackgroundSecond = UIColor(named: "GradientColorSecond")!
+    let tagViewBackground = UIColor(named: "TagViewBackground")!
+    let tagViewBackgroundSelected = UIColor(named: "TagViewBackgroundSelected")!
+    
+    let primaryText = UIColor(named: "PrimaryTextColor")!
     let secondaryText = UIColor(named: "SecondaryTextColor")!
 }

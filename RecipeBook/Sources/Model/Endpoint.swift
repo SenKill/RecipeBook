@@ -36,7 +36,8 @@ extension Endpoint {
                 URLQueryItem(name: "addRecipeInformation", value: "true"),
                 URLQueryItem(name: "type", value: filter.type),
                 URLQueryItem(name: "cuisine", value: filter.cuisine),
-                URLQueryItem(name: "diet", value: filter.diet)
+                URLQueryItem(name: "diet", value: filter.diet),
+                URLQueryItem(name: "intolerances", value: filter.intolerances.convertStringArrayToString())
             ]
         )
         return endpoint

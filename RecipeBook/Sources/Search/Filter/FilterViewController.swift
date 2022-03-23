@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import TagListView
 
 class FilterViewController: CViewController<FilterView> {
     
@@ -40,10 +41,19 @@ class FilterViewController: CViewController<FilterView> {
         
         customView.dietPicker.dataSource = self
         customView.dietPicker.delegate = self
+        
+        customView.intolerances.delegate = self
     }
     
     func getFilterParameters() -> FilterParameters {
-        parameters
+        parameters.intolerances = []
+        for intolerance in customView.intolerances.selectedTags() {
+            if let title = intolerance.currentTitle {
+                parameters.intolerances.append(title)
+            }
+        }
+        print(parameters.intolerances)
+        return parameters
     }
 }
 
@@ -71,7 +81,7 @@ extension FilterViewController: UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == customView.cuisinePicker {
-            if let textField = customView.cuisineFieldContainer.subviews.first as? UITextField {
+            if let textField = customView.cuisineFieldContainer.subviews.first as? FilterTextField {
                 if cuisines[row] == "Any" {
                     textField.text = cuisines[row]
                     parameters.cuisine = nil
@@ -81,7 +91,7 @@ extension FilterViewController: UIPickerViewDelegate {
                 }
             }
         } else {
-            if let textField = customView.dietFieldContainer.subviews.first as? UITextField {
+            if let textField = customView.dietFieldContainer.subviews.first as? FilterTextField {
                 if diets[row] == "None" {
                     textField.text = diets[row]
                     parameters.diet = nil
@@ -91,5 +101,12 @@ extension FilterViewController: UIPickerViewDelegate {
                 }
             }
         }
+    }
+}
+
+extension FilterViewController: TagListViewDelegate {
+    func tagPressed(_ title: String, tagView: TagView, sender: TagListView) {
+        print("Pressed tag: \(title)")
+        tagView.isSelected.toggle()
     }
 }

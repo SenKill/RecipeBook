@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import TagListView
 
 class FilterView: CView {
     private let cuisineLabel: UILabel = {
@@ -14,7 +15,7 @@ class FilterView: CView {
     }()
     
     let cuisineFieldContainer: UIView = {
-        createTextField(with: "Select cuisine", rightView: "chevron.down")
+        createTextField(with: "Select cuisine", rightView: "chevron.down", editable: false)
     }()
     
     private let dietLabel: UILabel = {
@@ -22,15 +23,36 @@ class FilterView: CView {
     }()
     
     let dietFieldContainer: UIView = {
-        createTextField(with: "Select diet", rightView: "chevron.down")
+        createTextField(with: "Select diet", rightView: "chevron.down", editable: false)
     }()
     
     private let intolerancesLabel: UILabel = {
         createLabel(with: "Intolerances")
     }()
     
-    let intolerancesContainer: UIView = {
-        createTextField(with: "You can add multiple intolerances..", rightView: "plus.circle")
+    let intolerances: TagListView = {
+        let tagList = TagListView()
+        // Change properties here
+        tagList.textFont = UIFont.preferredFont(forTextStyle: .body)
+        
+        tagList.tagBackgroundColor = UIColor.theme.tagViewBackground
+        tagList.tagSelectedBackgroundColor = UIColor.theme.tagViewBackgroundSelected
+        tagList.textColor = UIColor.systemGray
+        tagList.selectedTextColor = UIColor.secondaryLabel
+        
+        tagList.paddingX = 8
+        tagList.paddingY = 8
+        tagList.alignment = .leading
+        
+        tagList.addTags(["Dairy","Egg","Gluten","Grain","Peanut",
+                         "Seafood","Sesame","Shellfish","Soy",
+                         "Sulfite","Tree Nut","Wheat"])
+        
+        for tag in tagList.tagViews {
+            tag.layer.cornerRadius = 5
+        }
+        tagList.translatesAutoresizingMaskIntoConstraints = false
+        return tagList
     }()
     
     let cuisinePicker = UIPickerView()
@@ -43,10 +65,10 @@ class FilterView: CView {
         addSubview(dietLabel)
         addSubview(dietFieldContainer)
         addSubview(intolerancesLabel)
-        addSubview(intolerancesContainer)
+        addSubview(intolerances)
         
-        if let cuisineTextField = cuisineFieldContainer.subviews.first as? UITextField,
-           let dietTextField = dietFieldContainer.subviews.first as? UITextField {
+        if let cuisineTextField = cuisineFieldContainer.subviews.first as? FilterTextField,
+           let dietTextField = dietFieldContainer.subviews.first as? FilterTextField {
             cuisineTextField.inputView = cuisinePicker
             dietTextField.inputView = dietPicker
         }
@@ -57,7 +79,7 @@ class FilterView: CView {
         NSLayoutConstraint.activate([
             cuisineLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             cuisineLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            cuisineLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
+            cuisineLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 25),
             
             cuisineFieldContainer.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             cuisineFieldContainer.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
@@ -66,7 +88,7 @@ class FilterView: CView {
             
             dietLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             dietLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            dietLabel.topAnchor.constraint(equalTo: cuisineFieldContainer.bottomAnchor, constant: 20),
+            dietLabel.topAnchor.constraint(equalTo: cuisineFieldContainer.bottomAnchor, constant: 25),
             
             dietFieldContainer.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             dietFieldContainer.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
@@ -75,12 +97,11 @@ class FilterView: CView {
             
             intolerancesLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             intolerancesLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            intolerancesLabel.topAnchor.constraint(equalTo: dietFieldContainer.bottomAnchor, constant: 20),
+            intolerancesLabel.topAnchor.constraint(equalTo: dietFieldContainer.bottomAnchor, constant: 25),
             
-            intolerancesContainer.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            intolerancesContainer.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            intolerancesContainer.topAnchor.constraint(equalTo: intolerancesLabel.bottomAnchor, constant: 10),
-            intolerancesContainer.heightAnchor.constraint(equalToConstant: 55),
+            intolerances.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            intolerances.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            intolerances.topAnchor.constraint(equalTo: intolerancesLabel.bottomAnchor, constant: 10),
         ])
     }
 }
@@ -88,13 +109,13 @@ class FilterView: CView {
 // Private support functions
 private extension FilterView {
     // Created to avoid code duplication
-    static func createTextField(with placeholder: String?, rightView: String) -> UIView {
+    static func createTextField(with placeholder: String?, rightView: String, editable: Bool) -> UIView {
         let container = UIView()
         container.backgroundColor = .white
         container.layer.cornerRadius = 10
         container.translatesAutoresizingMaskIntoConstraints = false
         
-        let textField = UITextField()
+        let textField = editable ? UITextField() : FilterTextField()
         textField.rightView = UIImageView(image: UIImage(systemName: rightView))
         textField.rightViewMode = .always
         textField.placeholder = placeholder

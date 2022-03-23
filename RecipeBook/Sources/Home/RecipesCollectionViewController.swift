@@ -63,7 +63,7 @@ extension RecipesCollectionViewController: UICollectionViewDataSource {
                     }
                 case .failure(let error):
                     if let error = error as? NetworkError {
-                        print("Fetching image error: \(error.errorDescription)")
+                        print("Fetching image error: \(error.errorDescription ?? "nil")")
                     } else {
                         print("Fetching image error: \(error.localizedDescription)")
                     }
