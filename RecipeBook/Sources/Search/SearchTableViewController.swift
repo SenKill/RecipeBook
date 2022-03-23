@@ -41,7 +41,7 @@ class SearchTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // fetchRandomRecipes()
+        fetchRandomRecipes()
         configureSearchController()
         configureFilterViewController()
         definesPresentationContext = true

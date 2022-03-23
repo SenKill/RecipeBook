@@ -38,7 +38,7 @@ class FilterView: CView {
         tagList.tagBackgroundColor = UIColor.theme.tagViewBackground
         tagList.tagSelectedBackgroundColor = UIColor.theme.tagViewBackgroundSelected
         tagList.textColor = UIColor.systemGray
-        tagList.selectedTextColor = UIColor.secondaryLabel
+        tagList.selectedTextColor = UIColor.theme.primaryText
         
         tagList.paddingX = 8
         tagList.paddingY = 8
@@ -119,8 +119,9 @@ private extension FilterView {
         textField.rightView = UIImageView(image: UIImage(systemName: rightView))
         textField.rightViewMode = .always
         textField.placeholder = placeholder
-        textField.rightView?.tintColor = .black
+        textField.rightView?.tintColor = UIColor.theme.primaryText
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.textColor = UIColor.theme.primaryText
         
         container.addSubview(textField)
         

@@ -106,7 +106,6 @@ extension FilterViewController: UIPickerViewDelegate {
 
 extension FilterViewController: TagListViewDelegate {
     func tagPressed(_ title: String, tagView: TagView, sender: TagListView) {
-        print("Pressed tag: \(title)")
         tagView.isSelected.toggle()
     }
 }

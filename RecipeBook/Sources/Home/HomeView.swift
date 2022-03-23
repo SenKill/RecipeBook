@@ -63,6 +63,7 @@ class HomeView: CView {
     private let popularLabel: UILabel = {
         let label = UILabel()
         label.text = "Popular"
+        label.textColor = UIColor.theme.primaryText
         label.font = UIFont.systemFont(ofSize: 27, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

@@ -33,6 +33,7 @@ class MealCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         label.text = "Loading..."
+        label.textColor = UIColor.theme.primaryText
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -40,7 +41,7 @@ class MealCollectionViewCell: UICollectionViewCell {
     private let authorNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 10)
-        label.textColor = UIColor.theme.secondaryText
+        label.textColor = UIColor.secondaryLabel
         label.text = "by: "
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

@@ -25,6 +25,7 @@ class PopularCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .headline)
         label.numberOfLines = 2
+        label.textColor = UIColor.theme.primaryText
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -32,6 +33,7 @@ class PopularCollectionViewCell: UICollectionViewCell {
     private let authorNameLabel: UILabel = {
        let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        label.textColor = UIColor.secondaryLabel
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -47,6 +49,7 @@ class PopularCollectionViewCell: UICollectionViewCell {
     private let prepTimeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .footnote)
+        label.textColor = UIColor.theme.primaryText
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -62,6 +65,7 @@ class PopularCollectionViewCell: UICollectionViewCell {
     private let servingsLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .footnote)
+        label.textColor = UIColor.theme.primaryText
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

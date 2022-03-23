@@ -25,6 +25,7 @@ class SearchTableViewCell: UITableViewCell {
         let label = UILabel()
         label.numberOfLines = 2
         label.font = UIFont.preferredFont(forTextStyle: .title3)
+        label.textColor = UIColor.theme.primaryText
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
