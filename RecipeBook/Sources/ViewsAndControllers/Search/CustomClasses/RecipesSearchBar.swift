@@ -78,11 +78,11 @@ class RecipesSearchBar: UISearchBar {
         }
         
         NSLayoutConstraint.activate([
-            textField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            textField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.leftDistance),
             textField.trailingAnchor.constraint(equalTo: filterButton.leadingAnchor, constant: -15),
             textField.topAnchor.constraint(equalTo: topAnchor, constant: 5),
             
-            filterButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            filterButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.rightDistance),
             filterButton.topAnchor.constraint(equalTo: textField.topAnchor),
             filterButton.bottomAnchor.constraint(equalTo: textField.bottomAnchor),
             filterButton.widthAnchor.constraint(equalTo: filterButton.heightAnchor),

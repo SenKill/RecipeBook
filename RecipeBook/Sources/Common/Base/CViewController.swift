@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 // MARK: - CustomViewController
-
 class CViewController<V: CView>: UIViewController {
     
     override func loadView() {

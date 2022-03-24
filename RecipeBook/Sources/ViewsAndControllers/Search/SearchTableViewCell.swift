@@ -71,21 +71,21 @@ class SearchTableViewCell: UITableViewCell {
         
         // TODO: Change constraints from constant to flexible
         NSLayoutConstraint.activate([
-            mainImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            mainImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.leftDistance),
             mainImageView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             mainImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
             mainImageView.widthAnchor.constraint(equalTo: mainImageView.heightAnchor),
             
             recipeNameLabel.leadingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: 15),
-            recipeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            recipeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.rightDistance),
             recipeNameLabel.topAnchor.constraint(equalTo: mainImageView.topAnchor, constant: 3),
             
             infoLabel.leadingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: 15),
-            infoLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            infoLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.rightDistance),
             infoLabel.topAnchor.constraint(equalTo: recipeNameLabel.bottomAnchor, constant: 10),
             
             authorLabel.leadingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: 15),
-            authorLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            authorLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.rightDistance),
             authorLabel.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 10)
         ])
     }

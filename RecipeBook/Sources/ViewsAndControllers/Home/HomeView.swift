@@ -12,8 +12,6 @@ class HomeView: CView {
     let mealCollectionView = MealCollectionView()
     let popularCollectionView = PopularCollectionView()
     
-    // TODO: Change label's text
-    
     private let scrollView: UIScrollView = {
         let view = UIScrollView()
         view.showsVerticalScrollIndicator = false

@@ -12,8 +12,8 @@ class HomeViewController: CViewController<HomeView> {
     private var meal: String = ""
     private var welcomingText: String = ""
     
-    private let mealVC = RecipesCollectionViewController()
-    private let popularVC = RecipesCollectionViewController()
+    private var mealVC: RecipesCollectionViewController!
+    private var popularVC: RecipesCollectionViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,10 +31,12 @@ class HomeViewController: CViewController<HomeView> {
 
 
 // MARK: - Internal
-
-extension HomeViewController {
+private extension HomeViewController {
     
-    private func addChildVCs() {
+    func addChildVCs() {
+        mealVC = RecipesCollectionViewController()
+        popularVC = RecipesCollectionViewController()
+        
         customView.mealCollectionView.delegate = mealVC
         customView.mealCollectionView.dataSource = mealVC
         
@@ -48,38 +50,38 @@ extension HomeViewController {
         popularVC.didMove(toParent: self)
     }
     
-    private func fetchData() {
+    func fetchData() {
         NetworkService.fetchRecipes(.randomSearch(number: Constants.mealCount, tags: [meal])) { result in
-            switch result {
-            case .success(let data):
-                if let recipes = data.recipes {
-                    DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let data):
+                    if let recipes = data.recipes {
                         self.mealVC.recipes = recipes
                         self.customView.mealCollectionView.reloadData()
                     }
+                case .failure(let error):
+                    let alert = UIAlertController.errorAlert(title: "Meal recipes loading failure", message: error.localizedDescription)
+                    self.present(alert, animated: true, completion: nil)
                 }
-            case .failure(let error):
-                // TODO: Handle error better
-                print("Meal data loading failure: \(error.localizedDescription)")
             }
         }
         
         NetworkService.fetchRecipes(.randomSearch(number: Constants.popularCount)) { result in
-            switch result {
-            case .success(let data):
-                if let recipes = data.recipes {
-                    DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let data):
+                    if let recipes = data.recipes {
                         self.popularVC.recipes = recipes
                         self.customView.popularCollectionView.reloadData()
                     }
+                case .failure(let error):
+                    let alert = UIAlertController.errorAlert(title: "Popular recipes loading failure", message: error.localizedDescription)
+                    self.present(alert, animated: true, completion: nil)
                 }
-            case .failure(let error):
-                print("Popular data loading failure: \(error.localizedDescription)")
             }
         }
     }
-    
-    private func assignLabelTexts() {
+    func assignLabelTexts() {
         guard let hours = Date.getHoursOnly() else {
             print("ERROR: Date hours is nil")
             return
@@ -90,3 +92,4 @@ extension HomeViewController {
         meal = labelTexts[1]
     }
 }
+

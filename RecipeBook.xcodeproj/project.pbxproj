@@ -10,6 +10,7 @@
 		78930F0425DE9B0FC818FCB6 /* Pods_RecipeBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 923CC8623C323F50B9DACB46 /* Pods_RecipeBook.framework */; };
 		9174978D2FC2953EF6F7E71B /* Pods_RecipeBookTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4859D0A8A88FFF79BF583E1 /* Pods_RecipeBookTests.framework */; };
 		D7573356C81C83DBE43DBCC6 /* Pods_RecipeBook_RecipeBookUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8F261225B5C037731FB6E54 /* Pods_RecipeBook_RecipeBookUITests.framework */; };
+		F703C95F27ECE13200B8048E /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F703C95E27ECE13200B8048E /* UIAlertController.swift */; };
 		F705881C27D4E9AA006394EC /* UIActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F705881B27D4E9AA006394EC /* UIActivityIndicatorView.swift */; };
 		F7090E0727BCBBCF00069D79 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7090E0627BCBBCF00069D79 /* GradientView.swift */; };
 		F713438E27E9B5E600343C44 /* [String].swift in Sources */ = {isa = PBXBuildFile; fileRef = F713438D27E9B5E600343C44 /* [String].swift */; };
@@ -78,6 +79,7 @@
 		989C6B1DA316840BA45B4B4F /* Pods-RecipeBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecipeBook.release.xcconfig"; path = "Target Support Files/Pods-RecipeBook/Pods-RecipeBook.release.xcconfig"; sourceTree = "<group>"; };
 		D8F261225B5C037731FB6E54 /* Pods_RecipeBook_RecipeBookUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RecipeBook_RecipeBookUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4859D0A8A88FFF79BF583E1 /* Pods_RecipeBookTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RecipeBookTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F703C95E27ECE13200B8048E /* UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
 		F705881B27D4E9AA006394EC /* UIActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIActivityIndicatorView.swift; sourceTree = "<group>"; };
 		F7090E0627BCBBCF00069D79 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		F713438D27E9B5E600343C44 /* [String].swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "[String].swift"; sourceTree = "<group>"; };
@@ -176,6 +178,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F703C95427ECD58800B8048E /* ViewsAndControllers */ = {
+			isa = PBXGroup;
+			children = (
+				F77D677D27B8E625001F02E9 /* Home */,
+				F72D489727C49DE100792DE3 /* Search */,
+			);
+			path = ViewsAndControllers;
+			sourceTree = "<group>";
+		};
 		F7090E1127BCC3C100069D79 /* PopularCollection */ = {
 			isa = PBXGroup;
 			children = (
@@ -205,6 +216,7 @@
 				F7612D1D27D8F574009D4142 /* UIImage.swift */,
 				F72D48AD27C4AE5400792DE3 /* Date.swift */,
 				F713438D27E9B5E600343C44 /* [String].swift */,
+				F703C95E27ECE13200B8048E /* UIAlertController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -310,8 +322,7 @@
 				F77D673827B8D576001F02E9 /* SceneDelegate.swift */,
 				F768E1DA27BA113000F1D61B /* Extensions */,
 				F77D679827B9229E001F02E9 /* Common */,
-				F77D677D27B8E625001F02E9 /* Home */,
-				F72D489727C49DE100792DE3 /* Search */,
+				F703C95427ECD58800B8048E /* ViewsAndControllers */,
 				F768E20327BA880200F1D61B /* Model */,
 			);
 			path = Sources;
@@ -613,6 +624,7 @@
 				F768E1E427BA115700F1D61B /* UIColor.swift in Sources */,
 				F7D341F927DA35AA00EDAB1D /* RecipesSearchController.swift in Sources */,
 				F7B3BFCC27CD01CD00EEC050 /* NetworkError.swift in Sources */,
+				F703C95F27ECE13200B8048E /* UIAlertController.swift in Sources */,
 				F72D48AE27C4AE5400792DE3 /* Date.swift in Sources */,
 				F7F6FD2E27E21AEE000C70DC /* FilterView.swift in Sources */,
 				F74355F727CB37FB008F8693 /* SearchTableViewCell.swift in Sources */,

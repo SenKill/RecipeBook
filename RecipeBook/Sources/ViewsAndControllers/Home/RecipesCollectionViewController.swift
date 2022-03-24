@@ -62,11 +62,8 @@ extension RecipesCollectionViewController: UICollectionViewDataSource {
                         newCell.configureCell(for: recipe, with: UIImage(data: data))
                     }
                 case .failure(let error):
-                    if let error = error as? NetworkError {
-                        print("Fetching image error: \(error.errorDescription ?? "nil")")
-                    } else {
-                        print("Fetching image error: \(error.localizedDescription)")
-                    }
+                    let alert = UIAlertController.errorAlert(title: "Loading image error", message: error.localizedDescription)
+                    self.present(alert, animated: true, completion: nil)
                 }
             }
         } else if recipe?.title != nil {

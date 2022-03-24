@@ -64,7 +64,8 @@ extension SearchTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.reuseId, for: indexPath)
         guard let newCell = cell as? SearchTableViewCell else {
-            print("ERROR: Cannot configure cell")
+            let alert = UIAlertController.errorAlert(title: "Error", message: "Cannot configure cell")
+            self.present(alert, animated: true, completion: nil)
             return cell
         }
         
@@ -86,7 +87,8 @@ extension SearchTableViewController {
                         newCell.configureCell(for: recipe, with: UIImage(data: data))
                     }
                 case .failure(let error):
-                    print("Loading image error: \(error.localizedDescription)")
+                    let alert = UIAlertController.errorAlert(title: "Loading image error", message: error.localizedDescription)
+                    self.present(alert, animated: true, completion: nil)
                 }
             }
         } else if recipe?.title != nil {
@@ -168,7 +170,8 @@ private extension SearchTableViewController {
                     }
                 }
             case .failure(let error):
-                print("Error while fetching from random: \(error.localizedDescription)")
+                let alert = UIAlertController.errorAlert(title: "Random recipes loading failure", message: error.localizedDescription)
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }
@@ -187,7 +190,8 @@ private extension SearchTableViewController {
                     }
                 }
             case .failure(let error):
-                print("Error while fetching from complex search: \(error.localizedDescription)")
+                let alert = UIAlertController.errorAlert(title: "Complex recipes loading failure", message: error.localizedDescription)
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }

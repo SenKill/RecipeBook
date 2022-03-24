@@ -123,10 +123,11 @@ class FilterView: CView {
     
     override func layoutViews() {
         super.layoutViews()
+        let spaceBetweenFilters: CGFloat = 30
         NSLayoutConstraint.activate([
             cuisineLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             cuisineLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            cuisineLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 25),
+            cuisineLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: spaceBetweenFilters),
             
             cuisineFieldContainer.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             cuisineFieldContainer.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
@@ -135,7 +136,7 @@ class FilterView: CView {
             
             dietLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             dietLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            dietLabel.topAnchor.constraint(equalTo: cuisineFieldContainer.bottomAnchor, constant: 25),
+            dietLabel.topAnchor.constraint(equalTo: cuisineFieldContainer.bottomAnchor, constant: spaceBetweenFilters),
             
             dietFieldContainer.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             dietFieldContainer.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
@@ -144,7 +145,7 @@ class FilterView: CView {
             
             intolerancesLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             intolerancesLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            intolerancesLabel.topAnchor.constraint(equalTo: dietFieldContainer.bottomAnchor, constant: 25),
+            intolerancesLabel.topAnchor.constraint(equalTo: dietFieldContainer.bottomAnchor, constant: spaceBetweenFilters),
             
             intolerancesView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             intolerancesView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
@@ -152,7 +153,7 @@ class FilterView: CView {
             
             caloriesLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             caloriesLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            caloriesLabel.topAnchor.constraint(equalTo: intolerancesView.bottomAnchor, constant: 25),
+            caloriesLabel.topAnchor.constraint(equalTo: intolerancesView.bottomAnchor, constant: spaceBetweenFilters),
             
             caloriesSlider.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             caloriesSlider.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
