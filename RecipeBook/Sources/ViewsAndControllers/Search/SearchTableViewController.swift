@@ -48,6 +48,14 @@ class SearchTableViewController: UITableViewController {
     }
 }
 
+// MARK: - UITableViewDelegate
+extension SearchTableViewController {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailViewController = isSearching ? DetailViewController(recipeData: fetchedRecipes[indexPath.row]) : DetailViewController(recipeData: randomRecipes[indexPath.row])
+        navigationController?.pushViewController(detailViewController, animated: true)
+    }
+}
+
 // MARK: - UITableViewDataSource
 extension SearchTableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {

@@ -25,6 +25,9 @@
 		F768E20527BA883300F1D61B /* RecipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F768E20427BA883300F1D61B /* RecipeModel.swift */; };
 		F768E21027BA89B200F1D61B /* MealCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F768E20F27BA89B200F1D61B /* MealCollectionViewCell.swift */; };
 		F76A85F827C9F83500D284F0 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76A85F727C9F83500D284F0 /* SearchTableViewController.swift */; };
+		F77A237B27EDE7B600141531 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77A237A27EDE7B600141531 /* DetailView.swift */; };
+		F77A238027EDE7C600141531 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77A237F27EDE7C600141531 /* DetailViewController.swift */; };
+		F77A238D27EE130700141531 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77A238C27EE130700141531 /* UILabel.swift */; };
 		F77D673727B8D576001F02E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77D673627B8D576001F02E9 /* AppDelegate.swift */; };
 		F77D673927B8D576001F02E9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77D673827B8D576001F02E9 /* SceneDelegate.swift */; };
 		F77D674127B8D576001F02E9 /* RecipeBook.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F77D673F27B8D576001F02E9 /* RecipeBook.xcdatamodeld */; };
@@ -94,6 +97,9 @@
 		F768E20427BA883300F1D61B /* RecipeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeModel.swift; sourceTree = "<group>"; };
 		F768E20F27BA89B200F1D61B /* MealCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealCollectionViewCell.swift; sourceTree = "<group>"; };
 		F76A85F727C9F83500D284F0 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
+		F77A237A27EDE7B600141531 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		F77A237F27EDE7C600141531 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		F77A238C27EE130700141531 /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		F77D673327B8D576001F02E9 /* RecipeBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecipeBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F77D673627B8D576001F02E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F77D673827B8D576001F02E9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -183,6 +189,7 @@
 			children = (
 				F77D677D27B8E625001F02E9 /* Home */,
 				F72D489727C49DE100792DE3 /* Search */,
+				F77A237927EDE73C00141531 /* Detail */,
 			);
 			path = ViewsAndControllers;
 			sourceTree = "<group>";
@@ -217,6 +224,7 @@
 				F72D48AD27C4AE5400792DE3 /* Date.swift */,
 				F713438D27E9B5E600343C44 /* [String].swift */,
 				F703C95E27ECE13200B8048E /* UIAlertController.swift */,
+				F77A238C27EE130700141531 /* UILabel.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -243,6 +251,15 @@
 				F768E20F27BA89B200F1D61B /* MealCollectionViewCell.swift */,
 			);
 			path = MealCollection;
+			sourceTree = "<group>";
+		};
+		F77A237927EDE73C00141531 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				F77A237F27EDE7C600141531 /* DetailViewController.swift */,
+				F77A237A27EDE7B600141531 /* DetailView.swift */,
+			);
+			path = Detail;
 			sourceTree = "<group>";
 		};
 		F77D672A27B8D576001F02E9 = {
@@ -612,6 +629,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F77A238027EDE7C600141531 /* DetailViewController.swift in Sources */,
 				F77D673727B8D576001F02E9 /* AppDelegate.swift in Sources */,
 				F7CC844727D5DBB5004EE60C /* SearchTableView.swift in Sources */,
 				F743560927CBA2A2008F8693 /* SearchType.swift in Sources */,
@@ -641,12 +659,14 @@
 				F77D678A27B8E654001F02E9 /* HomeViewController.swift in Sources */,
 				F705881C27D4E9AA006394EC /* UIActivityIndicatorView.swift in Sources */,
 				F7090E0727BCBBCF00069D79 /* GradientView.swift in Sources */,
+				F77A238D27EE130700141531 /* UILabel.swift in Sources */,
 				F7B3BFAC27CCCEF700EEC050 /* Endpoint.swift in Sources */,
 				F7940E2D27E83B26000B0CFB /* FilterViewController.swift in Sources */,
 				F79ED0E227EB3B7000857CF0 /* APIKeys.swift in Sources */,
 				F768E20527BA883300F1D61B /* RecipeModel.swift in Sources */,
 				F7A32B6B27BE0001009AD53F /* PopularCollectionViewCell.swift in Sources */,
 				F7A32B6627BDFFEE009AD53F /* PopularCollectionView.swift in Sources */,
+				F77A237B27EDE7B600141531 /* DetailView.swift in Sources */,
 				F7CE36FF27CE70F100B30FD9 /* TimeLogic.swift in Sources */,
 				F7EB749427BA995200F24714 /* Constants.swift in Sources */,
 			);
