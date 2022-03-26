@@ -108,6 +108,30 @@ struct Nutrition: Codable {
     let ingredients: [Ingredient]
     let caloricBreakdown: CaloricBreakdown
     let weightPerServing: Weight
+    
+    var calories: String {
+        let caloriesNutrient = nutrients[0]
+        let finalString = "\(Int(caloriesNutrient.amount)) kcal"
+        return finalString
+    }
+    
+    var fats: String {
+        let fatsNutrient = nutrients[1]
+        let finalString = "\(Int(fatsNutrient.amount))g fats"
+        return finalString
+    }
+    
+    var carbohydrates: String {
+        let carbohydratesNutrient = nutrients[3]
+        let finalString = "\(Int(carbohydratesNutrient.amount))g carbs"
+        return finalString
+    }
+    
+    var protein: String {
+        let proteinNutrient = nutrients[8]
+        let finalString = "\(Int(proteinNutrient.amount))g protein"
+        return finalString
+    }
 }
 
 struct Nutrient: Codable {

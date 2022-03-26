@@ -19,6 +19,9 @@ class RecipesCollectionViewController: UIViewController {
 // MARK: - UICollectionViewDelegate
 extension RecipesCollectionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard !recipes.isEmpty else {
+            return
+        }
         navigationController?.pushViewController(DetailViewController(recipeData: recipes[indexPath.row]), animated: true)
     }
 }
