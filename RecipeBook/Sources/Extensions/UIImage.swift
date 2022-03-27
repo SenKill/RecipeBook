@@ -13,6 +13,9 @@ extension UIImage {
 
 struct Images {
     let defaultRecipe = UIImage(named: "defaultRecipeImage")
+    
+    let calories = UIImage(systemName: "flame.fill")!
+    let carbs = UIImage(systemName: "leaf.fill")!
+    let protein = UIImage(systemName: "shield.fill")!
+    let fats = UIImage(systemName: "bolt.fill")!
 }
-
-

@@ -12,11 +12,11 @@ class MealCollectionView: UICollectionView {
     init() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = Constants.mealMinimumLineSpacing
         super.init(frame: .zero, collectionViewLayout: layout)
         
         register(MealCollectionViewCell.self, forCellWithReuseIdentifier: MealCollectionViewCell.reuseId)
         backgroundColor = .none
-        layout.minimumLineSpacing = Constants.mealMinimumLineSpacing
         contentInset = UIEdgeInsets(top: 0, left: Constants.leftDistance, bottom: 0, right: Constants.rightDistance)
         
         showsHorizontalScrollIndicator = false
@@ -25,6 +25,6 @@ class MealCollectionView: UICollectionView {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
 }

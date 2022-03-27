@@ -45,6 +45,7 @@
 		F7B3BFAC27CCCEF700EEC050 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B3BFAB27CCCEF700EEC050 /* Endpoint.swift */; };
 		F7B3BFCC27CD01CD00EEC050 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B3BFCB27CD01CD00EEC050 /* NetworkError.swift */; };
 		F7BC912227EF563A0095D7E1 /* NutritionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BC912127EF563A0095D7E1 /* NutritionView.swift */; };
+		F7C8A4B127F049D200544F88 /* IngredientsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C8A4B027F049D200544F88 /* IngredientsCollectionView.swift */; };
 		F7CC844727D5DBB5004EE60C /* SearchTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CC844627D5DBB5004EE60C /* SearchTableView.swift */; };
 		F7CE36FF27CE70F100B30FD9 /* TimeLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CE36FE27CE70F100B30FD9 /* TimeLogic.swift */; };
 		F7D341F127DA259C00EDAB1D /* RecipesSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D341F027DA259C00EDAB1D /* RecipesSearchBar.swift */; };
@@ -123,6 +124,7 @@
 		F7B3BFAB27CCCEF700EEC050 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		F7B3BFCB27CD01CD00EEC050 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		F7BC912127EF563A0095D7E1 /* NutritionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionView.swift; sourceTree = "<group>"; };
+		F7C8A4B027F049D200544F88 /* IngredientsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsCollectionView.swift; sourceTree = "<group>"; };
 		F7CC844627D5DBB5004EE60C /* SearchTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableView.swift; sourceTree = "<group>"; };
 		F7CE36FE27CE70F100B30FD9 /* TimeLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLogic.swift; sourceTree = "<group>"; };
 		F7D341F027DA259C00EDAB1D /* RecipesSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesSearchBar.swift; sourceTree = "<group>"; };
@@ -257,7 +259,7 @@
 			children = (
 				F77A237F27EDE7C600141531 /* DetailViewController.swift */,
 				F77A237A27EDE7B600141531 /* DetailView.swift */,
-				F7BC912127EF563A0095D7E1 /* NutritionView.swift */,
+				F7C8A4A427F048B500544F88 /* SupportViews */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -372,6 +374,15 @@
 				F7090E0627BCBBCF00069D79 /* GradientView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		F7C8A4A427F048B500544F88 /* SupportViews */ = {
+			isa = PBXGroup;
+			children = (
+				F7BC912127EF563A0095D7E1 /* NutritionView.swift */,
+				F7C8A4B027F049D200544F88 /* IngredientsCollectionView.swift */,
+			);
+			path = SupportViews;
 			sourceTree = "<group>";
 		};
 		F7D341EE27DA255700EDAB1D /* CustomClasses */ = {
@@ -640,6 +651,7 @@
 				F76A85F827C9F83500D284F0 /* SearchTableViewController.swift in Sources */,
 				F77D677127B8D7DD001F02E9 /* CView.swift in Sources */,
 				F768E1E427BA115700F1D61B /* UIColor.swift in Sources */,
+				F7C8A4B127F049D200544F88 /* IngredientsCollectionView.swift in Sources */,
 				F7D341F927DA35AA00EDAB1D /* RecipesSearchController.swift in Sources */,
 				F7B3BFCC27CD01CD00EEC050 /* NetworkError.swift in Sources */,
 				F703C95F27ECE13200B8048E /* UIAlertController.swift in Sources */,

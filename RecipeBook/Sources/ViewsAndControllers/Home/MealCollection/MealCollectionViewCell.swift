@@ -54,7 +54,7 @@ class MealCollectionViewCell: UICollectionViewCell {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
     
     private func setViews() {
@@ -95,16 +95,15 @@ class MealCollectionViewCell: UICollectionViewCell {
 
 extension MealCollectionViewCell: ConfigurableCell {
     func configureCell(for recipe: Recipe?, with image: UIImage?) {
-        let cell = self
         
-        removeContentFromCell(cell)
+        removeContentFromCell(self)
         
         // Setting up spinner if image didn't load yet
         if let image = image {
             spinner.removeFromSuperview()
-            cell.mainImageView.image = image
+            mainImageView.image = image
         } else {
-            cell.mainImageView.addSubview(spinner)
+            mainImageView.addSubview(spinner)
             // Custom method from extension
             spinner.setUpSpinner(loadingImageView: mainImageView)
         }
@@ -113,8 +112,8 @@ extension MealCollectionViewCell: ConfigurableCell {
             return
         }
         
-        cell.authorNameLabel.text = "by: " + (recipe.sourceName ?? "")
-        cell.recipeNameLabel.text = recipe.title
+        authorNameLabel.text = "by: " + (recipe.sourceName ?? "")
+        recipeNameLabel.text = recipe.title
         
         // TODO: Add isFavorite property
         /*

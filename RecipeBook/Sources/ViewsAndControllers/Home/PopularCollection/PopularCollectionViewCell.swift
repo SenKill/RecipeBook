@@ -85,7 +85,7 @@ class PopularCollectionViewCell: UICollectionViewCell {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
     
     private func setViews() {
@@ -147,16 +147,14 @@ class PopularCollectionViewCell: UICollectionViewCell {
 
 extension PopularCollectionViewCell: ConfigurableCell {
     func configureCell(for recipe: Recipe?, with image: UIImage?) {
-        let cell = self
-        
-        removeContentFromCell(cell)
+        removeContentFromCell(self)
         
         // Setting up spinner if image didn't load yet
         if let image = image {
             spinner.removeFromSuperview()
-            cell.mainImageView.image = image
+            mainImageView.image = image
         } else {
-            cell.addSubview(spinner)
+            addSubview(spinner)
             spinner.setUpSpinner(loadingImageView: mainImageView)
         }
         
@@ -164,10 +162,10 @@ extension PopularCollectionViewCell: ConfigurableCell {
             return
         }
         
-        cell.recipeNameLabel.text = recipe.title
-        cell.authorNameLabel.text = "by: " + (recipe.sourceName ?? "")
-        cell.prepTimeLabel.text = "\(recipe.readyInMinutes) Min"
-        cell.servingsLabel.text = "\(recipe.servings) Servings"
+        recipeNameLabel.text = recipe.title
+        authorNameLabel.text = "by: " + (recipe.sourceName ?? "")
+        prepTimeLabel.text = "\(recipe.readyInMinutes) Min"
+        servingsLabel.text = "\(recipe.servings) Servings"
     }
     
     private func removeContentFromCell(_ cell: PopularCollectionViewCell) {

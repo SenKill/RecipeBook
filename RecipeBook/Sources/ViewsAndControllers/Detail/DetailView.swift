@@ -78,14 +78,20 @@ class DetailView: CView {
     }()
     
     private let nutritionDivider: UIView = {
-        createDivider(with: UIColor.systemGray2.withAlphaComponent(0.5))
-    }()
-    
-    private let ingerientsLabel: UILabel = {
-        createTitleLabel(with: "Ingredients")
+        createDivider()
     }()
     
     private var nutritionCombinedView: NutritionCombinedView?
+    
+    private let ingredientsLabel: UILabel = {
+        createTitleLabel(with: "Ingredients")
+    }()
+    
+    private let ingredientsDivider: UIView = {
+        createDivider()
+    }()
+    
+    let ingredientsCollectionView = IngredientsCollectionView()
     
     override func setViews() {
         super.setViews()
@@ -100,6 +106,10 @@ class DetailView: CView {
             addSubview(nutritionDivider)
             addSubview(nutritionView)
         }
+        
+        addSubview(ingredientsLabel)
+        addSubview(ingredientsDivider)
+        addSubview(ingredientsCollectionView)
     }
     
     override func layoutViews() {
@@ -138,9 +148,24 @@ class DetailView: CView {
                 
                 nutritionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.leftDistance),
                 nutritionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.rightDistance),
-                nutritionView.topAnchor.constraint(equalTo: nutritionDivider.bottomAnchor, constant: 15)
+                nutritionView.topAnchor.constraint(equalTo: nutritionDivider.bottomAnchor, constant: 15),
             ])
         }
+        
+        let viewBottomAnchor = nutritionCombinedView == nil ? tagsListView.bottomAnchor : nutritionCombinedView!.bottomAnchor
+        NSLayoutConstraint.activate([
+            ingredientsLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.leftDistance),
+            ingredientsLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.rightDistance),
+            ingredientsLabel.topAnchor.constraint(equalTo: viewBottomAnchor, constant: 25),
+            
+            ingredientsDivider.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.leftDistance),
+            ingredientsDivider.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.rightDistance),
+            ingredientsDivider.topAnchor.constraint(equalTo: ingredientsLabel.bottomAnchor, constant: 10),
+            
+            ingredientsCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            ingredientsCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            ingredientsCollectionView.topAnchor.constraint(equalTo: ingredientsDivider.bottomAnchor, constant: 15),
+        ])
     }
 }
 
@@ -177,9 +202,9 @@ private extension DetailView {
         return label
     }
     
-    static func createDivider(with color: UIColor) -> UIView {
+    static func createDivider() -> UIView {
         let divider = UIView()
-        divider.backgroundColor = color
+        divider.backgroundColor = UIColor.theme.divider
         divider.translatesAutoresizingMaskIntoConstraints = false
         divider.heightAnchor.constraint(equalToConstant: 2).isActive = true
         

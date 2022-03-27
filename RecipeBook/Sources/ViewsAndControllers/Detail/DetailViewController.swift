@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class DetailViewController: CViewController<DetailView> {
-    let recipeData: Recipe
+    var recipeData: Recipe!
     
     init(recipeData: Recipe) {
         self.recipeData = recipeData
@@ -17,10 +17,31 @@ class DetailViewController: CViewController<DetailView> {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
     
     override func loadView() {
         view = DetailView(data: recipeData)
+    }
+    
+    override func viewDidLoad() {
+        customView.ingredientsCollectionView.delegate = self
+        customView.ingredientsCollectionView.dataSource = self
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+extension DetailViewController: UICollectionViewDelegate {
+    
+}
+
+// MARK: - UICollectionViewDataSource
+extension DetailViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
     }
 }
