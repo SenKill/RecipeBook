@@ -80,7 +80,7 @@ extension SearchTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.reuseId, for: indexPath)
         guard let newCell = cell as? SearchTableViewCell else {
-            let alert = UIAlertController.errorAlert(title: "Error", message: "Cannot configure cell")
+            let alert = UIAlertController.errorAlert(message: "Cannot configure cell")
             self.present(alert, animated: true, completion: nil)
             return cell
         }
@@ -96,7 +96,7 @@ extension SearchTableViewController {
         newCell.configureCell(for: recipe, with: nil)
         
         if let image = recipe?.image {
-            NetworkService.fetchImage(for: .recipe, from: image, size: nil) { result in
+            NetworkService.fetchImage(for: .recipe, with: image, size: nil) { result in
                 switch result {
                 case .success(let data):
                     DispatchQueue.main.async {

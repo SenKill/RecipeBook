@@ -33,11 +33,12 @@ class IngredientsCollectionViewCell: UICollectionViewCell {
     
     static let reuseId = "IngredientsCollectionViewCell"
     
+    var isImageLoaded: Bool = false
+    
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 5
         imageView.contentMode = .scaleAspectFill
-        imageView.backgroundColor = .gray
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -69,20 +70,25 @@ class IngredientsCollectionViewCell: UICollectionViewCell {
     
     private func layoutViews() {
         NSLayoutConstraint.activate([
-            nameLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-            nameLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-        
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: nameLabel.bottomAnchor),
-            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor)
+            imageView.topAnchor.constraint(equalTo: topAnchor),
+            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
+            
+            nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5),
+            nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }
 }
 
 extension IngredientsCollectionViewCell {
     func configureCell(for ingredientName: String?, with image: UIImage?) {
-        imageView.image = image
-        nameLabel.text = ingredientName
+        if let image = image {
+            isImageLoaded = true
+            imageView.image = image
+        }
+        
+        nameLabel.text = ingredientName?.firstCapitalized
     }
 }

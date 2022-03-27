@@ -8,6 +8,6 @@
 import Foundation
 
 enum ImageType: String {
-    case ingridient = "/cdn/ingredients_"
+    case ingredient = "/cdn/ingredients"
     case recipe = "/recipeImages/"
 }

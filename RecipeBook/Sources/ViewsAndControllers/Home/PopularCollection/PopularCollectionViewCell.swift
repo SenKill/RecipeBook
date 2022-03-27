@@ -10,6 +10,8 @@ import UIKit
 class PopularCollectionViewCell: UICollectionViewCell {
     
     static let reuseId = "PopularCollectionViewCell"
+    var isImageLoaded: Bool = false
+    
     private let spinner = UIActivityIndicatorView(style: .large)
     
     private let mainImageView: UIImageView = {
@@ -151,6 +153,7 @@ extension PopularCollectionViewCell: ConfigurableCell {
         
         // Setting up spinner if image didn't load yet
         if let image = image {
+            isImageLoaded = true
             spinner.removeFromSuperview()
             mainImageView.image = image
         } else {

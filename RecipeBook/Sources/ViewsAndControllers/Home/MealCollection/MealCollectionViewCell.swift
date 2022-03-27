@@ -10,6 +10,8 @@ import UIKit
 class MealCollectionViewCell: UICollectionViewCell {
     
     static let reuseId = "RecipesCollectionViewCell"
+    var isImageLoaded: Bool = false
+    
     private let spinner: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
     
     private let mainImageView: UIImageView = {
@@ -95,11 +97,11 @@ class MealCollectionViewCell: UICollectionViewCell {
 
 extension MealCollectionViewCell: ConfigurableCell {
     func configureCell(for recipe: Recipe?, with image: UIImage?) {
-        
         removeContentFromCell(self)
         
         // Setting up spinner if image didn't load yet
         if let image = image {
+            isImageLoaded = true
             spinner.removeFromSuperview()
             mainImageView.image = image
         } else {
@@ -116,12 +118,6 @@ extension MealCollectionViewCell: ConfigurableCell {
         recipeNameLabel.text = recipe.title
         
         // TODO: Add isFavorite property
-        /*
-        if recipe.isFavorite {
-            cell.bookmarkImageView.image = UIImage(systemName: "bookmark.fill")
-            cell.bookmarkImageView.tintColor = .systemGreen // or .systemYellow
-        }
-        */
     }
     
     func removeContentFromCell(_ cell: MealCollectionViewCell) {

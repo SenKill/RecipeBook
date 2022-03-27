@@ -40,7 +40,7 @@ final class NetworkService {
     
     static func fetchImage(
         for imageType: ImageType,
-        from name: String,
+        with name: String,
         size: String?,
         handler: @escaping (Result<Data, Error>) -> Void) {
         
@@ -50,10 +50,8 @@ final class NetworkService {
         switch imageType {
         case .recipe:
             assembledUrl = name
-        case .ingridient:
-            assembledUrl = "\(baseURL + imageType.rawValue)_\(size!)/"
-        default:
-            handler(.failure(NetworkError.wrongImageType))
+        case .ingredient:
+            assembledUrl = "\(baseURL + imageType.rawValue)_\(size!)/\(name)"
         }
         
         guard let url = URL(string: assembledUrl) else {

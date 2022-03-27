@@ -36,6 +36,7 @@ class NutritionCombinedView: UIView {
     }
     
     func layoutViews() {
+        translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             caloriesView.leadingAnchor.constraint(equalTo: leadingAnchor),
             caloriesView.topAnchor.constraint(equalTo: topAnchor),
@@ -48,6 +49,8 @@ class NutritionCombinedView: UIView {
             
             fatsView.topAnchor.constraint(equalTo: proteinView.bottomAnchor, constant: 10),
             fatsView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            
+            bottomAnchor.constraint(equalTo: carbsView.bottomAnchor)
         ])
     }
 }

@@ -11,6 +11,17 @@ protocol ConfigurableCell where Self: UICollectionViewCell {
     func configureCell(for recipe: Recipe?, with image: UIImage?)
 }
 
+extension ConfigurableCell {
+    var isImageLoaded: Bool {
+        if let cell = self as? MealCollectionViewCell {
+            return cell.isImageLoaded
+        } else if let cell = self as? PopularCollectionViewCell {
+            return cell.isImageLoaded
+        }
+        return false
+    }
+}
+
 class RecipesCollectionViewController: UIViewController {
     var recipes: [Recipe] = []
 }
@@ -38,43 +49,39 @@ extension RecipesCollectionViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var cell = UICollectionViewCell()
-        // Giving newCell protocol type for using it's method configureCell()
-        let newCell: ConfigurableCell!
+        // Giving to the cell protocol type for using it's method configureCell()
+        var cell: ConfigurableCell!
         
         if collectionView.tag == 1 {
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: MealCollectionViewCell.reuseId, for: indexPath)
-            newCell = cell as! MealCollectionViewCell
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: MealCollectionViewCell.reuseId, for: indexPath) as! MealCollectionViewCell
         } else {
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularCollectionViewCell.reuseId, for: indexPath)
-            newCell = cell as! PopularCollectionViewCell
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularCollectionViewCell.reuseId, for: indexPath) as! PopularCollectionViewCell
         }
         
-        var recipe: Recipe?
-        
-        if recipes.count != 0 {
-            recipe = recipes[indexPath.row]
+        guard recipes.count != 0 else {
+            return cell
         }
         
-        newCell.configureCell(for: recipe, with: nil)
+        let recipe = recipes[indexPath.row]
+        cell.configureCell(for: recipe, with: nil)
         
         // Checking image property that stored in model, and fetching if it exists
-        if let imageName = recipe?.image {
-            NetworkService.fetchImage(for: .recipe, from: imageName, size: nil) { result in
+        if let imageName = recipe.image {
+            NetworkService.fetchImage(for: .recipe, with: imageName, size: nil) { result in
                 switch result {
                 case .success(let data):
                     DispatchQueue.main.async {
-                        newCell.configureCell(for: recipe, with: UIImage(data: data))
+                        cell.configureCell(for: recipe, with: UIImage(data: data))
                     }
                 case .failure(let error):
                     let alert = UIAlertController.errorAlert(title: "Loading image error", message: error.localizedDescription)
                     self.present(alert, animated: true, completion: nil)
                 }
             }
-        } else if recipe?.title != nil {
-            newCell.configureCell(for: recipe, with: UIImage.image.defaultRecipe)
+        } else {
+            cell.configureCell(for: recipe, with: UIImage.image.defaultRecipe)
         }
-        return newCell
+        return cell
     }
 }
 

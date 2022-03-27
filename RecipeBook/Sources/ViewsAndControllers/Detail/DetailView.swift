@@ -135,8 +135,8 @@ class DetailView: CView {
             tagsListView.topAnchor.constraint(equalTo: sourceLabel.bottomAnchor, constant: 15),
         ])
         
+        var viewBottomAnchor = tagsListView.bottomAnchor
         if let nutritionView = nutritionCombinedView {
-            nutritionView.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
                 nutritionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.leftDistance),
                 nutritionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.rightDistance),
@@ -150,9 +150,10 @@ class DetailView: CView {
                 nutritionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.rightDistance),
                 nutritionView.topAnchor.constraint(equalTo: nutritionDivider.bottomAnchor, constant: 15),
             ])
+            viewBottomAnchor = nutritionView.bottomAnchor
         }
         
-        let viewBottomAnchor = nutritionCombinedView == nil ? tagsListView.bottomAnchor : nutritionCombinedView!.bottomAnchor
+        ingredientsCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             ingredientsLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.leftDistance),
             ingredientsLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.rightDistance),
@@ -164,7 +165,8 @@ class DetailView: CView {
             
             ingredientsCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             ingredientsCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            ingredientsCollectionView.topAnchor.constraint(equalTo: ingredientsDivider.bottomAnchor, constant: 15),
+            ingredientsCollectionView.topAnchor.constraint(equalTo: ingredientsDivider.bottomAnchor, constant: 10),
+            ingredientsCollectionView.heightAnchor.constraint(equalToConstant: 100)
         ])
     }
 }
@@ -197,7 +199,7 @@ private extension DetailView {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         label.textColor = UIColor.theme.primaryText
-        label.text = "Nutrition"
+        label.text = text
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }
