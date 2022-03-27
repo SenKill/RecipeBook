@@ -8,7 +8,53 @@
 import Foundation
 import UIKit
 
-class NutritionView: CView {
+class NutritionCombinedView: UIView {
+    private var caloriesView: NutritionView!
+    private var fatsView: NutritionView!
+    private var carbsView: NutritionView!
+    private var proteinView: NutritionView!
+    
+    init(nutrition: Nutrition) {
+        caloriesView = NutritionView(icon: UIImage(systemName: "flame")!, text: nutrition.calories, textAlignment: .left)
+        carbsView = NutritionView(icon: UIImage(systemName: "leaf")!, text: nutrition.carbohydrates, textAlignment: .left)
+        proteinView = NutritionView(icon: UIImage(systemName: "shield")!, text: nutrition.protein, textAlignment: .right)
+        fatsView = NutritionView(icon: UIImage(systemName: "bolt")!, text: nutrition.fats, textAlignment: .right)
+        super.init(frame: .zero)
+        setViews()
+        layoutViews()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    func setViews() {
+        addSubview(caloriesView)
+        addSubview(fatsView)
+        addSubview(carbsView)
+        addSubview(proteinView)
+    }
+    
+    func layoutViews() {
+        NSLayoutConstraint.activate([
+            caloriesView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            caloriesView.topAnchor.constraint(equalTo: topAnchor),
+            
+            carbsView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            carbsView.topAnchor.constraint(equalTo: caloriesView.bottomAnchor, constant: 10),
+            
+            proteinView.topAnchor.constraint(equalTo: topAnchor),
+            proteinView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            
+            fatsView.topAnchor.constraint(equalTo: proteinView.bottomAnchor, constant: 10),
+            fatsView.trailingAnchor.constraint(equalTo: trailingAnchor),
+        ])
+    }
+}
+
+class NutritionView: UIView {
+    private var textAlignment: NSTextAlignment!
+    
     private let backgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemGreen
@@ -31,39 +77,58 @@ class NutritionView: CView {
         return label
     }()
     
-    init(icon: UIImage, text: String) {
+    init(icon: UIImage, text: String, textAlignment: NSTextAlignment) {
+        self.textAlignment = textAlignment
         super.init(frame: .zero)
         populateView(icon: icon, text: text)
+        setViews()
+        layoutViews()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    override func setViews() {
-        super.setViews()
+    func setViews() {
+        addSubview(label)
         backgroundView.addSubview(iconView)
         addSubview(backgroundView)
-        addSubview(label)
     }
     
-    override func layoutViews() {
-        super.layoutViews()
+    func layoutViews() {
         translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            heightAnchor.constraint(equalToConstant: 40),
-            
-            backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            backgroundView.widthAnchor.constraint(equalTo: backgroundView.heightAnchor),
-            backgroundView.topAnchor.constraint(equalTo: topAnchor),
-            backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            
-            iconView.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor),
-            iconView.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
-            
-            label.leadingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: 5),
-            label.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor)
-        ])
+        heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        // Need for constraining left or right nutrition column
+        switch textAlignment {
+        case .left:
+            NSLayoutConstraint.activate([
+                backgroundView.topAnchor.constraint(equalTo: topAnchor),
+                backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
+                backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
+                backgroundView.widthAnchor.constraint(equalTo: backgroundView.heightAnchor),
+                
+                label.leadingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: 5),
+                label.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor)
+            ])
+        case .right:
+            NSLayoutConstraint.activate([
+                label.trailingAnchor.constraint(equalTo: trailingAnchor),
+                label.widthAnchor.constraint(equalToConstant: 100),
+                
+                backgroundView.topAnchor.constraint(equalTo: topAnchor),
+                backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
+                backgroundView.trailingAnchor.constraint(equalTo: label.leadingAnchor, constant: -5),
+                backgroundView.widthAnchor.constraint(equalTo: backgroundView.heightAnchor),
+                
+                label.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor),
+            ])
+        default:
+            return
+        }
+        
+        iconView.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor).isActive = true
+        iconView.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor).isActive = true
     }
     
     private func populateView(icon: UIImage, text: String) {

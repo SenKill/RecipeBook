@@ -13,13 +13,8 @@ class DetailView: CView {
     
     init(data recipe: Recipe) {
         if let nutrition = recipe.nutrition {
-            isRecipeNutrition = true
-            caloriesView = NutritionView(icon: UIImage(systemName: "flame")!, text: nutrition.calories)
-            fatsView = NutritionView(icon: UIImage(systemName: "flame")!, text: nutrition.fats)
-            carbsView = NutritionView(icon: UIImage(systemName: "flame")!, text: nutrition.carbohydrates)
-            proteinView = NutritionView(icon: UIImage(systemName: "flame")!, text: nutrition.protein)
+            nutritionCombinedView = NutritionCombinedView(nutrition: nutrition)
         }
-        
         super.init(frame: .zero)
         configureViewsWithData(recipe)
     }
@@ -79,22 +74,18 @@ class DetailView: CView {
     }()
     
     private let nutritionLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-        label.textColor = UIColor.theme.primaryText
-        label.text = "Nutrition"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+        createTitleLabel(with: "Nutrition")
     }()
     
     private let nutritionDivider: UIView = {
-        createDivier(with: UIColor.systemGray2.withAlphaComponent(0.5))
+        createDivider(with: UIColor.systemGray2.withAlphaComponent(0.5))
     }()
     
-    private var caloriesView: NutritionView? = nil
-    private var fatsView: NutritionView? = nil
-    private var carbsView: NutritionView? = nil
-    private var proteinView: NutritionView? = nil
+    private let ingerientsLabel: UILabel = {
+        createTitleLabel(with: "Ingredients")
+    }()
+    
+    private var nutritionCombinedView: NutritionCombinedView?
     
     override func setViews() {
         super.setViews()
@@ -103,14 +94,11 @@ class DetailView: CView {
         addSubview(titleLabel)
         addSubview(sourceLabel)
         addSubview(tagsListView)
-        addSubview(nutritionLabel)
-        addSubview(nutritionDivider)
         
-        if isRecipeNutrition {
-            addSubview(caloriesView!)
-            addSubview(fatsView!)
-            addSubview(carbsView!)
-            addSubview(proteinView!)
+        if let nutritionView = nutritionCombinedView {
+            addSubview(nutritionLabel)
+            addSubview(nutritionDivider)
+            addSubview(nutritionView)
         }
     }
     
@@ -135,34 +123,22 @@ class DetailView: CView {
             tagsListView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.leftDistance),
             tagsListView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.rightDistance),
             tagsListView.topAnchor.constraint(equalTo: sourceLabel.bottomAnchor, constant: 15),
-            
-            nutritionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.leftDistance),
-            nutritionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.rightDistance),
-            nutritionLabel.topAnchor.constraint(equalTo: tagsListView.bottomAnchor, constant: 15),
-            
-            nutritionDivider.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.leftDistance),
-            nutritionDivider.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.rightDistance),
-            nutritionDivider.topAnchor.constraint(equalTo: nutritionLabel.bottomAnchor, constant: 10)
         ])
         
-        if isRecipeNutrition {
+        if let nutritionView = nutritionCombinedView {
+            nutritionView.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-                caloriesView!.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.leftDistance),
-                caloriesView!.topAnchor.constraint(equalTo: nutritionDivider.bottomAnchor, constant: 15),
-                caloriesView!.trailingAnchor.constraint(equalTo: proteinView!.leadingAnchor),
+                nutritionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.leftDistance),
+                nutritionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.rightDistance),
+                nutritionLabel.topAnchor.constraint(equalTo: tagsListView.bottomAnchor, constant: 15),
                 
-                carbsView!.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.leftDistance),
-                carbsView!.topAnchor.constraint(equalTo: caloriesView!.bottomAnchor, constant: 10),
-                carbsView!.trailingAnchor.constraint(equalTo: fatsView!.leadingAnchor),
+                nutritionDivider.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.leftDistance),
+                nutritionDivider.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.rightDistance),
+                nutritionDivider.topAnchor.constraint(equalTo: nutritionLabel.bottomAnchor, constant: 10),
                 
-                // TODO: Create NutritionView that can be both left and right aligned
-                proteinView!.topAnchor.constraint(equalTo: nutritionDivider.bottomAnchor, constant: 15),
-                proteinView!.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.rightDistance),
-                proteinView!.widthAnchor.constraint(equalTo: caloriesView!.widthAnchor, constant: -100),
-                
-                fatsView!.topAnchor.constraint(equalTo: proteinView!.bottomAnchor, constant: 10),
-                fatsView!.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.rightDistance),
-                fatsView!.widthAnchor.constraint(equalTo: carbsView!.widthAnchor, constant: -100)
+                nutritionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.leftDistance),
+                nutritionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.rightDistance),
+                nutritionView.topAnchor.constraint(equalTo: nutritionDivider.bottomAnchor, constant: 15)
             ])
         }
     }
@@ -192,7 +168,16 @@ private extension DetailView {
         }
     }
     
-    static func createDivier(with color: UIColor) -> UIView {
+    static func createTitleLabel(with text: String) -> UILabel {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        label.textColor = UIColor.theme.primaryText
+        label.text = "Nutrition"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }
+    
+    static func createDivider(with color: UIColor) -> UIView {
         let divider = UIView()
         divider.backgroundColor = color
         divider.translatesAutoresizingMaskIntoConstraints = false

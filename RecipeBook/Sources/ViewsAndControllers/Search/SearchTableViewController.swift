@@ -51,7 +51,15 @@ class SearchTableViewController: UITableViewController {
 // MARK: - UITableViewDelegate
 extension SearchTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailViewController = isSearching ? DetailViewController(recipeData: fetchedRecipes[indexPath.row]) : DetailViewController(recipeData: randomRecipes[indexPath.row])
+        var detailViewController: DetailViewController!
+        if isSearching && !fetchedRecipes.isEmpty {
+            detailViewController = DetailViewController(recipeData: fetchedRecipes[indexPath.row])
+        } else if !randomRecipes.isEmpty {
+            detailViewController = DetailViewController(recipeData: randomRecipes[indexPath.row])
+        } else {
+            return
+        }
+        
         navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
@@ -168,18 +176,21 @@ private extension SearchTableViewController {
     }
     
     func fetchRandomRecipes() {
-        NetworkService.fetchRecipes(.randomSearch(number: Constants.searchDefaultCount)) { result in
-            switch result {
-            case .success(let data):
-                if let recipes = data.recipes {
-                    DispatchQueue.main.async {
+        var filterParameters = FilterParameters()
+        filterParameters.sort = "random"
+        
+        NetworkService.fetchRecipes(.searchWithFilter(filterParameters, query: nil, number: Constants.searchDefaultCount)) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let data):
+                    if let recipes = data.results {
                         self.randomRecipes = recipes
                         self.tableView?.reloadData()
                     }
+                case .failure(let error):
+                    let alert = UIAlertController.errorAlert(title: "Recipes loading failure", message: error.localizedDescription)
+                    self.present(alert, animated: true, completion: nil)
                 }
-            case .failure(let error):
-                let alert = UIAlertController.errorAlert(title: "Random recipes loading failure", message: error.localizedDescription)
-                self.present(alert, animated: true, completion: nil)
             }
         }
     }
