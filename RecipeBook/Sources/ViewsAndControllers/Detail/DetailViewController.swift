@@ -20,7 +20,9 @@ class DetailViewController: CViewController<DetailView> {
     
     init(recipeData: Recipe) {
         self.recipeData = recipeData
-        ingredients = recipeData.ingredients
+        if let ingredients = recipeData.extendedIngredients {
+            self.ingredients = ingredients
+        }
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -33,6 +35,7 @@ class DetailViewController: CViewController<DetailView> {
     }
     
     override func viewDidLoad() {
+        navigationItem.largeTitleDisplayMode = .never
         customView.ingredientsCollectionView.delegate = self
         customView.ingredientsCollectionView.dataSource = self
     }

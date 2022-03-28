@@ -111,7 +111,7 @@ class RandomRecipeTests: XCTestCase {
 class ComplexSearchTests: XCTestCase {
     func testComplexRecipeModel() {
         let expectatiton = expectation(description: "FetchingLasagna")
-        let filter = FilterParameters(cuisine: nil, diet: nil, type: nil, intolerances: [], maxCalories: nil)
+        let filter = FilterParameters(cuisine: nil, diet: nil, type: nil, intolerances: [], maxCalories: nil, sort: nil)
         
         NetworkService.fetchRecipes(.searchWithFilter(filter, query: "Lasagna", number: 3)) { result in
             switch result {
@@ -130,7 +130,7 @@ class ComplexSearchTests: XCTestCase {
     
     func testComplexSearchWithFilters() {
         let expecation = expectation(description: "FetchingWithFilters")
-        let filter = FilterParameters(cuisine: "German", diet: nil, type: "Main course", intolerances: ["Soy"], maxCalories: nil)
+        let filter = FilterParameters(cuisine: "German", diet: nil, type: "Main course", intolerances: ["Soy"], maxCalories: nil, sort: nil)
         
         NetworkService.fetchRecipes(.searchWithFilter(filter, query: "", number: 5)) { result in
             switch result {
@@ -149,7 +149,7 @@ class ComplexSearchTests: XCTestCase {
     func testComplexSearchWithCaloriesFilter() {
         let expectation = self.expectation(description: "FetchingWithCaloriesFilter")
         let maxCalories: Float = 300
-        let filter = FilterParameters(cuisine: nil, diet: nil, type: nil, intolerances: [], maxCalories: Int(maxCalories))
+        let filter = FilterParameters(cuisine: nil, diet: nil, type: nil, intolerances: [], maxCalories: Int(maxCalories), sort: nil)
         
         NetworkService.fetchRecipes(.searchWithFilter(filter, query: "", number: 3)) { result in
             switch result {
@@ -180,7 +180,7 @@ class ImageTests: XCTestCase {
     func testFetchRecipeImage() {
         let expectation = self.expectation(description: "FetchingImage")
         
-        NetworkService.fetchImage(for: .recipe, from: "https://spoonacular.com/recipeImages/631890-556x370.jpg", size: nil) { (result) in
+        NetworkService.fetchImage(for: .recipe, with: "https://spoonacular.com/recipeImages/631890-556x370.jpg", size: nil) { (result) in
             switch result {
             case .success:
                 XCTAssert(true)

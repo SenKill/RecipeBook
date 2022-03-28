@@ -93,11 +93,20 @@ class DetailView: CView {
     
     let ingredientsCollectionView = IngredientsCollectionView()
     
+    private let ingredientsInfoLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.textColor = UIColor.theme.primaryText
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     override func setViews() {
         super.setViews()
+        addSubview(titleLabel)
         addSubview(prepTimeLabel)
         addSubview(prepTimeIcon)
-        addSubview(titleLabel)
         addSubview(sourceLabel)
         addSubview(tagsListView)
         
@@ -110,6 +119,7 @@ class DetailView: CView {
         addSubview(ingredientsLabel)
         addSubview(ingredientsDivider)
         addSubview(ingredientsCollectionView)
+        addSubview(ingredientsInfoLabel)
     }
     
     override func layoutViews() {
@@ -117,15 +127,15 @@ class DetailView: CView {
         
         // MARK: - Constraints
         NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.leftDistance),
+            titleLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * 0.7),
+            titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 35),
+            
             prepTimeLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.rightDistance),
-            prepTimeLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            prepTimeLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             
             prepTimeIcon.trailingAnchor.constraint(equalTo: prepTimeLabel.leadingAnchor, constant: -5),
             prepTimeIcon.centerYAnchor.constraint(equalTo: prepTimeLabel.centerYAnchor),
-            
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.leftDistance),
-            titleLabel.trailingAnchor.constraint(equalTo: prepTimeIcon.leadingAnchor, constant: -10),
-            titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             
             sourceLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.leftDistance),
             sourceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
@@ -166,7 +176,11 @@ class DetailView: CView {
             ingredientsCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             ingredientsCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             ingredientsCollectionView.topAnchor.constraint(equalTo: ingredientsDivider.bottomAnchor, constant: 10),
-            ingredientsCollectionView.heightAnchor.constraint(equalToConstant: 100)
+            ingredientsCollectionView.heightAnchor.constraint(equalToConstant: 100),
+            
+            ingredientsInfoLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.leftDistance),
+            ingredientsInfoLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.rightDistance),
+            ingredientsInfoLabel.topAnchor.constraint(equalTo: ingredientsCollectionView.bottomAnchor, constant: 10),
         ])
     }
 }
@@ -177,6 +191,11 @@ private extension DetailView {
         sourceLabel.text = "by: \(recipe.sourceName ?? "undefined")"
         prepTimeLabel.text = "\(recipe.readyInMinutes) Min"
         
+        populateTags(with: recipe)
+        populateIngredientInfo(with: recipe.extendedIngredients)
+    }
+    
+    func populateTags(with recipe: Recipe) {
         let cuisineTags = recipe.cuisines
         let dishTags = recipe.dishTypes
         let dietTags = recipe.diets
@@ -187,12 +206,27 @@ private extension DetailView {
             guard let tagTitle = tagView.titleLabel?.text else {
                 return
             }
+            tagView.setTitle(tagTitle.firstCapitalized, for: .normal)
             
             if dietTags.contains(tagTitle) {
                 tagView.textColor = .systemGreen
             }
             tagView.cornerRadius = 5
         }
+    }
+    
+    func populateIngredientInfo(with ingredients: [Ingredient]?) {
+        guard let ingredients = ingredients else {
+            return
+        }
+        
+        var finalString = ""
+        for ingr in ingredients {
+            if let textInfo = ingr.original {
+                finalString += " • \(textInfo)\n"
+            }
+        }
+        ingredientsInfoLabel.text = finalString
     }
     
     static func createTitleLabel(with text: String) -> UILabel {

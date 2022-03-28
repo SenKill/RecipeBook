@@ -48,35 +48,9 @@ struct Recipe: Codable {
     let instructions: String?
     let analyzedInstructions: [Instruction]
     let spoonacularSourceUrl: String?
-    
-    var ingredients: [Ingredient] {
-        var ingredients: [Ingredient] = []
-        if let extIngr = extendedIngredients {
-            ingredients += extIngr
-        }
-        
-        for instruction in analyzedInstructions {
-            instruction.steps.forEach { step in
-                ingredients += step.ingredients
-            }
-        }
-        let originalIngredients = Array(Set(ingredients))
-        return originalIngredients
-    }
 }
 
-struct Ingredient: Codable, Hashable {
-    static func == (lhs: Ingredient, rhs: Ingredient) -> Bool {
-        if let leftId = lhs.id,
-           let rightId = rhs.id,
-           leftId == rightId {
-            return true
-        } else if lhs.name == rhs.name {
-            return true
-        }
-        return false
-    }
-    
+struct Ingredient: Codable {
     let id: Int?
     let aisle: String?
     let image: String?
@@ -91,14 +65,7 @@ struct Ingredient: Codable, Hashable {
     let measures: Measure?
 }
 
-struct Measure: Codable, Hashable {
-    static func == (lhs: Measure, rhs: Measure) -> Bool {
-        if lhs.metric.amount == rhs.metric.amount {
-            return true
-        }
-        return false
-    }
-    
+struct Measure: Codable {
     let us: MeasureInfo
     let metric: MeasureInfo
 }

@@ -31,10 +31,11 @@ extension Endpoint {
             path: SearchType.complexSearch.rawValue,
             queryItems: [
                 URLQueryItem(name: "apiKey", value: APIKeys.spoonacular),
-                URLQueryItem(name: "query", value: query),
-                URLQueryItem(name: "number", value: String(number)),
                 URLQueryItem(name: "instructionsRequired", value: "true"),
                 URLQueryItem(name: "addRecipeNutrition", value: "true"),
+                URLQueryItem(name: "fillIngredients", value: "true"),
+                URLQueryItem(name: "query", value: query),
+                URLQueryItem(name: "number", value: String(number)),
                 URLQueryItem(name: "type", value: filter.type),
                 URLQueryItem(name: "cuisine", value: filter.cuisine),
                 URLQueryItem(name: "diet", value: filter.diet),
