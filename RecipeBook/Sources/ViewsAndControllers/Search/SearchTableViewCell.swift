@@ -68,8 +68,6 @@ class SearchTableViewCell: UITableViewCell {
     }
     
     func layoutViews() {
-        
-        // TODO: Change constraints from constant to flexible
         NSLayoutConstraint.activate([
             mainImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.leftDistance),
             mainImageView.topAnchor.constraint(equalTo: topAnchor, constant: 10),

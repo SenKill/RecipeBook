@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class DetailViewController: CViewController<DetailView> {
-    enum ImageSizes {
+    enum IngredientsSizes {
         static let small = "100x100"
         static let medium = "250x250"
         static let big = "500x500"
@@ -35,6 +35,7 @@ class DetailViewController: CViewController<DetailView> {
     }
     
     override func viewDidLoad() {
+        loadRecipeImage(with: recipeData.image)
         navigationItem.largeTitleDisplayMode = .never
         customView.ingredientsCollectionView.delegate = self
         customView.ingredientsCollectionView.dataSource = self
@@ -60,7 +61,7 @@ extension DetailViewController: UICollectionViewDataSource {
         cell.configureCell(for: ingredient.name, with: nil)
         
         if let imageName = ingredient.image {
-            NetworkService.fetchImage(for: .ingredient, with: imageName, size: ImageSizes.small) { result in
+            NetworkService.fetchImage(for: .ingredient, with: imageName, size: IngredientsSizes.small) { result in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let imageData):
@@ -79,5 +80,24 @@ extension DetailViewController: UICollectionViewDataSource {
 extension DetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(width: 50, height: 70)
+    }
+}
+
+// MARK: - Internal
+private extension DetailViewController {
+    func loadRecipeImage(with name: String?) {
+        guard let imageName = name else { return }
+        
+        NetworkService.fetchImage(for: .recipe, with: imageName.changeImageSize(to: ImageSizes.huge), size: nil) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let data):
+                    self.customView.backgroundImageView.image = UIImage(data: data)
+                case .failure(let error):
+                    let alert = UIAlertController.errorAlert(message: error.localizedDescription)
+                    self.present(alert, animated: true)
+                }
+            }
+        }
     }
 }

@@ -96,7 +96,7 @@ extension SearchTableViewController {
         newCell.configureCell(for: recipe, with: nil)
         
         if let image = recipe?.image {
-            NetworkService.fetchImage(for: .recipe, with: image, size: nil) { result in
+            NetworkService.fetchImage(for: .recipe, with: image.changeImageSize(to: ImageSizes.verySmall), size: nil) { result in
                 switch result {
                 case .success(let data):
                     DispatchQueue.main.async {
