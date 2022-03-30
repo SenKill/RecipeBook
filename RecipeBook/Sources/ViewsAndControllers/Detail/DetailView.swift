@@ -28,7 +28,7 @@ class DetailView: CView {
     let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = false
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -44,6 +44,7 @@ class DetailView: CView {
         view.layer.cornerRadius = 20
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         view.layer.masksToBounds = true
+        view.backgroundColor = UIColor.theme.background
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -128,7 +129,8 @@ class DetailView: CView {
     override func setViews() {
         super.setViews()
         addSubview(backgroundImageView)
-        addSubview(contentView)
+        addSubview(scrollView)
+        scrollView.addSubview(contentView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(prepTimeLabel)
         contentView.addSubview(prepTimeIcon)
@@ -155,10 +157,16 @@ class DetailView: CView {
             backgroundImageView.topAnchor.constraint(equalTo: topAnchor),
             backgroundImageView.heightAnchor.constraint(equalToConstant: 250),
             
-            contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            contentView.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: -30),
-            contentView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: -30),
+            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: widthAnchor),
             
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance),
             titleLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * 0.7),
@@ -214,6 +222,7 @@ class DetailView: CView {
             ingredientsInfoLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance),
             ingredientsInfoLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.rightDistance),
             ingredientsInfoLabel.topAnchor.constraint(equalTo: ingredientsCollectionView.bottomAnchor, constant: 10),
+            ingredientsInfoLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
 }
