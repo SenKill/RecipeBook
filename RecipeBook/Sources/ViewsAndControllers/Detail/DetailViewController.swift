@@ -35,10 +35,36 @@ class DetailViewController: CViewController<DetailView> {
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         loadRecipeImage(with: recipeData.image)
-        navigationItem.largeTitleDisplayMode = .never
+        customView.delegate = self
         customView.ingredientsCollectionView.delegate = self
         customView.ingredientsCollectionView.dataSource = self
+        navigationItem.largeTitleDisplayMode = .never
+        navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let back = customView.backButton
+        let favorite = customView.favoriteButton
+        back.layer.cornerRadius = 0.5 * back.bounds.size.width
+        favorite.layer.cornerRadius = 0.5 * favorite.bounds.size.width
+    }
+}
+
+// MARK: - DetailViewDelegate
+extension DetailViewController: DetailViewDelegate {
+    func detailView(didTapBackButton button: UIButton) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func detailView(didTapFavoriteButton button: UIButton) {
+        if button.tintColor != .systemRed {
+            button.tintColor = .systemRed
+        } else {
+            button.tintColor = .white
+        }
     }
 }
 

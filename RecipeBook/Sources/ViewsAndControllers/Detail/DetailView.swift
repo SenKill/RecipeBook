@@ -9,6 +9,11 @@ import Foundation
 import UIKit
 import TagListView
 
+protocol DetailViewDelegate: class {
+    func detailView(didTapBackButton button: UIButton)
+    func detailView(didTapFavoriteButton button: UIButton)
+}
+
 class DetailView: CView {
     
     init(data recipe: Recipe) {
@@ -23,6 +28,8 @@ class DetailView: CView {
         super.init(coder: coder)
     }
     
+    var delegate: DetailViewDelegate?
+    
     private var isRecipeNutrition: Bool = false
     
     let backgroundImageView: UIImageView = {
@@ -34,9 +41,14 @@ class DetailView: CView {
     }()
     
     private let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        return scrollView
+        let view = UIScrollView()
+        view.layer.cornerRadius = 20
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        view.layer.masksToBounds = true
+        view.showsVerticalScrollIndicator = false
+        view.showsHorizontalScrollIndicator = false
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     private let contentView: UIView = {
@@ -126,9 +138,33 @@ class DetailView: CView {
         return label
     }()
     
+    static private let iconConfiguration = UIImage.SymbolConfiguration(pointSize: 25, weight: .medium, scale: .medium)
+    let backButton: UIButton = {
+        let button = UIButton()
+        let image = UIImage(systemName: "arrow.left", withConfiguration: iconConfiguration)
+        button.setImage(image, for: .normal)
+        button.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        button.tintColor = .white
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    let favoriteButton: UIButton = {
+        let button = UIButton()
+        let image = UIImage(systemName: "heart", withConfiguration: iconConfiguration)
+        button.setImage(image, for: .normal)
+        button.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        button.tintColor = .white
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     override func setViews() {
         super.setViews()
+        backgroundColor = .systemBackground
         addSubview(backgroundImageView)
+        addSubview(backButton)
+        addSubview(favoriteButton)
         addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(titleLabel)
@@ -145,8 +181,10 @@ class DetailView: CView {
         contentView.addSubview(ingredientsDivider)
         contentView.addSubview(ingredientsCollectionView)
         contentView.addSubview(ingredientsInfoLabel)
+        
+        backButton.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
+        favoriteButton.addTarget(self, action: #selector(didTapFavoriteButton), for: .touchUpInside)
     }
-    
     override func layoutViews() {
         super.layoutViews()
         
@@ -155,11 +193,21 @@ class DetailView: CView {
             backgroundImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             backgroundImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             backgroundImageView.topAnchor.constraint(equalTo: topAnchor),
-            backgroundImageView.heightAnchor.constraint(equalToConstant: 250),
+            backgroundImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5),
+            
+            backButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            backButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
+            backButton.heightAnchor.constraint(equalToConstant: 50),
+            backButton.widthAnchor.constraint(equalTo: backButton.heightAnchor),
+            
+            favoriteButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            favoriteButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 50),
+            favoriteButton.widthAnchor.constraint(equalTo: favoriteButton.heightAnchor),
             
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            scrollView.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: -30),
+            scrollView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.7),
             scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
@@ -287,5 +335,13 @@ private extension DetailView {
         divider.heightAnchor.constraint(equalToConstant: 2).isActive = true
         
         return divider
+    }
+    
+    @objc func didTapBackButton(_ button: UIButton) {
+        delegate?.detailView(didTapBackButton: button)
+    }
+    
+    @objc func didTapFavoriteButton(_ button: UIButton) {
+        delegate?.detailView(didTapFavoriteButton: button)
     }
 }
