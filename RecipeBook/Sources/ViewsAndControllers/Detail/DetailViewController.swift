@@ -31,7 +31,8 @@ class DetailViewController: CViewController<DetailView> {
     }
     
     override func loadView() {
-        view = DetailView(data: recipeData)
+        view = DetailView(with: recipeData.nutrition)
+        configureViewWithData()
     }
     
     override func viewDidLoad() {
@@ -41,7 +42,13 @@ class DetailViewController: CViewController<DetailView> {
         customView.ingredientsCollectionView.delegate = self
         customView.ingredientsCollectionView.dataSource = self
         navigationItem.largeTitleDisplayMode = .never
-        navigationController?.isNavigationBarHidden = true
+        // navigationController?.isNavigationBarHidden = true
+        navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        super.viewDidDisappear(animated)
     }
     
     override func viewDidLayoutSubviews() {
@@ -126,4 +133,55 @@ private extension DetailViewController {
             }
         }
     }
+    
+    // MARK: - Populating View With Data
+    func configureViewWithData() {
+        customView.titleLabel.text = recipeData.title
+        customView.sourceLabel.text = "by: \(recipeData.sourceName ?? "undefined")"
+        customView.prepTimeLabel.text = "\(recipeData.readyInMinutes) Min"
+        
+        populateTags(with: recipeData)
+        populateIngredientInfo(with: recipeData.extendedIngredients)
+        populatePreparationInfo(with: recipeData.analyzedInstructions)
+    }
+    
+    func populateTags(with recipe: Recipe) {
+        let cuisineTags = recipe.cuisines
+        let dishTags = recipe.dishTypes
+        let dietTags = recipe.diets
+        let occasionTags = recipe.occasions
+        
+        customView.tagsListView.addTags(cuisineTags + dishTags + dietTags + occasionTags)
+        customView.tagsListView.tagViews.forEach { tagView in
+            guard let tagTitle = tagView.titleLabel?.text else {
+                return
+            }
+            tagView.setTitle(tagTitle.firstCapitalized, for: .normal)
+            if dietTags.contains(tagTitle) {
+                tagView.textColor = .systemGreen
+            }
+            tagView.cornerRadius = 5
+        }
+    }
+    
+    func populateIngredientInfo(with ingredients: [Ingredient]?) {
+        guard let ingredients = ingredients else { return }
+        var finalString = ""
+        for ingr in ingredients {
+            if let textInfo = ingr.original {
+                finalString += " • \(textInfo)\n"
+            }
+        }
+        customView.ingredientsInfoLabel.text = finalString
+    }
+    
+    func populatePreparationInfo(with instructions: [Instruction]) {
+        guard let instruction = instructions.first else { return }
+        var finalString = ""
+        for step in instruction.steps {
+            finalString += "\(step.number). \(step.step)\n\n"
+        }
+        customView.prepInfoLabel.text = finalString
+    }
+    
 }

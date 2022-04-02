@@ -97,7 +97,7 @@ class HomeView: CView {
             backgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             backgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             backgroundView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            backgroundView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 4/10),
+            backgroundView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 5/10),
             
             firstWelcomingLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance),
             firstWelcomingLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.leftDistance),

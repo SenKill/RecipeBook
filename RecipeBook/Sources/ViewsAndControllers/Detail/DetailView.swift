@@ -16,12 +16,11 @@ protocol DetailViewDelegate: class {
 
 class DetailView: CView {
     
-    init(data recipe: Recipe) {
-        if let nutrition = recipe.nutrition {
+    init(with nutrition: Nutrition?) {
+        if let nutrition = nutrition {
             nutritionCombinedView = NutritionCombinedView(nutrition: nutrition)
         }
         super.init(frame: .zero)
-        configureViewsWithData(recipe)
     }
     
     required init?(coder: NSCoder) {
@@ -35,107 +34,16 @@ class DetailView: CView {
     let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = false
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleToFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
-    private let scrollView: UIScrollView = {
-        let view = UIScrollView()
-        view.layer.cornerRadius = 20
-        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        view.layer.masksToBounds = true
-        view.showsVerticalScrollIndicator = false
-        view.showsHorizontalScrollIndicator = false
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private let contentView: UIView = {
+    private let dimmedBackgroundView: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = 20
-        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        view.layer.masksToBounds = true
-        view.backgroundColor = UIColor.theme.background
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.25)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
-    }()
-    
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-        label.numberOfLines = 0
-        label.textColor = UIColor.theme.primaryText
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let sourceLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
-        label.textColor = .secondaryLabel
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let prepTimeLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Min"
-        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
-        label.textColor = .secondaryLabel
-        label.textAlignment = .left
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let prepTimeIcon: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: "alarm"))
-        imageView.tintColor = .secondaryLabel
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-    
-    private let tagsListView: TagListView = {
-        let tagList = TagListView()
-        tagList.textColor = .secondaryLabel
-        tagList.tagBackgroundColor = UIColor.theme.secondaryText.withAlphaComponent(0.25)
-        tagList.textFont = UIFont.preferredFont(forTextStyle: .subheadline)
-        
-        tagList.paddingY = 7
-        tagList.paddingX = 11
-        tagList.alignment = .leading
-        
-        tagList.translatesAutoresizingMaskIntoConstraints = false
-        return tagList
-    }()
-    
-    private let nutritionLabel: UILabel = {
-        createTitleLabel(with: "Nutrition")
-    }()
-    
-    private let nutritionDivider: UIView = {
-        createDivider()
-    }()
-    
-    private var nutritionCombinedView: NutritionCombinedView?
-    
-    private let ingredientsLabel: UILabel = {
-        createTitleLabel(with: "Ingredients")
-    }()
-    
-    private let ingredientsDivider: UIView = {
-        createDivider()
-    }()
-    
-    let ingredientsCollectionView = IngredientsCollectionView()
-    
-    private let ingredientsInfoLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 13)
-        label.textColor = UIColor.theme.primaryText
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
     }()
     
     static private let iconConfiguration = UIImage.SymbolConfiguration(pointSize: 25, weight: .medium, scale: .medium)
@@ -159,14 +67,131 @@ class DetailView: CView {
         return button
     }()
     
+    private let scrollView: UIScrollView = {
+        let view = UIScrollView()
+        view.layer.cornerRadius = 20
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        view.layer.masksToBounds = true
+        view.showsVerticalScrollIndicator = false
+        view.showsHorizontalScrollIndicator = false
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private let contentView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 20
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        view.layer.masksToBounds = true
+        view.backgroundColor = UIColor.theme.background
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        label.numberOfLines = 0
+        label.textColor = UIColor.theme.primaryText
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let sourceLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        label.textColor = .secondaryLabel
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let prepTimeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Min"
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        label.textColor = .secondaryLabel
+        label.textAlignment = .left
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let prepTimeIcon: UIImageView = {
+        let imageView = UIImageView(image: UIImage(systemName: "alarm"))
+        imageView.tintColor = .secondaryLabel
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    let tagsListView: TagListView = {
+        let tagList = TagListView()
+        tagList.textColor = .secondaryLabel
+        tagList.tagBackgroundColor = UIColor.theme.secondaryText.withAlphaComponent(0.25)
+        tagList.textFont = UIFont.preferredFont(forTextStyle: .subheadline)
+        
+        tagList.paddingY = 7
+        tagList.paddingX = 11
+        tagList.alignment = .leading
+        
+        tagList.translatesAutoresizingMaskIntoConstraints = false
+        return tagList
+    }()
+    
+    let nutritionLabel: UILabel = {
+        createTitleLabel(with: "Nutrition")
+    }()
+    
+    private let nutritionDivider: UIView = {
+        createDivider()
+    }()
+    
+    var nutritionCombinedView: NutritionCombinedView?
+    
+    private let ingredientsLabel: UILabel = {
+        createTitleLabel(with: "Ingredients")
+    }()
+    
+    private let ingredientsDivider: UIView = {
+        createDivider()
+    }()
+    
+    let ingredientsCollectionView = IngredientsCollectionView()
+    
+    let ingredientsInfoLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.textColor = UIColor.theme.primaryText
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let prepLabel: UILabel = {
+        createTitleLabel(with: "Preparation")
+    }()
+    
+    private let prepDivider: UIView = {
+        createDivider()
+    }()
+    
+    let prepInfoLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        label.textColor = UIColor.theme.primaryText
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     override func setViews() {
         super.setViews()
-        backgroundColor = .systemBackground
         addSubview(backgroundImageView)
+        addDimmedViewToBackground()
+        
         addSubview(backButton)
         addSubview(favoriteButton)
         addSubview(scrollView)
         scrollView.addSubview(contentView)
+        
         contentView.addSubview(titleLabel)
         contentView.addSubview(prepTimeLabel)
         contentView.addSubview(prepTimeIcon)
@@ -182,9 +207,14 @@ class DetailView: CView {
         contentView.addSubview(ingredientsCollectionView)
         contentView.addSubview(ingredientsInfoLabel)
         
+        contentView.addSubview(prepLabel)
+        contentView.addSubview(prepDivider)
+        contentView.addSubview(prepInfoLabel)
+        
         backButton.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
         favoriteButton.addTarget(self, action: #selector(didTapFavoriteButton), for: .touchUpInside)
     }
+    
     override func layoutViews() {
         super.layoutViews()
         
@@ -270,53 +300,30 @@ class DetailView: CView {
             ingredientsInfoLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance),
             ingredientsInfoLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.rightDistance),
             ingredientsInfoLabel.topAnchor.constraint(equalTo: ingredientsCollectionView.bottomAnchor, constant: 10),
-            ingredientsInfoLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            
+            prepLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance),
+            prepLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.rightDistance),
+            prepLabel.topAnchor.constraint(equalTo: ingredientsInfoLabel.bottomAnchor, constant: 25),
+            
+            prepDivider.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance),
+            prepDivider.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.rightDistance),
+            prepDivider.topAnchor.constraint(equalTo: prepLabel.bottomAnchor, constant: 10),
+            
+            prepInfoLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance),
+            prepInfoLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.rightDistance),
+            prepInfoLabel.topAnchor.constraint(equalTo: prepDivider.bottomAnchor, constant: 15),
+            prepInfoLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
 }
 
 private extension DetailView {
-    func configureViewsWithData(_ recipe: Recipe) {
-        titleLabel.text = recipe.title
-        sourceLabel.text = "by: \(recipe.sourceName ?? "undefined")"
-        prepTimeLabel.text = "\(recipe.readyInMinutes) Min"
-        
-        populateTags(with: recipe)
-        populateIngredientInfo(with: recipe.extendedIngredients)
-    }
-    
-    func populateTags(with recipe: Recipe) {
-        let cuisineTags = recipe.cuisines
-        let dishTags = recipe.dishTypes
-        let dietTags = recipe.diets
-        let occasionTags = recipe.occasions
-        
-        tagsListView.addTags(cuisineTags + dishTags + dietTags + occasionTags)
-        tagsListView.tagViews.forEach { tagView in
-            guard let tagTitle = tagView.titleLabel?.text else {
-                return
-            }
-            tagView.setTitle(tagTitle.firstCapitalized, for: .normal)
-            
-            if dietTags.contains(tagTitle) {
-                tagView.textColor = .systemGreen
-            }
-            tagView.cornerRadius = 5
-        }
-    }
-    
-    func populateIngredientInfo(with ingredients: [Ingredient]?) {
-        guard let ingredients = ingredients else {
-            return
-        }
-        
-        var finalString = ""
-        for ingr in ingredients {
-            if let textInfo = ingr.original {
-                finalString += " • \(textInfo)\n"
-            }
-        }
-        ingredientsInfoLabel.text = finalString
+    func addDimmedViewToBackground() {
+        backgroundImageView.addSubview(dimmedBackgroundView)
+        dimmedBackgroundView.leadingAnchor.constraint(equalTo: backgroundImageView.leadingAnchor).isActive = true
+        dimmedBackgroundView.trailingAnchor.constraint(equalTo: backgroundImageView.trailingAnchor).isActive = true
+        dimmedBackgroundView.topAnchor.constraint(equalTo: backgroundImageView.topAnchor).isActive = true
+        dimmedBackgroundView.bottomAnchor.constraint(equalTo: backgroundImageView.bottomAnchor).isActive = true
     }
     
     static func createTitleLabel(with text: String) -> UILabel {
