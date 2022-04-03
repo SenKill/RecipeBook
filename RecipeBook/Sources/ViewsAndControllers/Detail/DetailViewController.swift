@@ -15,8 +15,9 @@ class DetailViewController: CViewController<DetailView> {
         static let big = "500x500"
     }
     
-    var recipeData: Recipe!
-    var ingredients: [Ingredient] = []
+    private var recipeData: Recipe!
+    private var ingredients: [Ingredient] = []
+    private var sourceUrl: URL?
     
     init(recipeData: Recipe) {
         self.recipeData = recipeData
@@ -71,6 +72,12 @@ extension DetailViewController: DetailViewDelegate {
             button.tintColor = .systemRed
         } else {
             button.tintColor = .white
+        }
+    }
+    
+    func detailView(didTapInstructionsButton button: UIButton) {
+        if let url = sourceUrl {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
 }
@@ -176,12 +183,19 @@ private extension DetailViewController {
     }
     
     func populatePreparationInfo(with instructions: [Instruction]) {
-        guard let instruction = instructions.first else { return }
+        guard let instruction = instructions.first,
+              instruction.steps.capacity != 1
+        else {
+            if let url = URL(string: recipeData.sourceUrl) {
+                sourceUrl = url
+                customView.buildLinkButton()
+            }
+            return
+        }
         var finalString = ""
         for step in instruction.steps {
             finalString += "\(step.number). \(step.step)\n\n"
         }
-        customView.prepInfoLabel.text = finalString
+        customView.buildInstructions(with: finalString)
     }
-    
 }

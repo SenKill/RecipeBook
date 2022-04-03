@@ -12,6 +12,7 @@ import TagListView
 protocol DetailViewDelegate: class {
     func detailView(didTapBackButton button: UIButton)
     func detailView(didTapFavoriteButton button: UIButton)
+    func detailView(didTapInstructionsButton button: UIButton)
 }
 
 class DetailView: CView {
@@ -173,15 +174,6 @@ class DetailView: CView {
         createDivider()
     }()
     
-    let prepInfoLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
-        label.textColor = UIColor.theme.primaryText
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
     override func setViews() {
         super.setViews()
         addSubview(backgroundImageView)
@@ -209,10 +201,11 @@ class DetailView: CView {
         
         contentView.addSubview(prepLabel)
         contentView.addSubview(prepDivider)
-        contentView.addSubview(prepInfoLabel)
         
         backButton.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
         favoriteButton.addTarget(self, action: #selector(didTapFavoriteButton), for: .touchUpInside)
+        
+        contentView.clipsToBounds = false
     }
     
     override func layoutViews() {
@@ -308,15 +301,54 @@ class DetailView: CView {
             prepDivider.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance),
             prepDivider.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.rightDistance),
             prepDivider.topAnchor.constraint(equalTo: prepLabel.bottomAnchor, constant: 10),
-            
-            prepInfoLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance),
-            prepInfoLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.rightDistance),
-            prepInfoLabel.topAnchor.constraint(equalTo: prepDivider.bottomAnchor, constant: 15),
-            prepInfoLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
 }
 
+// MARK: External
+extension DetailView {
+    func buildLinkButton() {
+        let linkButton = UIButton()
+        linkButton.backgroundColor = .systemGreen
+        linkButton.setTitle("Instructions", for: .normal)
+        linkButton.setTitleColor(.white, for: .normal)
+        linkButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        
+        linkButton.layer.cornerRadius = 10
+        linkButton.layer.shadowColor = UIColor.black.cgColor
+        linkButton.layer.shadowOpacity = 0.33
+        linkButton.layer.shadowOffset = CGSize(width: 0, height: 4)
+        linkButton.layer.shadowRadius = 4
+        
+        linkButton.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(linkButton)
+        
+        linkButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance).isActive = true
+        linkButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.rightDistance).isActive = true
+        linkButton.topAnchor.constraint(equalTo: prepDivider.bottomAnchor, constant: 15).isActive = true
+        linkButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        linkButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        
+        linkButton.addTarget(self, action: #selector(didTapInsturctionsButton(_:)), for: .touchUpInside)
+    }
+    
+    func buildInstructions(with text: String) {
+        let prepInfoLabel = UILabel()
+        prepInfoLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        prepInfoLabel.textColor = UIColor.theme.primaryText
+        prepInfoLabel.numberOfLines = 0
+        prepInfoLabel.text = text
+        prepInfoLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(prepInfoLabel)
+        
+        prepInfoLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance).isActive = true
+        prepInfoLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.rightDistance).isActive = true
+        prepInfoLabel.topAnchor.constraint(equalTo: prepDivider.bottomAnchor, constant: 15).isActive = true
+        prepInfoLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+    }
+}
+
+// MARK: Internal
 private extension DetailView {
     func addDimmedViewToBackground() {
         backgroundImageView.addSubview(dimmedBackgroundView)
@@ -350,5 +382,9 @@ private extension DetailView {
     
     @objc func didTapFavoriteButton(_ button: UIButton) {
         delegate?.detailView(didTapFavoriteButton: button)
+    }
+    
+    @objc func didTapInsturctionsButton(_ button: UIButton) {
+        delegate?.detailView(didTapInstructionsButton: button)
     }
 }
