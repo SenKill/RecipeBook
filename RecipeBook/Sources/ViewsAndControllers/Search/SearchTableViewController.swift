@@ -53,14 +53,26 @@ extension SearchTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var detailViewController: DetailViewController!
         if isSearching && !fetchedRecipes.isEmpty {
-            detailViewController = DetailViewController(recipeData: fetchedRecipes[indexPath.row])
+            detailViewController = DetailViewController(with: fetchedRecipes[indexPath.row], index: indexPath.row)
         } else if !randomRecipes.isEmpty {
-            detailViewController = DetailViewController(recipeData: randomRecipes[indexPath.row])
+            detailViewController = DetailViewController(with: randomRecipes[indexPath.row], index: indexPath.row)
         } else {
             return
         }
+        detailViewController.delegate = self
         
         navigationController?.pushViewController(detailViewController, animated: true)
+    }
+}
+
+// MARK: - DetailViewControllerDelegate
+extension SearchTableViewController: DetailViewControllerDelegate {
+    func detailViewController(didToggleFavoriteWithIndex index: Int, isFavorite: Bool) {
+        if isRandomPresented {
+            randomRecipes[index].isFavorite = isFavorite
+        } else {
+            fetchedRecipes[index].isFavorite = isFavorite
+        }
     }
 }
 

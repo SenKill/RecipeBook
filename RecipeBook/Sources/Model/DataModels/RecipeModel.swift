@@ -12,7 +12,7 @@ struct RecipeModel: Codable {
     var results: [Recipe]?
 }
 
-struct Recipe: Codable {
+struct Recipe: Codable, Equatable {
     let vegetarian: Bool
     let vegan: Bool
     let glutenFree: Bool
@@ -48,6 +48,15 @@ struct Recipe: Codable {
     let instructions: String?
     let analyzedInstructions: [Instruction]
     let spoonacularSourceUrl: String?
+    var isFavorite: Bool?
+    
+    static func == (lhs: Recipe, rhs: Recipe) -> Bool {
+        if lhs.id == rhs.id {
+            return true
+        }
+        return false
+    }
+    
 }
 
 struct Ingredient: Codable {

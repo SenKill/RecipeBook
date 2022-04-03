@@ -11,7 +11,7 @@ import TagListView
 
 protocol DetailViewDelegate: class {
     func detailView(didTapBackButton button: UIButton)
-    func detailView(didTapFavoriteButton button: UIButton)
+    func detailView(didTapFavoriteButton button: FavoriteButton)
     func detailView(didTapInstructionsButton button: UIButton)
 }
 
@@ -28,7 +28,7 @@ class DetailView: CView {
         super.init(coder: coder)
     }
     
-    var delegate: DetailViewDelegate?
+    weak var delegate: DetailViewDelegate?
     
     private var isRecipeNutrition: Bool = false
     
@@ -47,9 +47,9 @@ class DetailView: CView {
         return view
     }()
     
-    static private let iconConfiguration = UIImage.SymbolConfiguration(pointSize: 25, weight: .medium, scale: .medium)
     let backButton: UIButton = {
         let button = UIButton()
+        let iconConfiguration = UIImage.SymbolConfiguration(pointSize: 25, weight: .medium, scale: .medium)
         let image = UIImage(systemName: "arrow.left", withConfiguration: iconConfiguration)
         button.setImage(image, for: .normal)
         button.backgroundColor = UIColor.black.withAlphaComponent(0.3)
@@ -58,12 +58,9 @@ class DetailView: CView {
         return button
     }()
     
-    let favoriteButton: UIButton = {
-        let button = UIButton()
-        let image = UIImage(systemName: "heart", withConfiguration: iconConfiguration)
-        button.setImage(image, for: .normal)
+    let favoriteButton: FavoriteButton = {
+        let button = FavoriteButton()
         button.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-        button.tintColor = .white
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -380,7 +377,7 @@ private extension DetailView {
         delegate?.detailView(didTapBackButton: button)
     }
     
-    @objc func didTapFavoriteButton(_ button: UIButton) {
+    @objc func didTapFavoriteButton(_ button: FavoriteButton) {
         delegate?.detailView(didTapFavoriteButton: button)
     }
     

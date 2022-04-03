@@ -30,7 +30,8 @@ final class NetworkService {
             // Trying to decode data because it's formatted in JSON
             do {
                 let recipeData = try JSONDecoder().decode(RecipeModel.self, from: data)
-                handler(.success(recipeData))
+                let checkedRecipes = LocalService.shared.checkForFavorites(recipeData)
+                handler(.success(checkedRecipes))
             } catch let error as NSError {
                 handler(.failure(error))
             }

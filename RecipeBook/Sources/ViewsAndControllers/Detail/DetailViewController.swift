@@ -8,6 +8,11 @@
 import Foundation
 import UIKit
 
+
+protocol DetailViewControllerDelegate: class {
+    func detailViewController(didToggleFavoriteWithIndex index: Int, isFavorite: Bool)
+}
+
 class DetailViewController: CViewController<DetailView> {
     enum IngredientsSizes {
         static let small = "100x100"
@@ -15,15 +20,19 @@ class DetailViewController: CViewController<DetailView> {
         static let big = "500x500"
     }
     
+    weak var delegate: DetailViewControllerDelegate?
+    
     private var recipeData: Recipe!
     private var ingredients: [Ingredient] = []
     private var sourceUrl: URL?
+    private var index: Int!
     
-    init(recipeData: Recipe) {
+    init(with recipeData: Recipe, index: Int) {
         self.recipeData = recipeData
         if let ingredients = recipeData.extendedIngredients {
             self.ingredients = ingredients
         }
+        self.index = index
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -43,7 +52,6 @@ class DetailViewController: CViewController<DetailView> {
         customView.ingredientsCollectionView.delegate = self
         customView.ingredientsCollectionView.dataSource = self
         navigationItem.largeTitleDisplayMode = .never
-        // navigationController?.isNavigationBarHidden = true
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
@@ -67,12 +75,18 @@ extension DetailViewController: DetailViewDelegate {
         navigationController?.popViewController(animated: true)
     }
     
-    func detailView(didTapFavoriteButton button: UIButton) {
-        if button.tintColor != .systemRed {
-            button.tintColor = .systemRed
+    func detailView(didTapFavoriteButton button: FavoriteButton) {
+        let localService = LocalService()
+        if button.tintColor == UIColor.systemRed {
+            localService.removeObjectFromFavorites(with: recipeData.id)
+            delegate?.detailViewController(didToggleFavoriteWithIndex: index, isFavorite: false)
+            customView.favoriteButton.setInactive()
         } else {
-            button.tintColor = .white
+            localService.addToFavorites(recipeData)
+            delegate?.detailViewController(didToggleFavoriteWithIndex: index, isFavorite: true)
+            customView.favoriteButton.setActive()
         }
+        print("Favorite recipes count: \(localService.getFavorites().count)")
     }
     
     func detailView(didTapInstructionsButton button: UIButton) {
@@ -143,6 +157,10 @@ private extension DetailViewController {
     
     // MARK: - Populating View With Data
     func configureViewWithData() {
+        if recipeData.isFavorite ?? false {
+            customView.favoriteButton.setActive()
+        }
+        
         customView.titleLabel.text = recipeData.title
         customView.sourceLabel.text = "by: \(recipeData.sourceName ?? "undefined")"
         customView.prepTimeLabel.text = "\(recipeData.readyInMinutes) Min"

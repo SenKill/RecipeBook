@@ -33,10 +33,19 @@ extension RecipesCollectionViewController: UICollectionViewDelegate {
         guard !recipes.isEmpty else {
             return
         }
-        navigationController?.pushViewController(DetailViewController(recipeData: recipes[indexPath.row]), animated: true)
+        let detailVC = DetailViewController(with: recipes[indexPath.row], index: indexPath.row)
+        detailVC.delegate = self
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 }
 
+
+// MARK: - DetailViewControllerDelegate
+extension RecipesCollectionViewController: DetailViewControllerDelegate {
+    func detailViewController(didToggleFavoriteWithIndex index: Int, isFavorite: Bool) {
+        recipes[index].isFavorite = isFavorite
+    }
+}
 
 // MARK: - UICollectionViewDataSource
 extension RecipesCollectionViewController: UICollectionViewDataSource {
