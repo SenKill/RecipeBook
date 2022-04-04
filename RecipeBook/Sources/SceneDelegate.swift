@@ -15,12 +15,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowsScene = (scene as? UIWindowScene) else { return }
         let homeNavigationController = UINavigationController(rootViewController: HomeViewController())
         let searchNavigationController = UINavigationController(rootViewController: SearchTableViewController())
+        let favoritesNavigationController = UINavigationController(rootViewController: FavoritesTableViewController())
         let tabBarController = UITabBarController()
         
-        tabBarController.setViewControllers([homeNavigationController, searchNavigationController], animated: false)
+        tabBarController.setViewControllers([homeNavigationController, searchNavigationController, favoritesNavigationController], animated: false)
         
         customizeTabBar(homeNavigationController, name: "Home")
         customizeTabBar(searchNavigationController, name: "Search")
+        customizeTabBar(favoritesNavigationController, name: "Favorites")
         
         window = UIWindow(windowScene: windowsScene)
         window?.rootViewController = tabBarController
@@ -45,11 +47,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             tabBar.layer.cornerRadius = 50
             tabBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
             tabBar.layer.masksToBounds = true
-            break
         case "Search":
             controller.tabBarItem.image = UIImage(systemName: "magnifyingglass")
             controller.tabBarItem.selectedImage = UIImage(systemName: "plus.magnifyingglass")
-            break
+        case "Favorites":
+            controller.tabBarItem.image = UIImage(systemName: "heart")
+            controller.tabBarItem.selectedImage = UIImage(systemName: "heart.fill")
         default:
             print("Undefined case")
             break

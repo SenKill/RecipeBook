@@ -42,8 +42,8 @@ extension RecipesCollectionViewController: UICollectionViewDelegate {
 
 // MARK: - DetailViewControllerDelegate
 extension RecipesCollectionViewController: DetailViewControllerDelegate {
-    func detailViewController(didToggleFavoriteWithIndex index: Int, isFavorite: Bool) {
-        recipes[index].isFavorite = isFavorite
+    func detailViewController(didToggleFavoriteWithIndex index: Int, value: Bool) {
+        recipes[index].isFavorite = value
     }
 }
 

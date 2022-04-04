@@ -35,7 +35,6 @@ class SearchTableViewController: UITableViewController {
     }
     
     override func loadView() {
-        super.loadView()
         tableView = SearchTableView()
     }
     
@@ -67,11 +66,11 @@ extension SearchTableViewController {
 
 // MARK: - DetailViewControllerDelegate
 extension SearchTableViewController: DetailViewControllerDelegate {
-    func detailViewController(didToggleFavoriteWithIndex index: Int, isFavorite: Bool) {
+    func detailViewController(didToggleFavoriteWithIndex index: Int, value: Bool) {
         if isRandomPresented {
-            randomRecipes[index].isFavorite = isFavorite
+            randomRecipes[index].isFavorite = value
         } else {
-            fetchedRecipes[index].isFavorite = isFavorite
+            fetchedRecipes[index].isFavorite = value
         }
     }
 }
@@ -109,14 +108,14 @@ extension SearchTableViewController {
         
         if let image = recipe?.image {
             NetworkService.fetchImage(for: .recipe, with: image.changeImageSize(to: ImageSizes.verySmall), size: nil) { result in
-                switch result {
-                case .success(let data):
-                    DispatchQueue.main.async {
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let data):
                         newCell.configureCell(for: recipe, with: UIImage(data: data))
+                    case .failure(let error):
+                        let alert = UIAlertController.errorAlert(title: "Loading image error", message: error.localizedDescription)
+                        self.present(alert, animated: true, completion: nil)
                     }
-                case .failure(let error):
-                    let alert = UIAlertController.errorAlert(title: "Loading image error", message: error.localizedDescription)
-                    self.present(alert, animated: true, completion: nil)
                 }
             }
         } else if recipe?.title != nil {

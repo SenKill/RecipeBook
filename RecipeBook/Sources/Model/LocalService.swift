@@ -24,6 +24,9 @@ class LocalService {
     }
     
     func addToFavorites(_ recipe: Recipe) {
+        var recipe = recipe
+        recipe.isFavorite = true
+        
         let encoder = JSONEncoder()
         var favorites = getFavorites()
         favorites.append(recipe)

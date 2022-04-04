@@ -10,7 +10,7 @@ import UIKit
 
 
 protocol DetailViewControllerDelegate: class {
-    func detailViewController(didToggleFavoriteWithIndex index: Int, isFavorite: Bool)
+    func detailViewController(didToggleFavoriteWithIndex index: Int, value: Bool)
 }
 
 class DetailViewController: CViewController<DetailView> {
@@ -79,11 +79,11 @@ extension DetailViewController: DetailViewDelegate {
         let localService = LocalService()
         if button.tintColor == UIColor.systemRed {
             localService.removeObjectFromFavorites(with: recipeData.id)
-            delegate?.detailViewController(didToggleFavoriteWithIndex: index, isFavorite: false)
+            delegate?.detailViewController(didToggleFavoriteWithIndex: index, value: false)
             customView.favoriteButton.setInactive()
         } else {
             localService.addToFavorites(recipeData)
-            delegate?.detailViewController(didToggleFavoriteWithIndex: index, isFavorite: true)
+            delegate?.detailViewController(didToggleFavoriteWithIndex: index, value: true)
             customView.favoriteButton.setActive()
         }
         print("Favorite recipes count: \(localService.getFavorites().count)")
