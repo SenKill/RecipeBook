@@ -131,6 +131,7 @@ extension DetailViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension DetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(width: 50, height: 70)
@@ -201,6 +202,15 @@ private extension DetailViewController {
     }
     
     func populatePreparationInfo(with instructions: [Instruction]) {
+        let funny: Bool = false
+        guard !funny else {
+            if let url = URL(string: "https://youtu.be/dQw4w9WgXcQ") {
+                sourceUrl = url
+                customView.buildLinkButton()
+            }
+            return
+        }
+        
         guard let instruction = instructions.first,
               instruction.steps.capacity != 1
         else {

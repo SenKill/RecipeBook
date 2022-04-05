@@ -24,8 +24,26 @@ extension ConfigurableCell {
 
 class RecipesCollectionViewController: UIViewController {
     var recipes: [Recipe] = []
+    private let localService = LocalService()
 }
 
+// MARK: - FavoriteButtonDelegate
+extension RecipesCollectionViewController: FavoriteCollectionButtonDelegate {
+    func didTapFavoriteButton(_ cell: RecipesCollectionViewCell) {
+        guard let someCell = cell as? MealCollectionViewCell else {
+            print("Can't cast cell to MealCollectionViewCell type")
+            return
+        }
+        
+        if cell.favoriteButton.tintColor == UIColor.systemRed {
+            localService.removeObjectFromFavorites(with: cell.index)
+            cell.favoriteButton.setInactive()
+        } else {
+            localService.addToFavorites(recipes[cell.index])
+            cell.favoriteButton.setActive()
+        }
+    }
+}
 
 // MARK: - UICollectionViewDelegate
 extension RecipesCollectionViewController: UICollectionViewDelegate {
@@ -49,7 +67,6 @@ extension RecipesCollectionViewController: DetailViewControllerDelegate {
 
 // MARK: - UICollectionViewDataSource
 extension RecipesCollectionViewController: UICollectionViewDataSource {
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView.tag == 1 {
             return Constants.mealCount
@@ -61,10 +78,15 @@ extension RecipesCollectionViewController: UICollectionViewDataSource {
         // Giving to the cell protocol type for using it's method configureCell()
         var cell: ConfigurableCell!
         
-        if collectionView.tag == 1 {
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: MealCollectionViewCell.reuseId, for: indexPath) as! MealCollectionViewCell
-        } else {
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularCollectionViewCell.reuseId, for: indexPath) as! PopularCollectionViewCell
+        if collectionView.tag == 1,
+           let mealCell = collectionView.dequeueReusableCell(withReuseIdentifier: MealCollectionViewCell.reuseId, for: indexPath) as? MealCollectionViewCell {
+            mealCell.index = indexPath.row
+            mealCell.delegate = self
+            cell = mealCell
+        } else if let popularCell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularCollectionViewCell.reuseId, for: indexPath) as? PopularCollectionViewCell {
+            popularCell.index = indexPath.row
+            popularCell.delegate = self
+            cell = popularCell
         }
         
         guard recipes.count != 0 else {
@@ -95,7 +117,6 @@ extension RecipesCollectionViewController: UICollectionViewDataSource {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
-
 extension RecipesCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView.tag == 1 {

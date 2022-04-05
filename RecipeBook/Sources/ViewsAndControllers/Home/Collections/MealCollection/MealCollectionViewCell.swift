@@ -7,29 +7,8 @@
 
 import UIKit
 
-class MealCollectionViewCell: UICollectionViewCell {
-    
-    static let reuseId = "RecipesCollectionViewCell"
-    var isImageLoaded: Bool = false
-    
-    private let spinner: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
-    
-    private let mainImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.layer.cornerRadius = 10
-        imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFill
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-    
-    private let bookmarkImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "bookmark")
-        imageView.tintColor = .white
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
+class MealCollectionViewCell: RecipesCollectionViewCell {
+    static let reuseId = "MealCollectionViewCell"
     
     private let recipeNameLabel: UILabel = {
         let label = UILabel()
@@ -49,17 +28,7 @@ class MealCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setViews()
-        layoutViews()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
-    private func setViews() {
+    override func setViews() {
         backgroundColor = .white
         self.layer.cornerRadius = 10
         self.layer.shadowRadius = 5
@@ -68,11 +37,11 @@ class MealCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(authorNameLabel)
         contentView.addSubview(recipeNameLabel)
         contentView.addSubview(mainImageView)
-        contentView.addSubview(bookmarkImageView)
+        contentView.addSubview(favoriteButton)
+        favoriteButton.addTarget(self, action: #selector(didTapFavoriteButton(_:)), for: .touchUpInside)
     }
     
-    private func layoutViews() {
-        
+    override func layoutViews() {
         NSLayoutConstraint.activate([
             authorNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
             authorNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
@@ -87,17 +56,24 @@ class MealCollectionViewCell: UICollectionViewCell {
             mainImageView.topAnchor.constraint(equalTo: topAnchor),
             mainImageView.bottomAnchor.constraint(equalTo: recipeNameLabel.topAnchor, constant: -5),
             
-            bookmarkImageView.trailingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: -10),
-            bookmarkImageView.topAnchor.constraint(equalTo: topAnchor, constant: -3),
-            bookmarkImageView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 0.23),
-            bookmarkImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.2),
+            favoriteButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            favoriteButton.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 30),
+            favoriteButton.widthAnchor.constraint(equalTo: favoriteButton.heightAnchor)
         ])
+    }
+}
+
+// MARK: - Internal
+private extension MealCollectionViewCell {
+    @objc func didTapFavoriteButton(_ cell: MealCollectionViewCell) {
+        delegate?.didTapFavoriteButton(cell)
     }
 }
 
 extension MealCollectionViewCell: ConfigurableCell {
     func configureCell(for recipe: Recipe?, with image: UIImage?) {
-        removeContentFromCell(self)
+        removeContentFromCell()
         
         // Setting up spinner if image didn't load yet
         if let image = image {
@@ -120,11 +96,11 @@ extension MealCollectionViewCell: ConfigurableCell {
         // TODO: Add isFavorite property
     }
     
-    func removeContentFromCell(_ cell: MealCollectionViewCell) {
-        cell.mainImageView.image = nil
-        cell.bookmarkImageView.image = nil
-        cell.recipeNameLabel.text = nil
-        cell.recipeNameLabel.text = nil
-        cell.authorNameLabel.text = nil
+    private func removeContentFromCell() {
+        mainImageView.image = nil
+        recipeNameLabel.text = nil
+        recipeNameLabel.text = nil
+        authorNameLabel.text = nil
+        index = nil
     }
 }

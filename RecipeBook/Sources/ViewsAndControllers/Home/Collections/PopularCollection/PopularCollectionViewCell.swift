@@ -7,21 +7,8 @@
 
 import UIKit
 
-class PopularCollectionViewCell: UICollectionViewCell {
-    
+class PopularCollectionViewCell: RecipesCollectionViewCell {
     static let reuseId = "PopularCollectionViewCell"
-    var isImageLoaded: Bool = false
-    
-    private let spinner = UIActivityIndicatorView(style: .large)
-    
-    private let mainImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.layer.cornerRadius = 10
-        imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFill
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
     
     private let recipeNameLabel: UILabel = {
         let label = UILabel()
@@ -72,25 +59,7 @@ class PopularCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let bookmarkImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "bookmark")
-        imageView.tintColor = .white
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setViews()
-        layoutViews()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
-    private func setViews() {
+    override func setViews() {
         backgroundColor = .white
         layer.cornerRadius = 10
         layer.shadowRadius = 2
@@ -103,10 +72,9 @@ class PopularCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(prepTimeLabel)
         contentView.addSubview(servingsImageView)
         contentView.addSubview(servingsLabel)
-        contentView.addSubview(bookmarkImageView)
     }
     
-    private func layoutViews() {
+    override func layoutViews() {
         NSLayoutConstraint.activate([
             mainImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             mainImageView.topAnchor.constraint(equalTo: topAnchor),
@@ -137,19 +105,14 @@ class PopularCollectionViewCell: UICollectionViewCell {
             servingsImageView.trailingAnchor.constraint(equalTo: servingsLabel.leadingAnchor, constant: -5),
             servingsImageView.topAnchor.constraint(equalTo: prepTimeLabel.topAnchor),
             servingsImageView.widthAnchor.constraint(equalTo: prepTimeImageView.widthAnchor),
-            servingsImageView.heightAnchor.constraint(equalTo: prepTimeImageView.heightAnchor),
-            
-            bookmarkImageView.trailingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: -10),
-            bookmarkImageView.topAnchor.constraint(equalTo: topAnchor, constant: -3),
-            bookmarkImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.23),
-            bookmarkImageView.widthAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2)
+            servingsImageView.heightAnchor.constraint(equalTo: prepTimeImageView.heightAnchor)
         ])
     }
 }
 
 extension PopularCollectionViewCell: ConfigurableCell {
     func configureCell(for recipe: Recipe?, with image: UIImage?) {
-        removeContentFromCell(self)
+        removeContentFromCell()
         
         // Setting up spinner if image didn't load yet
         if let image = image {
@@ -171,11 +134,12 @@ extension PopularCollectionViewCell: ConfigurableCell {
         servingsLabel.text = "\(recipe.servings) Servings"
     }
     
-    private func removeContentFromCell(_ cell: PopularCollectionViewCell) {
+    private func removeContentFromCell() {
         mainImageView.image = nil
         recipeNameLabel.text = nil
         authorNameLabel.text = nil
         prepTimeLabel.text = nil
         servingsLabel.text = nil
+        index = nil
     }
 }
