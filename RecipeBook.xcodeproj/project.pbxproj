@@ -252,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				F7F417F627D39C40003654E2 /* RecipesCollectionViewController.swift */,
+				F7537E1A27FC881500A93B05 /* RecipesCollectionViewCell.swift */,
 				F768E21427BA89B900F1D61B /* MealCollection */,
 				F7090E1127BCC3C100069D79 /* PopularCollection */,
 			);
@@ -412,7 +413,6 @@
 				F7090E0627BCBBCF00069D79 /* GradientView.swift */,
 				F72DD1B127F9BAAD0009643A /* FavoriteButton.swift */,
 				F782DD8027FAEF2400338472 /* RecipesTableViewCell.swift */,
-				F7537E1A27FC881500A93B05 /* RecipesCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

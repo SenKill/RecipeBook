@@ -11,7 +11,7 @@ import UIKit
 class RecipesCollectionViewCell: UICollectionViewCell {
     var index: Int!
     var isImageLoaded: Bool = false
-    weak var delegate: FavoriteCollectionButtonDelegate?
+    weak var delegate: FavoriteButtonDelegate?
     
     let spinner: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
     

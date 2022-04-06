@@ -92,8 +92,6 @@ extension RecipesTableViewCell {
     func configureCell(for recipe: Recipe?, with image: UIImage?) {
         let cell = self
         
-        removeContentFromCell(cell)
-        
         // Setting up spinner if image didn't load yet
         if let image = image {
             spinner.removeFromSuperview()
@@ -120,11 +118,11 @@ extension RecipesTableViewCell {
         cell.authorLabel.text = "by: " + (recipe.sourceName ?? "")
     }
     
-    private func removeContentFromCell(_ cell: RecipesTableViewCell) {
-        cell.mainImageView.image = nil
-        cell.recipeNameLabel.text = nil
-        cell.infoLabel.text = nil
-        cell.authorLabel.text = nil
+    override func prepareForReuse() {
+        mainImageView.image = nil
+        recipeNameLabel.text = nil
+        infoLabel.text = nil
+        authorLabel.text = nil
     }
 }
 

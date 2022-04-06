@@ -66,15 +66,14 @@ class MealCollectionViewCell: RecipesCollectionViewCell {
 
 // MARK: - Internal
 private extension MealCollectionViewCell {
-    @objc func didTapFavoriteButton(_ cell: MealCollectionViewCell) {
-        delegate?.didTapFavoriteButton(cell)
+    @objc func didTapFavoriteButton(_ sender: FavoriteButton) {
+        delegate?.didTapFavoriteButton(sender, index: index)
     }
 }
 
+// MARK: - Cell Life Cycle
 extension MealCollectionViewCell: ConfigurableCell {
     func configureCell(for recipe: Recipe?, with image: UIImage?) {
-        removeContentFromCell()
-        
         // Setting up spinner if image didn't load yet
         if let image = image {
             isImageLoaded = true
@@ -96,7 +95,8 @@ extension MealCollectionViewCell: ConfigurableCell {
         // TODO: Add isFavorite property
     }
     
-    private func removeContentFromCell() {
+    override func prepareForReuse() {
+        super.prepareForReuse()
         mainImageView.image = nil
         recipeNameLabel.text = nil
         recipeNameLabel.text = nil

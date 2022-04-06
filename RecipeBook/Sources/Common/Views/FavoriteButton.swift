@@ -8,12 +8,8 @@
 import Foundation
 import UIKit
 
-protocol FavoriteCollectionButtonDelegate: class {
-    func didTapFavoriteButton(_ cell: RecipesCollectionViewCell)
-}
-
-protocol FavoriteTableButtonDelegate: class {
-    func didTapFavoriteButton(_ cell: RecipesTableViewCell)
+protocol FavoriteButtonDelegate: class {
+    func didTapFavoriteButton(_ sender: FavoriteButton, index: Int)
 }
 
 class FavoriteButton: UIButton {

@@ -25,12 +25,11 @@ class LocalService {
     
     func addToFavorites(_ recipe: Recipe) {
         var recipe = recipe
-        recipe.isFavorite = true
-        
         let encoder = JSONEncoder()
         var favorites = getFavorites()
-        favorites.append(recipe)
         
+        recipe.isFavorite = true
+        favorites.append(recipe)
         guard let encodedData = try? encoder.encode(favorites) else {
             print("ERROR: Can't encode data")
             return
@@ -40,6 +39,7 @@ class LocalService {
     
     func removeObjectFromFavorites(with id: Int) {
         var favorites = getFavorites()
+        
         for recipe in favorites {
             if recipe.id == id {
                 print("Removing - \(recipe.title)")
@@ -70,7 +70,6 @@ class LocalService {
         }
         
         let favorites = getFavorites()
-        
         for recipeIndex in 0..<checkableRecipes.count {
             for favoriteIndex in 0..<favorites.count {
                 if checkableRecipes[recipeIndex] == favorites[favoriteIndex] {

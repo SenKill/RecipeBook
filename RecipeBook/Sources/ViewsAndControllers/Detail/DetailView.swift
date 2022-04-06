@@ -34,8 +34,8 @@ class DetailView: CView {
     
     let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.clipsToBounds = false
-        imageView.contentMode = .scaleToFill
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()

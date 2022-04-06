@@ -28,19 +28,14 @@ class RecipesCollectionViewController: UIViewController {
 }
 
 // MARK: - FavoriteButtonDelegate
-extension RecipesCollectionViewController: FavoriteCollectionButtonDelegate {
-    func didTapFavoriteButton(_ cell: RecipesCollectionViewCell) {
-        guard let someCell = cell as? MealCollectionViewCell else {
-            print("Can't cast cell to MealCollectionViewCell type")
-            return
-        }
-        
-        if cell.favoriteButton.tintColor == UIColor.systemRed {
-            localService.removeObjectFromFavorites(with: cell.index)
-            cell.favoriteButton.setInactive()
+extension RecipesCollectionViewController: FavoriteButtonDelegate {
+    func didTapFavoriteButton(_ sender: FavoriteButton, index: Int) {
+        if sender.tintColor == UIColor.systemRed {
+            localService.removeObjectFromFavorites(with: recipes[index].id)
+            sender.setInactive()
         } else {
-            localService.addToFavorites(recipes[cell.index])
-            cell.favoriteButton.setActive()
+            localService.addToFavorites(recipes[index])
+            sender.setActive()
         }
     }
 }

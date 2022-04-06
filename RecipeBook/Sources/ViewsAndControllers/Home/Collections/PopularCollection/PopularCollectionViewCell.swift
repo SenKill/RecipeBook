@@ -112,8 +112,6 @@ class PopularCollectionViewCell: RecipesCollectionViewCell {
 
 extension PopularCollectionViewCell: ConfigurableCell {
     func configureCell(for recipe: Recipe?, with image: UIImage?) {
-        removeContentFromCell()
-        
         // Setting up spinner if image didn't load yet
         if let image = image {
             isImageLoaded = true
@@ -134,7 +132,8 @@ extension PopularCollectionViewCell: ConfigurableCell {
         servingsLabel.text = "\(recipe.servings) Servings"
     }
     
-    private func removeContentFromCell() {
+    override func prepareForReuse() {
+        super.prepareForReuse()
         mainImageView.image = nil
         recipeNameLabel.text = nil
         authorNameLabel.text = nil
