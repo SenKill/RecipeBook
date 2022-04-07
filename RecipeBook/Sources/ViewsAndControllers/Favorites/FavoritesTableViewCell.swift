@@ -10,4 +10,9 @@ import UIKit
 
 class FavoritesTableViewCell: RecipesTableViewCell {
     static let reuseId = "FavoritesTableViewCell"
+    
+    override func layoutViews() {
+        super.layoutViews()
+        recipeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.rightDistance).isActive = true
+    }
 }

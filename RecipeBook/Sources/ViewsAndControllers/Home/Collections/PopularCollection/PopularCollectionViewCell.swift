@@ -60,6 +60,7 @@ class PopularCollectionViewCell: RecipesCollectionViewCell {
     }()
     
     override func setViews() {
+        super.setViews()
         backgroundColor = .white
         layer.cornerRadius = 10
         layer.shadowRadius = 2
@@ -72,6 +73,7 @@ class PopularCollectionViewCell: RecipesCollectionViewCell {
         contentView.addSubview(prepTimeLabel)
         contentView.addSubview(servingsImageView)
         contentView.addSubview(servingsLabel)
+        contentView.addSubview(favoriteButton)
     }
     
     override func layoutViews() {
@@ -82,7 +84,7 @@ class PopularCollectionViewCell: RecipesCollectionViewCell {
             mainImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1/3),
             
             recipeNameLabel.leadingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: 10),
-            recipeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            recipeNameLabel.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -5),
             recipeNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             
             authorNameLabel.leadingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: 10),
@@ -105,7 +107,12 @@ class PopularCollectionViewCell: RecipesCollectionViewCell {
             servingsImageView.trailingAnchor.constraint(equalTo: servingsLabel.leadingAnchor, constant: -5),
             servingsImageView.topAnchor.constraint(equalTo: prepTimeLabel.topAnchor),
             servingsImageView.widthAnchor.constraint(equalTo: prepTimeImageView.widthAnchor),
-            servingsImageView.heightAnchor.constraint(equalTo: prepTimeImageView.heightAnchor)
+            servingsImageView.heightAnchor.constraint(equalTo: prepTimeImageView.heightAnchor),
+            
+            favoriteButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            favoriteButton.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 30),
+            favoriteButton.widthAnchor.constraint(equalTo: favoriteButton.heightAnchor),
         ])
     }
 }

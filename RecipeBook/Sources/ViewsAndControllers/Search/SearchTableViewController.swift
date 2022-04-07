@@ -9,6 +9,7 @@ import UIKit
 
 class SearchTableViewController: UITableViewController {
 
+    // MARK: - Properties
     private var searchController: RecipesSearchController!
     
     private var randomRecipes: [Recipe] = []
@@ -34,6 +35,7 @@ class SearchTableViewController: UITableViewController {
         return scopeTitles[selectedSegment]
     }
     
+    // MARK: - Life cycle
     override func loadView() {
         tableView = SearchTableView()
     }
@@ -44,6 +46,20 @@ class SearchTableViewController: UITableViewController {
         configureSearchController()
         configureFilterViewController()
         definesPresentationContext = true
+    }
+}
+
+// MARK: - FavoriteButtonDelegate
+extension SearchTableViewController: FavoriteButtonDelegate {
+    func didTapFavoriteButton(_ sender: FavoriteButton, index: Int) {
+        let recipes = isRandomPresented ? randomRecipes : fetchedRecipes
+        if sender.tintColor == UIColor.systemRed {
+            LocalService.shared.removeObjectFromFavorites(with: recipes[index].id)
+            sender.setInactive()
+        } else {
+            LocalService.shared.addToFavorites(recipes[index])
+            sender.setActive()
+        }
     }
 }
 
@@ -105,6 +121,8 @@ extension SearchTableViewController {
         }
         
         newCell.configureCell(for: recipe, with: nil)
+        newCell.index = indexPath.row
+        newCell.delegate = self
         
         if let image = recipe?.image {
             NetworkService.fetchImage(for: .recipe, with: image.changeImageSize(to: ImageSizes.verySmall), size: nil) { result in

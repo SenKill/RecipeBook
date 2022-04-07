@@ -35,6 +35,7 @@ class LocalService {
             return
         }
         defaults.set(encodedData, forKey: favoritesKey)
+        print("Favorite recipes count: \(favorites.count)")
     }
     
     func removeObjectFromFavorites(with id: Int) {

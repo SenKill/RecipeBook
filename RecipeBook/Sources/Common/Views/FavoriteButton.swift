@@ -14,14 +14,16 @@ protocol FavoriteButtonDelegate: class {
 
 class FavoriteButton: UIButton {
     private var iconConfiguration: UIImage.SymbolConfiguration!
+    private var defaultColor: UIColor!
     
-    init(iconPointSize: CGFloat = 25) {
+    init(iconPointSize: CGFloat = 25, withColor color: UIColor = .white) {
         super.init(frame: .zero)
         
         iconConfiguration = UIImage.SymbolConfiguration(pointSize: iconPointSize, weight: .medium, scale: .medium)
         let image = UIImage(systemName: "heart", withConfiguration: iconConfiguration)
         setImage(image, for: .normal)
-        tintColor = .white
+        self.defaultColor = color
+        tintColor = color
     }
     
     required init?(coder: NSCoder) {
@@ -35,6 +37,6 @@ class FavoriteButton: UIButton {
     
     func setInactive() {
         setImage(UIImage(systemName: "heart", withConfiguration: iconConfiguration), for: .normal)
-        tintColor = .white
+        tintColor = defaultColor
     }
 }

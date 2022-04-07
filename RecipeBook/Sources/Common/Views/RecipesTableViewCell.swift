@@ -20,7 +20,7 @@ class RecipesTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    private let recipeNameLabel: UILabel = {
+    let recipeNameLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2
         label.font = UIFont.preferredFont(forTextStyle: .title3)
@@ -74,7 +74,6 @@ class RecipesTableViewCell: UITableViewCell {
             mainImageView.widthAnchor.constraint(equalTo: mainImageView.heightAnchor),
             
             recipeNameLabel.leadingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: 15),
-            recipeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.rightDistance),
             recipeNameLabel.topAnchor.constraint(equalTo: mainImageView.topAnchor, constant: 3),
             
             infoLabel.leadingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: 15),

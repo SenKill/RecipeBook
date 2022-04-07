@@ -29,16 +29,15 @@ class MealCollectionViewCell: RecipesCollectionViewCell {
     }()
     
     override func setViews() {
-        backgroundColor = .white
+        super.setViews()
         self.layer.cornerRadius = 10
         self.layer.shadowRadius = 5
-        layer.shadowOpacity = 0.3
+        layer.shadowOpacity = 0.2
         
         contentView.addSubview(authorNameLabel)
         contentView.addSubview(recipeNameLabel)
         contentView.addSubview(mainImageView)
         contentView.addSubview(favoriteButton)
-        favoriteButton.addTarget(self, action: #selector(didTapFavoriteButton(_:)), for: .touchUpInside)
     }
     
     override func layoutViews() {
@@ -61,13 +60,6 @@ class MealCollectionViewCell: RecipesCollectionViewCell {
             favoriteButton.heightAnchor.constraint(equalToConstant: 30),
             favoriteButton.widthAnchor.constraint(equalTo: favoriteButton.heightAnchor)
         ])
-    }
-}
-
-// MARK: - Internal
-private extension MealCollectionViewCell {
-    @objc func didTapFavoriteButton(_ sender: FavoriteButton) {
-        delegate?.didTapFavoriteButton(sender, index: index)
     }
 }
 

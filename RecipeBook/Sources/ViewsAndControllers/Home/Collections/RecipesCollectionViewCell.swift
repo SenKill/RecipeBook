@@ -27,9 +27,10 @@ class RecipesCollectionViewCell: UICollectionViewCell {
     let favoriteButton: FavoriteButton = {
         let button = FavoriteButton(iconPointSize: 25)
         button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOpacity = 0.7
-        button.layer.shadowRadius = 3
+        button.layer.shadowOpacity = 0.4
+        button.layer.shadowRadius = 2
         button.layer.shadowOffset = .zero
+        button.layer.borderColor = UIColor.black.cgColor
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -44,7 +45,18 @@ class RecipesCollectionViewCell: UICollectionViewCell {
         super.init(coder: coder)
     }
     
-    func setViews() { }
+    func setViews() {
+        favoriteButton.addTarget(self, action: #selector(didTapFavoriteButton(_:)), for: .touchUpInside)
+    }
     
-    func layoutViews() { }
+    func layoutViews() {
+        
+    }
+}
+
+// MARK: - Internal
+private extension RecipesCollectionViewCell {
+    @objc func didTapFavoriteButton(_ sender: FavoriteButton) {
+        delegate?.didTapFavoriteButton(sender, index: index)
+    }
 }

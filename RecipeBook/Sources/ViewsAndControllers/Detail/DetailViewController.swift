@@ -86,7 +86,6 @@ extension DetailViewController: DetailViewDelegate {
             delegate?.detailViewController(didToggleFavoriteWithIndex: index, value: true)
             customView.favoriteButton.setActive()
         }
-        print("Favorite recipes count: \(localService.getFavorites().count)")
     }
     
     func detailView(didTapInstructionsButton button: UIButton) {
