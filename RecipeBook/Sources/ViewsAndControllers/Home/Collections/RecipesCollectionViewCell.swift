@@ -25,7 +25,7 @@ class RecipesCollectionViewCell: UICollectionViewCell {
     }()
     
     let favoriteButton: FavoriteButton = {
-        let button = FavoriteButton(iconPointSize: 25)
+        let button = FavoriteButton(iconPointSize: 20)
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.4
         button.layer.shadowRadius = 2

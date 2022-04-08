@@ -35,10 +35,25 @@ class SearchTableViewCell: RecipesTableViewCell {
             favoriteButton.heightAnchor.constraint(equalTo: favoriteButton.widthAnchor)
         ])
     }
+    
+    override func configureCell(for recipe: Recipe?, with image: UIImage?) {
+        super.configureCell(for: recipe, with: image)
+        guard let recipe = recipe else {
+            return
+        }
+        if let isFavorite = recipe.isFavorite, isFavorite {
+            favoriteButton.setActive()
+        }
+    }
 }
 
 extension SearchTableViewCell {
     @objc private func didTapFavoriteButton(_ sender: FavoriteButton) {
         delegate?.didTapFavoriteButton(sender, index: index)
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        favoriteButton.setInactive()
     }
 }

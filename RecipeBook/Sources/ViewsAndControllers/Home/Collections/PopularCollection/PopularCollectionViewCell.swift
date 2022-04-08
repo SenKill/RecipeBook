@@ -137,6 +137,9 @@ extension PopularCollectionViewCell: ConfigurableCell {
         authorNameLabel.text = "by: " + (recipe.sourceName ?? "")
         prepTimeLabel.text = "\(recipe.readyInMinutes) Min"
         servingsLabel.text = "\(recipe.servings) Servings"
+        if let isFavorite = recipe.isFavorite, isFavorite {
+            favoriteButton.setActive()
+        }
     }
     
     override func prepareForReuse() {
@@ -147,5 +150,6 @@ extension PopularCollectionViewCell: ConfigurableCell {
         prepTimeLabel.text = nil
         servingsLabel.text = nil
         index = nil
+        favoriteButton.setInactive()
     }
 }

@@ -52,6 +52,9 @@ class SearchTableViewController: UITableViewController {
 // MARK: - FavoriteButtonDelegate
 extension SearchTableViewController: FavoriteButtonDelegate {
     func didTapFavoriteButton(_ sender: FavoriteButton, index: Int) {
+        guard (isSearching && !fetchedRecipes.isEmpty) || (!isSearching && !randomRecipes.isEmpty) else {
+            return
+        }
         let recipes = isRandomPresented ? randomRecipes : fetchedRecipes
         if sender.tintColor == UIColor.systemRed {
             LocalService.shared.removeObjectFromFavorites(with: recipes[index].id)
@@ -75,7 +78,8 @@ extension SearchTableViewController {
             return
         }
         detailViewController.delegate = self
-        
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        searchController.isActive = false
         navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
@@ -149,7 +153,7 @@ extension SearchTableViewController: UISearchBarDelegate {
     // Presents searched recipes
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let text = searchBar.text {
-            fetchRecipesForSearchText(text)
+            fetchRecipesForSearchText(text.lowercased())
             if isChangingFilters {
                 toggleFilterView()
             }

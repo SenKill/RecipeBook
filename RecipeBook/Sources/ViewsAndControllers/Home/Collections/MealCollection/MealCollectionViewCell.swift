@@ -55,8 +55,8 @@ class MealCollectionViewCell: RecipesCollectionViewCell {
             mainImageView.topAnchor.constraint(equalTo: topAnchor),
             mainImageView.bottomAnchor.constraint(equalTo: recipeNameLabel.topAnchor, constant: -5),
             
-            favoriteButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            favoriteButton.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            favoriteButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
+            favoriteButton.topAnchor.constraint(equalTo: topAnchor, constant: 5),
             favoriteButton.heightAnchor.constraint(equalToConstant: 30),
             favoriteButton.widthAnchor.constraint(equalTo: favoriteButton.heightAnchor)
         ])
@@ -83,8 +83,9 @@ extension MealCollectionViewCell: ConfigurableCell {
         
         authorNameLabel.text = "by: " + (recipe.sourceName ?? "")
         recipeNameLabel.text = recipe.title
-        
-        // TODO: Add isFavorite property
+        if let isFavorite = recipe.isFavorite, isFavorite {
+            favoriteButton.setActive()
+        }
     }
     
     override func prepareForReuse() {
@@ -94,5 +95,6 @@ extension MealCollectionViewCell: ConfigurableCell {
         recipeNameLabel.text = nil
         authorNameLabel.text = nil
         index = nil
+        favoriteButton.setInactive()
     }
 }

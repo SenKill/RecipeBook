@@ -85,9 +85,7 @@ class RecipesTableViewCell: UITableViewCell {
             authorLabel.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 10)
         ])
     }
-}
-
-extension RecipesTableViewCell {
+    
     func configureCell(for recipe: Recipe?, with image: UIImage?) {
         let cell = self
         
@@ -116,7 +114,9 @@ extension RecipesTableViewCell {
         cell.infoLabel.text = "\(prepTime)m" + dishTypes
         cell.authorLabel.text = "by: " + (recipe.sourceName ?? "")
     }
-    
+}
+
+extension RecipesTableViewCell {
     override func prepareForReuse() {
         mainImageView.image = nil
         recipeNameLabel.text = nil

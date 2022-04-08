@@ -30,11 +30,14 @@ class RecipesCollectionViewController: UIViewController {
 // MARK: - FavoriteButtonDelegate
 extension RecipesCollectionViewController: FavoriteButtonDelegate {
     func didTapFavoriteButton(_ sender: FavoriteButton, index: Int) {
+        let recipe = recipes[index]
         if sender.tintColor == UIColor.systemRed {
-            localService.removeObjectFromFavorites(with: recipes[index].id)
+            localService.removeObjectFromFavorites(with: recipe.id)
+            recipes[index].isFavorite = false
             sender.setInactive()
         } else {
-            localService.addToFavorites(recipes[index])
+            localService.addToFavorites(recipe)
+            recipes[index].isFavorite = true
             sender.setActive()
         }
     }
