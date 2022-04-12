@@ -52,7 +52,7 @@ extension RecipesCollectionViewController: UICollectionViewDelegate {
         let detailVC = DetailViewController(with: recipes[indexPath.row], index: indexPath)
         detailVC.delegate = self
         detailVC.cell = collectionView.cellForItem(at: indexPath) as? RecipesCollectionViewCell
-        navigationController?.pushViewController(detailVC, animated: true)
+        present(detailVC, animated: true)
     }
 }
 

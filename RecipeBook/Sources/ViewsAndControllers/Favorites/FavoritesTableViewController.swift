@@ -36,7 +36,7 @@ extension FavoritesTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailVC = DetailViewController(with: recipes[indexPath.row], index: indexPath)
         detailVC.delegate = self
-        navigationController?.pushViewController(detailVC, animated: true)
+        present(detailVC, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {

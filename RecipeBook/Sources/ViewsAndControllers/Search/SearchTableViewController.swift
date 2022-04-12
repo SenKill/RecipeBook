@@ -84,9 +84,7 @@ extension SearchTableViewController {
             return
         }
         detailViewController.delegate = self
-        navigationController?.setNavigationBarHidden(true, animated: true)
-        searchController.isActive = false
-        navigationController?.pushViewController(detailViewController, animated: true)
+        present(detailViewController, animated: true)
     }
 }
 

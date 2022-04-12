@@ -34,6 +34,7 @@ class DetailViewController: CViewController<DetailView> {
         }
         self.index = index
         super.init(nibName: nil, bundle: nil)
+        modalPresentationStyle = .fullScreen
     }
     
     required init?(coder: NSCoder) {
@@ -51,13 +52,6 @@ class DetailViewController: CViewController<DetailView> {
         customView.delegate = self
         customView.ingredientsCollectionView.delegate = self
         customView.ingredientsCollectionView.dataSource = self
-        navigationItem.largeTitleDisplayMode = .never
-        navigationController?.setNavigationBarHidden(true, animated: true)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        super.viewDidDisappear(animated)
     }
     
     override func viewDidLayoutSubviews() {
@@ -72,7 +66,7 @@ class DetailViewController: CViewController<DetailView> {
 // MARK: - DetailViewDelegate
 extension DetailViewController: DetailViewDelegate {
     func detailView(didTapBackButton button: UIButton) {
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true)
     }
     
     func detailView(didTapFavoriteButton button: FavoriteButton) {
@@ -84,7 +78,7 @@ extension DetailViewController: DetailViewDelegate {
             localService.addToFavorites(recipeData)
             customView.favoriteButton.setActive()
         }
-        delegate?.detailViewController(didToggleFavoriteWithIndex: index, value: !(button.tintColor == UIColor.systemRed), cell: cell)
+        delegate?.detailViewController(didToggleFavoriteWithIndex: index, value: button.tintColor == UIColor.systemRed, cell: cell)
     }
     
     func detailView(didTapInstructionsButton button: UIButton) {
