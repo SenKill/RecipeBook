@@ -18,10 +18,6 @@ class SearchTableViewController: UITableViewController {
     private var isSearching: Bool = false
     private var isChangingFilters: Bool = false
     
-    private var isRandomPresented: Bool {
-        return tableView?.numberOfRows(inSection: 0) == Constants.searchDefaultCount
-    }
-    
     private var filterViewController: FilterViewController!
     
     private var selectedSegment: Int = 0
@@ -51,16 +47,26 @@ class SearchTableViewController: UITableViewController {
 
 // MARK: - FavoriteButtonDelegate
 extension SearchTableViewController: FavoriteButtonDelegate {
-    func didTapFavoriteButton(_ sender: FavoriteButton, index: Int) {
+    func didTapFavoriteButton(_ sender: FavoriteButton, index: IndexPath) {
         guard (isSearching && !fetchedRecipes.isEmpty) || (!isSearching && !randomRecipes.isEmpty) else {
             return
         }
-        let recipes = isRandomPresented ? randomRecipes : fetchedRecipes
+        let recipes = isSearching ? fetchedRecipes : randomRecipes
         if sender.tintColor == UIColor.systemRed {
-            LocalService.shared.removeObjectFromFavorites(with: recipes[index].id)
+            LocalService.shared.removeObjectFromFavorites(with: recipes[index.row].id)
+            if isSearching {
+                fetchedRecipes[index.row].isFavorite = false
+            } else {
+                randomRecipes[index.row].isFavorite = false
+            }
             sender.setInactive()
         } else {
-            LocalService.shared.addToFavorites(recipes[index])
+            LocalService.shared.addToFavorites(recipes[index.row])
+            if isSearching {
+                fetchedRecipes[index.row].isFavorite = true
+            } else {
+                randomRecipes[index.row].isFavorite = true
+            }
             sender.setActive()
         }
     }
@@ -71,9 +77,9 @@ extension SearchTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var detailViewController: DetailViewController!
         if isSearching && !fetchedRecipes.isEmpty {
-            detailViewController = DetailViewController(with: fetchedRecipes[indexPath.row], index: indexPath.row)
+            detailViewController = DetailViewController(with: fetchedRecipes[indexPath.row], index: indexPath)
         } else if !randomRecipes.isEmpty {
-            detailViewController = DetailViewController(with: randomRecipes[indexPath.row], index: indexPath.row)
+            detailViewController = DetailViewController(with: randomRecipes[indexPath.row], index: indexPath)
         } else {
             return
         }
@@ -86,12 +92,13 @@ extension SearchTableViewController {
 
 // MARK: - DetailViewControllerDelegate
 extension SearchTableViewController: DetailViewControllerDelegate {
-    func detailViewController(didToggleFavoriteWithIndex index: Int, value: Bool) {
-        if isRandomPresented {
-            randomRecipes[index].isFavorite = value
+    func detailViewController(didToggleFavoriteWithIndex index: IndexPath, value: Bool, cell: RecipesCollectionViewCell?) {
+        if isSearching {
+            fetchedRecipes[index.row].isFavorite = value
         } else {
-            fetchedRecipes[index].isFavorite = value
+            randomRecipes[index.row].isFavorite = value
         }
+        tableView.reloadRows(at: [index], with: .automatic)
     }
 }
 
@@ -125,7 +132,7 @@ extension SearchTableViewController {
         }
         
         newCell.configureCell(for: recipe, with: nil)
-        newCell.index = indexPath.row
+        newCell.index = indexPath
         newCell.delegate = self
         
         if let image = recipe?.image {
@@ -164,7 +171,7 @@ extension SearchTableViewController: UISearchBarDelegate {
     // Presents default recipes
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // Updates the table view only if the text field is empty and default recipes don't already present.
-        if let text = searchBar.text, text.isEmpty && !isRandomPresented {
+        if let text = searchBar.text, text.isEmpty && isSearching {
             isSearching = false
             tableView?.reloadData()
         }

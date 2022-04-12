@@ -29,7 +29,6 @@ class HomeViewController: CViewController<HomeView> {
     }
 }
 
-
 // MARK: - Internal
 private extension HomeViewController {
     
@@ -81,6 +80,7 @@ private extension HomeViewController {
             }
         }
     }
+    
     func assignLabelTexts() {
         guard let hours = Date.getHoursOnly() else {
             print("ERROR: Date hours is nil")

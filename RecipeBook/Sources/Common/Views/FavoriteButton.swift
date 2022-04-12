@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-protocol FavoriteButtonDelegate: class {
-    func didTapFavoriteButton(_ sender: FavoriteButton, index: Int)
+protocol FavoriteButtonDelegate: AnyObject {
+    func didTapFavoriteButton(_ sender: FavoriteButton, index: IndexPath)
 }
 
 class FavoriteButton: UIButton {

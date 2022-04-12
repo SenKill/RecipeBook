@@ -8,9 +8,8 @@
 import Foundation
 import UIKit
 
-
-protocol DetailViewControllerDelegate: class {
-    func detailViewController(didToggleFavoriteWithIndex index: Int, value: Bool)
+protocol DetailViewControllerDelegate: AnyObject {
+    func detailViewController(didToggleFavoriteWithIndex index: IndexPath, value: Bool, cell: RecipesCollectionViewCell?)
 }
 
 class DetailViewController: CViewController<DetailView> {
@@ -21,13 +20,14 @@ class DetailViewController: CViewController<DetailView> {
     }
     
     weak var delegate: DetailViewControllerDelegate?
+    weak var cell: RecipesCollectionViewCell?
     
     private var recipeData: Recipe!
     private var ingredients: [Ingredient] = []
     private var sourceUrl: URL?
-    private var index: Int!
+    private var index: IndexPath!
     
-    init(with recipeData: Recipe, index: Int) {
+    init(with recipeData: Recipe, index: IndexPath) {
         self.recipeData = recipeData
         if let ingredients = recipeData.extendedIngredients {
             self.ingredients = ingredients
@@ -79,13 +79,12 @@ extension DetailViewController: DetailViewDelegate {
         let localService = LocalService()
         if button.tintColor == UIColor.systemRed {
             localService.removeObjectFromFavorites(with: recipeData.id)
-            delegate?.detailViewController(didToggleFavoriteWithIndex: index, value: false)
             customView.favoriteButton.setInactive()
         } else {
             localService.addToFavorites(recipeData)
-            delegate?.detailViewController(didToggleFavoriteWithIndex: index, value: true)
             customView.favoriteButton.setActive()
         }
+        delegate?.detailViewController(didToggleFavoriteWithIndex: index, value: !(button.tintColor == UIColor.systemRed), cell: cell)
     }
     
     func detailView(didTapInstructionsButton button: UIButton) {

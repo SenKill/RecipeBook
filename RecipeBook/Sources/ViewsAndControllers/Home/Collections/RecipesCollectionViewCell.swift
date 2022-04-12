@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class RecipesCollectionViewCell: UICollectionViewCell {
-    var index: Int!
+    var index: IndexPath!
     var isImageLoaded: Bool = false
     weak var delegate: FavoriteButtonDelegate?
     

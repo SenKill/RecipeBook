@@ -26,15 +26,15 @@ class FavoritesTableViewController: UITableViewController {
 
 // MARK: - DetailViewControllerDelegate
 extension FavoritesTableViewController: DetailViewControllerDelegate {
-    func detailViewController(didToggleFavoriteWithIndex index: Int, value: Bool) {
-        recipes[index].isFavorite = value
+    func detailViewController(didToggleFavoriteWithIndex index: IndexPath, value: Bool, cell: RecipesCollectionViewCell?) {
+        recipes[index.row].isFavorite = value
     }
 }
 
 // MARK: - UITableViewDelegate
 extension FavoritesTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailVC = DetailViewController(with: recipes[indexPath.row], index: indexPath.row)
+        let detailVC = DetailViewController(with: recipes[indexPath.row], index: indexPath)
         detailVC.delegate = self
         navigationController?.pushViewController(detailVC, animated: true)
     }

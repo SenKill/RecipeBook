@@ -47,7 +47,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             tabBar.layer.cornerRadius = 50
             tabBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
             tabBar.layer.masksToBounds = true
-        case "Search":
+            
+            if #available(iOS 13.0, *) {
+               let tabBarAppearance: UITabBarAppearance = UITabBarAppearance()
+               tabBarAppearance.configureWithDefaultBackground()
+               if #available(iOS 15.0, *) {
+                  UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+               }
+            }        case "Search":
             controller.tabBarItem.image = UIImage(systemName: "magnifyingglass")
             controller.tabBarItem.selectedImage = UIImage(systemName: "plus.magnifyingglass")
         case "Favorites":

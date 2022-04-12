@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol UISearchBarFilterDelegate: class {
+protocol UISearchBarFilterDelegate: AnyObject {
     func toggleFilterView()
 }
 

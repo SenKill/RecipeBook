@@ -29,15 +29,15 @@ class RecipesCollectionViewController: UIViewController {
 
 // MARK: - FavoriteButtonDelegate
 extension RecipesCollectionViewController: FavoriteButtonDelegate {
-    func didTapFavoriteButton(_ sender: FavoriteButton, index: Int) {
-        let recipe = recipes[index]
+    func didTapFavoriteButton(_ sender: FavoriteButton, index: IndexPath) {
+        let recipe = recipes[index.row]
         if sender.tintColor == UIColor.systemRed {
             localService.removeObjectFromFavorites(with: recipe.id)
-            recipes[index].isFavorite = false
+            recipes[index.row].isFavorite = false
             sender.setInactive()
         } else {
             localService.addToFavorites(recipe)
-            recipes[index].isFavorite = true
+            recipes[index.row].isFavorite = true
             sender.setActive()
         }
     }
@@ -49,8 +49,9 @@ extension RecipesCollectionViewController: UICollectionViewDelegate {
         guard !recipes.isEmpty else {
             return
         }
-        let detailVC = DetailViewController(with: recipes[indexPath.row], index: indexPath.row)
+        let detailVC = DetailViewController(with: recipes[indexPath.row], index: indexPath)
         detailVC.delegate = self
+        detailVC.cell = collectionView.cellForItem(at: indexPath) as? RecipesCollectionViewCell
         navigationController?.pushViewController(detailVC, animated: true)
     }
 }
@@ -58,8 +59,16 @@ extension RecipesCollectionViewController: UICollectionViewDelegate {
 
 // MARK: - DetailViewControllerDelegate
 extension RecipesCollectionViewController: DetailViewControllerDelegate {
-    func detailViewController(didToggleFavoriteWithIndex index: Int, value: Bool) {
-        recipes[index].isFavorite = value
+    func detailViewController(didToggleFavoriteWithIndex index: IndexPath, value: Bool, cell: RecipesCollectionViewCell?) {
+        recipes[index.row].isFavorite = value
+        guard let cell = cell else {
+            return
+        }
+        if value {
+            cell.favoriteButton.setInactive()
+        } else {
+            cell.favoriteButton.setActive()
+        }
     }
 }
 
@@ -78,11 +87,11 @@ extension RecipesCollectionViewController: UICollectionViewDataSource {
         
         if collectionView.tag == 1,
            let mealCell = collectionView.dequeueReusableCell(withReuseIdentifier: MealCollectionViewCell.reuseId, for: indexPath) as? MealCollectionViewCell {
-            mealCell.index = indexPath.row
+            mealCell.index = indexPath
             mealCell.delegate = self
             cell = mealCell
         } else if let popularCell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularCollectionViewCell.reuseId, for: indexPath) as? PopularCollectionViewCell {
-            popularCell.index = indexPath.row
+            popularCell.index = indexPath
             popularCell.delegate = self
             cell = popularCell
         }

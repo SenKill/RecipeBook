@@ -11,7 +11,7 @@ class SearchTableViewCell: RecipesTableViewCell {
     
     static let reuseId = "SearchTableViewCell"
     weak var delegate: FavoriteButtonDelegate?
-    var index: Int!
+    var index: IndexPath!
     
     let favoriteButton: FavoriteButton = {
         let button = FavoriteButton(iconPointSize: 20, withColor: .secondaryLabel)

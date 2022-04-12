@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import TagListView
 
-protocol DetailViewDelegate: class {
+protocol DetailViewDelegate: AnyObject {
     func detailView(didTapBackButton button: UIButton)
     func detailView(didTapFavoriteButton button: FavoriteButton)
     func detailView(didTapInstructionsButton button: UIButton)
