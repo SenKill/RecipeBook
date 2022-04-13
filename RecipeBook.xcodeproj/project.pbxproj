@@ -30,6 +30,9 @@
 		F76A85F827C9F83500D284F0 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76A85F727C9F83500D284F0 /* SearchTableViewController.swift */; };
 		F77A237B27EDE7B600141531 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77A237A27EDE7B600141531 /* DetailView.swift */; };
 		F77A238027EDE7C600141531 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77A237F27EDE7C600141531 /* DetailViewController.swift */; };
+		F77BB32F2806D367006A1E2B /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77BB32E2806D366006A1E2B /* LaunchView.swift */; };
+		F77BB3312806EF2B006A1E2B /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77BB3302806EF2B006A1E2B /* LaunchViewController.swift */; };
+		F77BB3332806F0D3006A1E2B /* LaunchPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77BB3322806F0D3006A1E2B /* LaunchPageViewController.swift */; };
 		F77D673727B8D576001F02E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77D673627B8D576001F02E9 /* AppDelegate.swift */; };
 		F77D673927B8D576001F02E9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77D673827B8D576001F02E9 /* SceneDelegate.swift */; };
 		F77D674127B8D576001F02E9 /* RecipeBook.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F77D673F27B8D576001F02E9 /* RecipeBook.xcdatamodeld */; };
@@ -112,6 +115,9 @@
 		F76A85F727C9F83500D284F0 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		F77A237A27EDE7B600141531 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		F77A237F27EDE7C600141531 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		F77BB32E2806D366006A1E2B /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
+		F77BB3302806EF2B006A1E2B /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		F77BB3322806F0D3006A1E2B /* LaunchPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchPageViewController.swift; sourceTree = "<group>"; };
 		F77D673327B8D576001F02E9 /* RecipeBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecipeBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F77D673627B8D576001F02E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F77D673827B8D576001F02E9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -254,6 +260,9 @@
 		F73AB8E82805AA56001F8C4F /* Launch */ = {
 			isa = PBXGroup;
 			children = (
+				F77BB32E2806D366006A1E2B /* LaunchView.swift */,
+				F77BB3302806EF2B006A1E2B /* LaunchViewController.swift */,
+				F77BB3322806F0D3006A1E2B /* LaunchPageViewController.swift */,
 			);
 			path = Launch;
 			sourceTree = "<group>";
@@ -716,6 +725,7 @@
 				F7C8A4B127F049D200544F88 /* IngredientsCollectionView.swift in Sources */,
 				F7D341F927DA35AA00EDAB1D /* RecipesSearchController.swift in Sources */,
 				F7B3BFCC27CD01CD00EEC050 /* NetworkError.swift in Sources */,
+				F77BB3332806F0D3006A1E2B /* LaunchPageViewController.swift in Sources */,
 				F790DAD827F0CB88005B0ED3 /* StringProtocol.swift in Sources */,
 				F703C95F27ECE13200B8048E /* UIAlertController.swift in Sources */,
 				F72D48AE27C4AE5400792DE3 /* Date.swift in Sources */,
@@ -723,6 +733,7 @@
 				F74355F727CB37FB008F8693 /* SearchTableViewCell.swift in Sources */,
 				F782DD6327FAE9FE00338472 /* FavoritesTableViewController.swift in Sources */,
 				F713438E27E9B5E600343C44 /* [String].swift in Sources */,
+				F77BB32F2806D367006A1E2B /* LaunchView.swift in Sources */,
 				F768E1FF27BA84CA00F1D61B /* MealCollectionView.swift in Sources */,
 				F7F417F727D39C40003654E2 /* RecipesCollectionViewController.swift in Sources */,
 				F7D341F127DA259C00EDAB1D /* RecipesSearchBar.swift in Sources */,
@@ -739,6 +750,7 @@
 				F782DD6B27FAEA0D00338472 /* FavoritesTableView.swift in Sources */,
 				F77D678A27B8E654001F02E9 /* HomeViewController.swift in Sources */,
 				F705881C27D4E9AA006394EC /* UIActivityIndicatorView.swift in Sources */,
+				F77BB3312806EF2B006A1E2B /* LaunchViewController.swift in Sources */,
 				F7090E0727BCBBCF00069D79 /* GradientView.swift in Sources */,
 				F7B3BFAC27CCCEF700EEC050 /* Endpoint.swift in Sources */,
 				F7537E1B27FC881500A93B05 /* RecipesCollectionViewCell.swift in Sources */,

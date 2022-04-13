@@ -23,4 +23,6 @@ class ColorTheme {
     let secondaryText = UIColor(named: "SecondaryTextColor")!
     
     let divider = UIColor.systemGray2.withAlphaComponent(0.5)
+    
+    let primaryTintColor = UIColor(named: "PrimaryGreenColor")!.withAlphaComponent(0.9)
 }

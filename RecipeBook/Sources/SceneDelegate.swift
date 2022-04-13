@@ -25,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         customizeTabBar(favoritesNavigationController, name: "Favorites")
         
         window = UIWindow(windowScene: windowsScene)
-        window?.rootViewController = tabBarController
+        window?.rootViewController = LaunchPageViewController(transitionStyle: .pageCurl, navigationOrientation: .horizontal)
         window?.makeKeyAndVisible()
     }
     

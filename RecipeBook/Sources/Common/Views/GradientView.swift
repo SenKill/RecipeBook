@@ -10,8 +10,8 @@ import UIKit
 class GradientView: UIView {
 
     private let gradient = CAGradientLayer()
-    private let startColor: UIColor
-    private let endColor: UIColor
+    private var startColor: UIColor!
+    private var endColor: UIColor!
     
     init(startColor: UIColor, endColor: UIColor) {
         self.startColor = startColor
@@ -20,7 +20,7 @@ class GradientView: UIView {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
     
     override func layoutSublayers(of layer: CALayer) {
