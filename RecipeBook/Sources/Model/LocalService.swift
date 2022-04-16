@@ -10,13 +10,12 @@ import Foundation
 class LocalService {
     static let shared = LocalService()
     
-    private let favoritesKey: String = "favorites"
     private let defaults = UserDefaults.standard
     
     func getFavorites() -> [Recipe] {
         let decoder = JSONDecoder()
         
-        if let fetchedData = defaults.object(forKey: favoritesKey) as? Data,
+        if let fetchedData = defaults.object(forKey: UserDefaults.keys.favorites) as? Data,
            let favorites = try? decoder.decode([Recipe].self, from: fetchedData) {
             return favorites
         }
@@ -34,7 +33,7 @@ class LocalService {
             print("ERROR: Can't encode data")
             return
         }
-        defaults.set(encodedData, forKey: favoritesKey)
+        defaults.set(encodedData, forKey: UserDefaults.keys.favorites)
         print("Favorite recipes count: \(favorites.count)")
     }
     
@@ -54,7 +53,7 @@ class LocalService {
             print("ERROR: Can't encode data")
             return
         }
-        defaults.set(encodedData, forKey: favoritesKey)
+        defaults.set(encodedData, forKey: UserDefaults.keys.favorites)
     }
     
     func checkForFavorites(_ recipeModel: RecipeModel?) -> RecipeModel {

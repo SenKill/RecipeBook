@@ -33,6 +33,7 @@ class LaunchViewController: CViewController<LaunchView> {
     
     private func configureView() {
         customView.backgroundImageView.image = UIImage(named: page.rawValue)
+        customView.delegate = self
         switch page {
         case .first:
             customView.titleTextLabel.text = "Welcome to the «RecipeBook!»"
@@ -46,5 +47,16 @@ class LaunchViewController: CViewController<LaunchView> {
         default:
             print("Undefined value")
         }
+    }
+}
+
+ // MARK: - LaunchViewDelegate
+extension LaunchViewController: LaunchViewDelegate {
+    func launchView(didTapReadyButton button: UIButton) {
+        UserDefaults.standard.set(true, forKey: UserDefaults.keys.isUserReady)
+        
+        let tabBarController = RecipeTabBarController()
+        tabBarController.modalPresentationStyle = .fullScreen
+        present(tabBarController, animated: true)
     }
 }

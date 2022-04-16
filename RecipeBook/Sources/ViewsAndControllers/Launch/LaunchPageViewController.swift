@@ -10,13 +10,14 @@ import UIKit
 
 class LaunchPageViewController: UIPageViewController {
     
-    private var pageVCs: [UIViewController] = []
+    private var pages: [UIViewController] = []
+    private var currentPageIndex: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addViewControllers()
-        setViewControllers([pageVCs[0]], direction: .forward, animated: true)
+        setViewControllers([pages[0]], direction: .forward, animated: true)
         delegate = self
         dataSource = self
     }
@@ -25,9 +26,9 @@ class LaunchPageViewController: UIPageViewController {
 // MARK: - Internal
 private extension LaunchPageViewController {
     func addViewControllers() {
-        pageVCs.append(LaunchViewController(page: .first))
-        pageVCs.append(LaunchViewController(page: .second))
-        pageVCs.append(LaunchViewController(page: .third))
+        pages.append(LaunchViewController(page: .first))
+        pages.append(LaunchViewController(page: .second))
+        pages.append(LaunchViewController(page: .third))
     }
 }
 
@@ -39,16 +40,26 @@ extension LaunchPageViewController: UIPageViewControllerDelegate {
 // MARK: - UIPageViewControllerDataSource
 extension LaunchPageViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let index = pageVCs.firstIndex(of: viewController), index > 0 else {
+        guard let index = pages.firstIndex(of: viewController), index > 0 else {
             return nil
         }
-        return pageVCs[index-1]
+        currentPageIndex = index - 1
+        return pages[currentPageIndex]
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let index = pageVCs.firstIndex(of: viewController), index < pageVCs.count-1 else {
+        guard let index = pages.firstIndex(of: viewController), index < pages.count-1 else {
             return nil
         }
-        return pageVCs[index+1]
+        currentPageIndex = index + 1
+        return pages[currentPageIndex]
+    }
+    
+    func presentationCount(for pageViewController: UIPageViewController) -> Int {
+        pages.count
+    }
+    
+    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
+        currentPageIndex
     }
 }

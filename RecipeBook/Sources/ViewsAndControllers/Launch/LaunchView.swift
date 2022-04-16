@@ -8,20 +8,28 @@
 import Foundation
 import UIKit
 
+protocol LaunchViewDelegate: AnyObject {
+    func launchView(didTapReadyButton button: UIButton)
+}
+
 class LaunchView: CView {
+    weak var delegate: LaunchViewDelegate?
+    
     let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         
         let gradient = CAGradientLayer()
-        let firstColor = UIColor.white.withAlphaComponent(0).cgColor
-        let secondColor = UIColor.black.cgColor
+        let firstColor = UIColor.black.withAlphaComponent(0).cgColor
+        let secondColor = UIColor.black.withAlphaComponent(0.7).cgColor
+        
+        gradient.frame = UIScreen.main.bounds
         gradient.colors = [firstColor, secondColor]
         gradient.startPoint = CGPoint(x: 0.5, y: 0)
         gradient.endPoint = CGPoint(x: 0.5, y: 1)
+        imageView.layer.insertSublayer(gradient, at: 0)
         
         imageView.contentMode  = .scaleAspectFill
-        
-        imageView.layer.insertSublayer(gradient, at: 0)
+        imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         return imageView
@@ -29,7 +37,7 @@ class LaunchView: CView {
     
     private let textFrameView: UIView = {
         let view = UIView()
-        view.backgroundColor = .black.withAlphaComponent(0.5)
+        view.backgroundColor = .black.withAlphaComponent(0.55)
         view.layer.cornerRadius = 10
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -38,7 +46,7 @@ class LaunchView: CView {
     let titleTextLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = UIFont.preferredFont(forTextStyle: .largeTitle)
+        label.font = UIFont.systemFont(ofSize: 30, weight: .bold)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -47,7 +55,7 @@ class LaunchView: CView {
     let bodyTextLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.font = UIFont.systemFont(ofSize: 18)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -61,8 +69,9 @@ class LaunchView: CView {
         button.tintColor = .white
         
         button.layer.shadowColor = button.backgroundColor?.cgColor
-        button.layer.shadowOffset = CGSize(width: 0, height: 3)
-        button.layer.shadowRadius = 3
+        button.layer.shadowOffset = CGSize(width: 2, height: 3)
+        button.layer.shadowRadius = 5
+        button.layer.shadowOpacity = 1
         button.layer.cornerRadius = 30
         
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -76,6 +85,7 @@ class LaunchView: CView {
         textFrameView.addSubview(bodyTextLabel)
         addSubview(textFrameView)
         addSubview(readyButton)
+        readyButton.addTarget(self, action: #selector(didTapReadyButton(_:)), for: .touchUpInside)
     }
     
     override func layoutViews() {
@@ -104,5 +114,9 @@ class LaunchView: CView {
             readyButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
             readyButton.heightAnchor.constraint(equalTo: readyButton.widthAnchor, multiplier: 1/6)
         ])
+    }
+    
+    @objc func didTapReadyButton(_ button: UIButton) {
+        delegate?.launchView(didTapReadyButton: button)
     }
 }

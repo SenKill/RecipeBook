@@ -13,57 +13,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowsScene = (scene as? UIWindowScene) else { return }
-        let homeNavigationController = UINavigationController(rootViewController: HomeViewController())
-        let searchNavigationController = UINavigationController(rootViewController: SearchTableViewController())
-        let favoritesNavigationController = UINavigationController(rootViewController: FavoritesTableViewController())
-        let tabBarController = UITabBarController()
-        
-        tabBarController.setViewControllers([homeNavigationController, searchNavigationController, favoritesNavigationController], animated: false)
-        
-        customizeTabBar(homeNavigationController, name: "Home")
-        customizeTabBar(searchNavigationController, name: "Search")
-        customizeTabBar(favoritesNavigationController, name: "Favorites")
-        
         window = UIWindow(windowScene: windowsScene)
-        window?.rootViewController = LaunchPageViewController(transitionStyle: .pageCurl, navigationOrientation: .horizontal)
-        window?.makeKeyAndVisible()
-    }
-    
-    private func customizeTabBar(_ controller: UINavigationController, name: String) {
-        controller.viewControllers[0].title = name
+        var viewController: UIViewController?
         
-        switch name {
-        case "Home":
-            controller.tabBarItem.image = UIImage(systemName: "house")
-            controller.tabBarItem.selectedImage = UIImage(systemName: "house.fill")
-            controller.navigationBar.prefersLargeTitles = true
-            
-            guard let tabBar = controller.tabBarController?.tabBar else {
-                print("ERROR: TabBar is nil")
-                return
-            }
-            
-            tabBar.tintColor = .systemGreen
-            tabBar.layer.cornerRadius = 50
-            tabBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-            tabBar.layer.masksToBounds = true
-            
-            if #available(iOS 13.0, *) {
-               let tabBarAppearance: UITabBarAppearance = UITabBarAppearance()
-               tabBarAppearance.configureWithDefaultBackground()
-               if #available(iOS 15.0, *) {
-                  UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
-               }
-            }        case "Search":
-            controller.tabBarItem.image = UIImage(systemName: "magnifyingglass")
-            controller.tabBarItem.selectedImage = UIImage(systemName: "plus.magnifyingglass")
-        case "Favorites":
-            controller.tabBarItem.image = UIImage(systemName: "heart")
-            controller.tabBarItem.selectedImage = UIImage(systemName: "heart.fill")
-        default:
-            print("Undefined case")
-            break
+        
+        // Loading boolean value from user defaults to detect if a user has ever tapped the ready button
+        if UserDefaults.standard.bool(forKey: UserDefaults.keys.isUserReady) {
+            viewController = RecipeTabBarController()
+        } else {
+            viewController = LaunchPageViewController(transitionStyle: .pageCurl, navigationOrientation: .horizontal)
         }
+        
+        window?.rootViewController = viewController
+        window?.makeKeyAndVisible()
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
