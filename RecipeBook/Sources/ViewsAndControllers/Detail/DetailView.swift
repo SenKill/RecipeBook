@@ -90,7 +90,7 @@ class DetailView: CView {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         label.numberOfLines = 0
-        label.textColor = UIColor.theme.primaryText
+        label.textColor = .label
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -123,7 +123,7 @@ class DetailView: CView {
     let tagsListView: TagListView = {
         let tagList = TagListView()
         tagList.textColor = .secondaryLabel
-        tagList.tagBackgroundColor = UIColor.theme.secondaryText.withAlphaComponent(0.25)
+        tagList.tagBackgroundColor = .secondaryLabel.withAlphaComponent(0.15)
         tagList.textFont = UIFont.preferredFont(forTextStyle: .subheadline)
         
         tagList.paddingY = 7
@@ -157,7 +157,7 @@ class DetailView: CView {
     let ingredientsInfoLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13)
-        label.textColor = UIColor.theme.primaryText
+        label.textColor = .label
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -332,7 +332,7 @@ extension DetailView {
     func buildInstructions(with text: String) {
         let prepInfoLabel = UILabel()
         prepInfoLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
-        prepInfoLabel.textColor = UIColor.theme.primaryText
+        prepInfoLabel.textColor = .label
         prepInfoLabel.numberOfLines = 0
         prepInfoLabel.text = text
         prepInfoLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -358,7 +358,7 @@ private extension DetailView {
     static func createTitleLabel(with text: String) -> UILabel {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-        label.textColor = UIColor.theme.primaryText
+        label.textColor = .label
         label.text = text
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

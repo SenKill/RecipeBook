@@ -37,7 +37,7 @@ class HomeView: CView {
     
     private let secondWelcomingLabel: UILabel = {
        let label = UILabel()
-        label.text = "What are you going to cook today?"
+        label.text = "What are we going to cook today?"
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -61,7 +61,7 @@ class HomeView: CView {
     private let popularLabel: UILabel = {
         let label = UILabel()
         label.text = "Popular"
-        label.textColor = UIColor.theme.primaryText
+        label.textColor = .label
         label.font = UIFont.systemFont(ofSize: 27, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

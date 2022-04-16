@@ -35,6 +35,7 @@ class DetailViewController: CViewController<DetailView> {
         self.index = index
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .fullScreen
+        modalTransitionStyle = .crossDissolve
     }
     
     required init?(coder: NSCoder) {
@@ -71,14 +72,15 @@ extension DetailViewController: DetailViewDelegate {
     
     func detailView(didTapFavoriteButton button: FavoriteButton) {
         let localService = LocalService()
-        if button.tintColor == UIColor.systemRed {
+        let isCurrentlyFavorite: Bool = button.tintColor == UIColor.systemRed
+        if isCurrentlyFavorite {
             localService.removeObjectFromFavorites(with: recipeData.id)
             customView.favoriteButton.setInactive()
         } else {
             localService.addToFavorites(recipeData)
             customView.favoriteButton.setActive()
         }
-        delegate?.detailViewController(didToggleFavoriteWithIndex: index, value: button.tintColor == UIColor.systemRed, cell: cell)
+        delegate?.detailViewController(didToggleFavoriteWithIndex: index, value: !isCurrentlyFavorite, cell: cell)
     }
     
     func detailView(didTapInstructionsButton button: UIButton) {
@@ -86,11 +88,6 @@ extension DetailViewController: DetailViewDelegate {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
-}
-
-// MARK: - UICollectionViewDelegate
-extension DetailViewController: UICollectionViewDelegate {
-    
 }
 
 // MARK: - UICollectionViewDataSource
@@ -155,7 +152,7 @@ private extension DetailViewController {
         }
         
         customView.titleLabel.text = recipeData.title
-        customView.sourceLabel.text = "by: \(recipeData.sourceName ?? "undefined")"
+        customView.sourceLabel.text = "by: \(recipeData.sourceName ?? "uknown")"
         customView.prepTimeLabel.text = "\(recipeData.readyInMinutes) Min"
         
         populateTags(with: recipeData)

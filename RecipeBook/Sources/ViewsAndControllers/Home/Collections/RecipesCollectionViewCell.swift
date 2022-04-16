@@ -26,10 +26,12 @@ class RecipesCollectionViewCell: UICollectionViewCell {
     
     let favoriteButton: FavoriteButton = {
         let button = FavoriteButton(iconPointSize: 20)
+        
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.4
         button.layer.shadowRadius = 2
         button.layer.shadowOffset = .zero
+        
         button.layer.borderColor = UIColor.black.cgColor
         button.translatesAutoresizingMaskIntoConstraints = false
         return button

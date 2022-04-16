@@ -46,7 +46,7 @@ class IngredientsCollectionViewCell: UICollectionViewCell {
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 10)
-        label.textColor = UIColor.theme.primaryText
+        label.textColor = .label
         label.textAlignment = .center
         label.text = "Loading..."
         label.translatesAutoresizingMaskIntoConstraints = false

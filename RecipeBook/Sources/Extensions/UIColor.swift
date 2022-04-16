@@ -19,9 +19,6 @@ class ColorTheme {
     let tagViewBackground = UIColor(named: "TagViewBackground")!
     let tagViewBackgroundSelected = UIColor(named: "TagViewBackgroundSelected")!
     
-    let primaryText = UIColor(named: "PrimaryTextColor")!
-    let secondaryText = UIColor(named: "SecondaryTextColor")!
-    
     let divider = UIColor.systemGray2.withAlphaComponent(0.5)
     
     let primaryTintColor = UIColor(named: "PrimaryGreenColor")!.withAlphaComponent(0.9)

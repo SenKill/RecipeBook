@@ -14,7 +14,7 @@ class MealCollectionViewCell: RecipesCollectionViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         label.text = "Loading..."
-        label.textColor = UIColor.theme.primaryText
+        label.textColor = .label
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -22,7 +22,7 @@ class MealCollectionViewCell: RecipesCollectionViewCell {
     private let authorNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 10)
-        label.textColor = UIColor.secondaryLabel
+        label.textColor = .secondaryLabel
         label.text = "by: "
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -81,7 +81,7 @@ extension MealCollectionViewCell: ConfigurableCell {
             return
         }
         
-        authorNameLabel.text = "by: " + (recipe.sourceName ?? "")
+        authorNameLabel.text = "by: " + (recipe.sourceName ?? "uknown")
         recipeNameLabel.text = recipe.title
         if let isFavorite = recipe.isFavorite, isFavorite {
             favoriteButton.setActive()

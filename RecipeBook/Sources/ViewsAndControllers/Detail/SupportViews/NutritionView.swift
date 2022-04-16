@@ -75,7 +75,7 @@ class NutritionView: UIView {
     
     private let label: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.theme.primaryText
+        label.textColor = .label
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

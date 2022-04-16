@@ -184,10 +184,10 @@ extension SearchTableViewController: UISearchBarDelegate {
 extension SearchTableViewController: UISearchBarFilterDelegate {
     func toggleFilterView() {
         if isChangingFilters {
-            changeFilterButtonAppearance(with: .systemGreen, and: .white)
+            changeFilterButtonAppearance(with: .systemGreen, and: .systemBackground)
             navigationController?.popViewController(animated: true)
         } else {
-            changeFilterButtonAppearance(with: .white, and: .systemGreen)
+            changeFilterButtonAppearance(with: .systemBackground, and: .systemGreen)
             navigationController?.pushViewController(filterViewController, animated: true)
         }
         searchController.searchBar.setShowsScope(!isChangingFilters, animated: true)

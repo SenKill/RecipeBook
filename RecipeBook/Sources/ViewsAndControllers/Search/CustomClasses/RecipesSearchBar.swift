@@ -31,7 +31,7 @@ class RecipesSearchBar: UISearchBar {
     
     lazy var filterButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .white
+        button.backgroundColor = .systemBackground
         
         button.setImage(UIImage(systemName: Names.slider), for: .normal)
         button.tintColor = .systemGreen
@@ -64,7 +64,7 @@ class RecipesSearchBar: UISearchBar {
         textField.leftView?.tintColor = .systemGreen
         textField.layer.shadowOffset = CGSize(width: 0, height: 4)
         textField.layer.shadowOpacity = 0.25
-        searchTextField.textColor = UIColor.theme.primaryText
+        searchTextField.textColor = .label
         let textFieldBackground = textField.subviews.first
         // Allows to change searchTextField's background color
         textFieldBackground?.subviews.forEach({ $0.removeFromSuperview() })

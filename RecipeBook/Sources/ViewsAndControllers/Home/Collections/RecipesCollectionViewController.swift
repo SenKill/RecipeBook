@@ -62,12 +62,13 @@ extension RecipesCollectionViewController: DetailViewControllerDelegate {
     func detailViewController(didToggleFavoriteWithIndex index: IndexPath, value: Bool, cell: RecipesCollectionViewCell?) {
         recipes[index.row].isFavorite = value
         guard let cell = cell else {
+            print("Can't find cell that become favorite")
             return
         }
         if value {
-            cell.favoriteButton.setInactive()
-        } else {
             cell.favoriteButton.setActive()
+        } else {
+            cell.favoriteButton.setInactive()
         }
     }
 }

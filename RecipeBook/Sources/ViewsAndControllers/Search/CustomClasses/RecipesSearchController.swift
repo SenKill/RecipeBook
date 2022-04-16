@@ -18,7 +18,7 @@ class RecipesSearchController: UISearchController {
     override init(searchResultsController: UIViewController?) {
         super.init(searchResultsController: searchResultsController)
         searchBar.showsCancelButton = false
-        searchBar.searchTextField.backgroundColor = .white
+        searchBar.searchTextField.backgroundColor = .systemBackground
         obscuresBackgroundDuringPresentation = false
         customSearchBar.searchTextField.delegate = self
     }

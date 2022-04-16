@@ -38,7 +38,7 @@ class FilterView: CView {
         tagList.tagBackgroundColor = UIColor.theme.tagViewBackground
         tagList.tagSelectedBackgroundColor = UIColor.theme.tagViewBackgroundSelected
         tagList.textColor = UIColor.systemGray
-        tagList.selectedTextColor = UIColor.theme.primaryText
+        tagList.selectedTextColor = .label
         
         tagList.paddingX = 8
         tagList.paddingY = 8
@@ -94,7 +94,7 @@ class FilterView: CView {
     let currentCalories: UILabel = {
         let label = UILabel()
         label.text = "Max calories: 0"
-        label.textColor = UIColor.theme.primaryText
+        label.textColor = .label
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -176,7 +176,7 @@ private extension FilterView {
     // Created to avoid code duplication
     static func createTextField(with placeholder: String?, rightView: String, editable: Bool) -> UIView {
         let container = UIView()
-        container.backgroundColor = .white
+        container.backgroundColor = .systemBackground
         container.layer.cornerRadius = 10
         container.translatesAutoresizingMaskIntoConstraints = false
         
@@ -184,9 +184,9 @@ private extension FilterView {
         textField.rightView = UIImageView(image: UIImage(systemName: rightView))
         textField.rightViewMode = .always
         textField.placeholder = placeholder
-        textField.rightView?.tintColor = UIColor.theme.primaryText
+        textField.rightView?.tintColor = .label
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.textColor = UIColor.theme.primaryText
+        textField.textColor = .label
         
         container.addSubview(textField)
         

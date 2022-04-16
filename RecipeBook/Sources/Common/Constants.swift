@@ -15,8 +15,8 @@ struct Constants {
     static let searchDefaultCount: Int = 3
     static let searchCount: Int = 10
     
-    static let leftDistance: CGFloat = 16
-    static let rightDistance: CGFloat = 16
+    static let leftDistance: CGFloat = 20
+    static let rightDistance: CGFloat = 20
     
     static let mealMinimumLineSpacing: CGFloat = 10
     static let mealCollectionHeight =  UIScreen.main.bounds.height / 5

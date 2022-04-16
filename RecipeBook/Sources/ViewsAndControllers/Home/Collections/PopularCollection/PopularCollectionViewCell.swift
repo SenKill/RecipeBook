@@ -14,7 +14,7 @@ class PopularCollectionViewCell: RecipesCollectionViewCell {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .headline)
         label.numberOfLines = 2
-        label.textColor = UIColor.theme.primaryText
+        label.textColor = .label
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -38,7 +38,7 @@ class PopularCollectionViewCell: RecipesCollectionViewCell {
     private let prepTimeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .footnote)
-        label.textColor = UIColor.theme.primaryText
+        label.textColor = .label
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -54,15 +54,17 @@ class PopularCollectionViewCell: RecipesCollectionViewCell {
     private let servingsLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .footnote)
-        label.textColor = UIColor.theme.primaryText
+        label.textColor = .label
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     override func setViews() {
         super.setViews()
-        backgroundColor = .white
+        backgroundColor = UIColor.systemBackground
+        
         layer.cornerRadius = 10
+        layer.shadowColor = UIColor.label.cgColor
         layer.shadowRadius = 2
         layer.shadowOpacity = 0.1
         
@@ -134,7 +136,7 @@ extension PopularCollectionViewCell: ConfigurableCell {
         }
         
         recipeNameLabel.text = recipe.title
-        authorNameLabel.text = "by: " + (recipe.sourceName ?? "")
+        authorNameLabel.text = "by: " + (recipe.sourceName ?? "uknown")
         prepTimeLabel.text = "\(recipe.readyInMinutes) Min"
         servingsLabel.text = "\(recipe.servings) Servings"
         if let isFavorite = recipe.isFavorite, isFavorite {

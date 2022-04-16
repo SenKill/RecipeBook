@@ -57,6 +57,7 @@ extension LaunchViewController: LaunchViewDelegate {
         
         let tabBarController = RecipeTabBarController()
         tabBarController.modalPresentationStyle = .fullScreen
+        tabBarController.modalTransitionStyle = .partialCurl
         present(tabBarController, animated: true)
     }
 }
