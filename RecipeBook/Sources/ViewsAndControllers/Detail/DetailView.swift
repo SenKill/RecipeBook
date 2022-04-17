@@ -36,15 +36,16 @@ class DetailView: CView {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
+        
+        let dimmedLayer = CALayer()
+        let frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: Constants.detailBackgroundHeight)
+        dimmedLayer.frame = frame
+        dimmedLayer.backgroundColor = UIColor.black.cgColor
+        dimmedLayer.opacity = 0.1
+        imageView.layer.addSublayer(dimmedLayer)
+        
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
-    }()
-    
-    private let dimmedBackgroundView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.25)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
     }()
     
     let backButton: UIButton = {
@@ -174,8 +175,6 @@ class DetailView: CView {
     override func setViews() {
         super.setViews()
         addSubview(backgroundImageView)
-        addDimmedViewToBackground()
-        
         addSubview(backButton)
         addSubview(favoriteButton)
         addSubview(scrollView)
@@ -213,7 +212,7 @@ class DetailView: CView {
             backgroundImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             backgroundImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             backgroundImageView.topAnchor.constraint(equalTo: topAnchor),
-            backgroundImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5),
+            backgroundImageView.heightAnchor.constraint(equalToConstant: Constants.detailBackgroundHeight),
             
             backButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             backButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -347,14 +346,6 @@ extension DetailView {
 
 // MARK: Internal
 private extension DetailView {
-    func addDimmedViewToBackground() {
-        backgroundImageView.addSubview(dimmedBackgroundView)
-        dimmedBackgroundView.leadingAnchor.constraint(equalTo: backgroundImageView.leadingAnchor).isActive = true
-        dimmedBackgroundView.trailingAnchor.constraint(equalTo: backgroundImageView.trailingAnchor).isActive = true
-        dimmedBackgroundView.topAnchor.constraint(equalTo: backgroundImageView.topAnchor).isActive = true
-        dimmedBackgroundView.bottomAnchor.constraint(equalTo: backgroundImageView.bottomAnchor).isActive = true
-    }
-    
     static func createTitleLabel(with text: String) -> UILabel {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .medium)

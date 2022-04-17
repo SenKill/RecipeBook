@@ -8,11 +8,12 @@
 import UIKit
 
 extension UIImage {
-    static let image = Images()
+    static let images = Images()
 }
 
 struct Images {
     let defaultRecipe = UIImage(named: "defaultRecipeImage")
+    let homeBackground = UIImage(named: "homeBackgroundImage")
     
     let calories = UIImage(systemName: "flame.fill")!
     let carbs = UIImage(systemName: "leaf.fill")!

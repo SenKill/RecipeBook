@@ -146,7 +146,7 @@ extension SearchTableViewController {
                 }
             }
         } else if recipe?.title != nil {
-            newCell.configureCell(for: recipe, with: UIImage.image.defaultRecipe)
+            newCell.configureCell(for: recipe, with: UIImage.images.defaultRecipe)
         }
         
         return newCell

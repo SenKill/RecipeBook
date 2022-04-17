@@ -54,7 +54,7 @@ class HomeView: CView {
     
     let backgroundView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "first")
+        imageView.image = UIImage.images.homeBackground
         imageView.contentMode = .scaleAspectFill
         
         let coverLayer = CALayer()

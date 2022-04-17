@@ -118,7 +118,7 @@ extension RecipesCollectionViewController: UICollectionViewDataSource {
                 }
             }
         } else {
-            cell.configureCell(for: recipe, with: UIImage.image.defaultRecipe)
+            cell.configureCell(for: recipe, with: UIImage.images.defaultRecipe)
         }
         return cell
     }

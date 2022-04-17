@@ -15,10 +15,10 @@ class NutritionCombinedView: UIView {
     private var proteinView: NutritionView!
     
     init(nutrition: Nutrition) {
-        caloriesView = NutritionView(icon: UIImage.image.calories, text: nutrition.calories, textAlignment: .left)
-        carbsView = NutritionView(icon: UIImage.image.carbs, text: nutrition.carbohydrates, textAlignment: .left)
-        proteinView = NutritionView(icon: UIImage.image.protein, text: nutrition.protein, textAlignment: .right)
-        fatsView = NutritionView(icon: UIImage.image.fats, text: nutrition.fats, textAlignment: .right)
+        caloriesView = NutritionView(icon: UIImage.images.calories, text: nutrition.calories, textAlignment: .left)
+        carbsView = NutritionView(icon: UIImage.images.carbs, text: nutrition.carbohydrates, textAlignment: .left)
+        proteinView = NutritionView(icon: UIImage.images.protein, text: nutrition.protein, textAlignment: .right)
+        fatsView = NutritionView(icon: UIImage.images.fats, text: nutrition.fats, textAlignment: .right)
         super.init(frame: .zero)
         setViews()
         layoutViews()
