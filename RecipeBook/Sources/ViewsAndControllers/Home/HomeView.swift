@@ -52,10 +52,20 @@ class HomeView: CView {
         return label
     }()
     
-    private let backgroundView: UIView = {
-        let gradientView: UIView = GradientView(startColor: UIColor.theme.gradientBackgroundFirst, endColor: UIColor.theme.gradientBackgroundSecond)
-        gradientView.translatesAutoresizingMaskIntoConstraints = false
-        return gradientView
+    let backgroundView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "first")
+        imageView.contentMode = .scaleAspectFill
+        
+        let coverLayer = CALayer()
+        var frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: Constants.homeBackgroundHeight)
+        coverLayer.frame = frame
+        coverLayer.backgroundColor = UIColor.black.cgColor
+        coverLayer.opacity = 0.25
+        imageView.layer.addSublayer(coverLayer)
+        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
     
     private let popularLabel: UILabel = {
@@ -97,7 +107,7 @@ class HomeView: CView {
             backgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             backgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             backgroundView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            backgroundView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 5/10),
+            backgroundView.heightAnchor.constraint(equalToConstant: Constants.homeBackgroundHeight),
             
             firstWelcomingLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance),
             firstWelcomingLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.leftDistance),

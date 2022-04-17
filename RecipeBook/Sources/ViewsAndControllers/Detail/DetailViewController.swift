@@ -172,8 +172,14 @@ private extension DetailViewController {
                 return
             }
             tagView.setTitle(tagTitle.firstCapitalized, for: .normal)
+            if cuisineTags.contains(tagTitle) {
+                tagView.textColor = .systemOrange
+            }
             if dietTags.contains(tagTitle) {
                 tagView.textColor = .systemGreen
+            }
+            if occasionTags.contains(tagTitle) {
+                tagView.textColor = .systemPurple
             }
             tagView.cornerRadius = 5
         }

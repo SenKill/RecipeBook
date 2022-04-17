@@ -34,26 +34,26 @@ class MealCollectionViewCell: RecipesCollectionViewCell {
         self.layer.shadowRadius = 5
         layer.shadowOpacity = 0.2
         
-        contentView.addSubview(authorNameLabel)
-        contentView.addSubview(recipeNameLabel)
         contentView.addSubview(mainImageView)
+        contentView.addSubview(recipeNameLabel)
+        contentView.addSubview(authorNameLabel)
         contentView.addSubview(favoriteButton)
     }
     
     override func layoutViews() {
         NSLayoutConstraint.activate([
-            authorNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            authorNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-            authorNameLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
-            
-            recipeNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            recipeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-            recipeNameLabel.bottomAnchor.constraint(equalTo: authorNameLabel.topAnchor, constant: -3),
-            
             mainImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             mainImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             mainImageView.topAnchor.constraint(equalTo: topAnchor),
-            mainImageView.bottomAnchor.constraint(equalTo: recipeNameLabel.topAnchor, constant: -5),
+            mainImageView.heightAnchor.constraint(equalTo: mainImageView.widthAnchor),
+            
+            recipeNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            recipeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
+            recipeNameLabel.topAnchor.constraint(equalTo: mainImageView.bottomAnchor, constant: 5),
+            
+            authorNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            authorNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
+            authorNameLabel.topAnchor.constraint(equalTo: recipeNameLabel.bottomAnchor, constant: 3),
             
             favoriteButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
             favoriteButton.topAnchor.constraint(equalTo: topAnchor, constant: 5),
