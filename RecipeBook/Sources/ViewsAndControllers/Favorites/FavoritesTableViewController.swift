@@ -24,6 +24,14 @@ class FavoritesTableViewController: UITableViewController {
     }
 }
 
+// MARK: - Internal
+private extension FavoritesTableViewController {
+    func postToNotificationCenter(_ id: Int, value: Bool) {
+        print("postToNotificationCenter")
+        NotificationCenter.default.post(name: .favoriteChanged, object: value, userInfo: ["id": id])
+    }
+}
+
 // MARK: - DetailViewControllerDelegate
 extension FavoritesTableViewController: DetailViewControllerDelegate {
     func detailViewController(didToggleFavoriteWithIndex index: IndexPath, value: Bool, cell: RecipesCollectionViewCell?) {
@@ -45,8 +53,9 @@ extension FavoritesTableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            print(indexPath.row)
             tableView.beginUpdates()
+            let recipeId = recipes[indexPath.row].id
+            postToNotificationCenter(recipeId, value: false)
             localService.removeObjectFromFavorites(with: recipes[indexPath.row].id)
             recipes.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)

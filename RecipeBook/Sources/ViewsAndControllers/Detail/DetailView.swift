@@ -32,18 +32,17 @@ class DetailView: CView {
     
     private var isRecipeNutrition: Bool = false
     
+    let backgroundDimmedLayer: CALayer = {
+        let dimmedLayer = CALayer()
+        dimmedLayer.backgroundColor = UIColor.black.cgColor
+        dimmedLayer.opacity = 0.1
+        return dimmedLayer
+    }()
+    
     let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
-        
-        let dimmedLayer = CALayer()
-        let frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: Constants.detailBackgroundHeight)
-        dimmedLayer.frame = frame
-        dimmedLayer.backgroundColor = UIColor.black.cgColor
-        dimmedLayer.opacity = 0.1
-        imageView.layer.addSublayer(dimmedLayer)
-        
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -174,6 +173,7 @@ class DetailView: CView {
     
     override func setViews() {
         super.setViews()
+        backgroundImageView.layer.addSublayer(backgroundDimmedLayer)
         addSubview(backgroundImageView)
         addSubview(backButton)
         addSubview(favoriteButton)
@@ -212,7 +212,7 @@ class DetailView: CView {
             backgroundImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             backgroundImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             backgroundImageView.topAnchor.constraint(equalTo: topAnchor),
-            backgroundImageView.heightAnchor.constraint(equalToConstant: Constants.detailBackgroundHeight),
+            backgroundImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1/2),
             
             backButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             backButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),

@@ -12,6 +12,13 @@ class HomeView: CView {
     let mealCollectionView = MealCollectionView()
     let popularCollectionView = PopularCollectionView()
     
+    let backgroundCoverLayer: CALayer = {
+        let coverLayer = CALayer()
+        coverLayer.backgroundColor = UIColor.black.cgColor
+        coverLayer.opacity = 0.25
+        return coverLayer
+    }()
+    
     private let scrollView: UIScrollView = {
         let view = UIScrollView()
         view.showsVerticalScrollIndicator = false
@@ -57,13 +64,6 @@ class HomeView: CView {
         imageView.image = UIImage.images.homeBackground
         imageView.contentMode = .scaleAspectFill
         
-        let coverLayer = CALayer()
-        var frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: Constants.homeBackgroundHeight)
-        coverLayer.frame = frame
-        coverLayer.backgroundColor = UIColor.black.cgColor
-        coverLayer.opacity = 0.25
-        imageView.layer.addSublayer(coverLayer)
-        
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -86,6 +86,7 @@ class HomeView: CView {
         addSubview(scrollView)
         scrollView.addSubview(contentView)
         
+        backgroundView.layer.addSublayer(backgroundCoverLayer)
         contentView.addSubview(backgroundView)
         contentView.addSubview(firstWelcomingLabel)
         contentView.addSubview(secondWelcomingLabel)
@@ -107,7 +108,7 @@ class HomeView: CView {
             backgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             backgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             backgroundView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            backgroundView.heightAnchor.constraint(equalToConstant: Constants.homeBackgroundHeight),
+            backgroundView.heightAnchor.constraint(equalTo: scrollView.heightAnchor, multiplier: 0.5),
             
             firstWelcomingLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance),
             firstWelcomingLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.leftDistance),

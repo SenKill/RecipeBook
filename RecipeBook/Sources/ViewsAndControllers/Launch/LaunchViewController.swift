@@ -31,8 +31,14 @@ class LaunchViewController: CViewController<LaunchView> {
         configureView()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        customView.backgroundGradientCover.frame = customView.backgroundImageView.bounds
+    }
+    
     private func configureView() {
         customView.backgroundImageView.image = UIImage(named: page.rawValue)
+        customView.backgroundGradientCover.frame = customView.backgroundImageView.bounds
         customView.delegate = self
         switch page {
         case .first:

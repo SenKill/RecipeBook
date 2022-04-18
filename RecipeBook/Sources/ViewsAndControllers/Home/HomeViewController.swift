@@ -26,6 +26,13 @@ class HomeViewController: CViewController<HomeView> {
         
         customView.firstWelcomingLabel.text = welcomingText
         customView.mealLabel.text = meal
+        
+        customView.backgroundCoverLayer.frame = customView.backgroundView.bounds
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        customView.backgroundCoverLayer.frame = customView.backgroundView.bounds
     }
 }
 

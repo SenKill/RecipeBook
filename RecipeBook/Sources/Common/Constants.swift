@@ -28,7 +28,4 @@ struct Constants {
     static let popularCollectionHeight: CGFloat = (popularItemHeight + popularMinimumLineSpacing) * CGFloat(popularCount) + 50
     
     static let ingrMinimumLineSpacing: CGFloat = 20
-    
-    static let homeBackgroundHeight: CGFloat = UIScreen.main.bounds.height / 2
-    static let detailBackgroundHeight: CGFloat = UIScreen.main.bounds.height / 2
 }

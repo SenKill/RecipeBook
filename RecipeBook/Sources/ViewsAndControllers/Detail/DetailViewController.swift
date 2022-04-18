@@ -50,6 +50,7 @@ class DetailViewController: CViewController<DetailView> {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadRecipeImage(with: recipeData.image)
+        customView.backgroundDimmedLayer.frame = customView.backgroundImageView.bounds
         customView.delegate = self
         customView.ingredientsCollectionView.delegate = self
         customView.ingredientsCollectionView.dataSource = self
@@ -57,6 +58,7 @@ class DetailViewController: CViewController<DetailView> {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        customView.backgroundDimmedLayer.frame = customView.backgroundImageView.bounds
         let back = customView.backButton
         let favorite = customView.favoriteButton
         back.layer.cornerRadius = 0.5 * back.bounds.size.width

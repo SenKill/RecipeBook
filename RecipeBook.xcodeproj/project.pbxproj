@@ -15,6 +15,7 @@
 		F7090E0727BCBBCF00069D79 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7090E0627BCBBCF00069D79 /* GradientView.swift */; };
 		F713438E27E9B5E600343C44 /* [String].swift in Sources */ = {isa = PBXBuildFile; fileRef = F713438D27E9B5E600343C44 /* [String].swift */; };
 		F713439327EA01CC00343C44 /* FilterTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F713439227EA01CC00343C44 /* FilterTextField.swift */; };
+		F729B6FF280DD47E006EA290 /* Notification.Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = F729B6FE280DD47E006EA290 /* Notification.Name.swift */; };
 		F72D48AE27C4AE5400792DE3 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72D48AD27C4AE5400792DE3 /* Date.swift */; };
 		F72DD1B227F9BAAD0009643A /* FavoriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72DD1B127F9BAAD0009643A /* FavoriteButton.swift */; };
 		F72DD1B727F9EB800009643A /* LocalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72DD1B627F9EB800009643A /* LocalService.swift */; };
@@ -101,6 +102,7 @@
 		F7090E0627BCBBCF00069D79 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		F713438D27E9B5E600343C44 /* [String].swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "[String].swift"; sourceTree = "<group>"; };
 		F713439227EA01CC00343C44 /* FilterTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTextField.swift; sourceTree = "<group>"; };
+		F729B6FE280DD47E006EA290 /* Notification.Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.Name.swift; sourceTree = "<group>"; };
 		F72D48AD27C4AE5400792DE3 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		F72DD1B127F9BAAD0009643A /* FavoriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteButton.swift; sourceTree = "<group>"; };
 		F72DD1B627F9EB800009643A /* LocalService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalService.swift; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 				F703C95E27ECE13200B8048E /* UIAlertController.swift */,
 				F790DAD727F0CB88005B0ED3 /* StringProtocol.swift */,
 				F7D6B1CB280A9C8800E9B2A7 /* UserDefaults.swift */,
+				F729B6FE280DD47E006EA290 /* Notification.Name.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -764,6 +767,7 @@
 				F7537E1B27FC881500A93B05 /* RecipesCollectionViewCell.swift in Sources */,
 				F7940E2D27E83B26000B0CFB /* FilterViewController.swift in Sources */,
 				F79ED0E227EB3B7000857CF0 /* APIKeys.swift in Sources */,
+				F729B6FF280DD47E006EA290 /* Notification.Name.swift in Sources */,
 				F768E20527BA883300F1D61B /* RecipeModel.swift in Sources */,
 				F7A32B6B27BE0001009AD53F /* PopularCollectionViewCell.swift in Sources */,
 				F7A32B6627BDFFEE009AD53F /* PopularCollectionView.swift in Sources */,

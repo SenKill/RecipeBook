@@ -10,6 +10,18 @@ import UIKit
 import TagListView
 
 class FilterView: CView {
+    private let scrollView: UIScrollView = {
+        let view = UIScrollView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private let contentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private let cuisineLabel: UILabel = {
         createLabel(with: "Select Cuisine")
     }()
@@ -102,17 +114,19 @@ class FilterView: CView {
     
     override func setViews() {
         super.setViews()
-        addSubview(cuisineLabel)
-        addSubview(cuisineFieldContainer)
-        addSubview(dietLabel)
-        addSubview(dietFieldContainer)
-        addSubview(intolerancesLabel)
-        addSubview(intolerancesView)
-        addSubview(caloriesLabel)
-        addSubview(caloriesSlider)
-        addSubview(leftCaloriesLabel)
-        addSubview(rightCaloriesLabel)
-        addSubview(currentCalories)
+        addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(cuisineLabel)
+        contentView.addSubview(cuisineFieldContainer)
+        contentView.addSubview(dietLabel)
+        contentView.addSubview(dietFieldContainer)
+        contentView.addSubview(intolerancesLabel)
+        contentView.addSubview(intolerancesView)
+        contentView.addSubview(caloriesLabel)
+        contentView.addSubview(caloriesSlider)
+        contentView.addSubview(leftCaloriesLabel)
+        contentView.addSubview(rightCaloriesLabel)
+        contentView.addSubview(currentCalories)
         
         if let cuisineTextField = cuisineFieldContainer.subviews.first as? FilterTextField,
            let dietTextField = dietFieldContainer.subviews.first as? FilterTextField {
@@ -123,50 +137,55 @@ class FilterView: CView {
     
     override func layoutViews() {
         super.layoutViews()
+        
+        layoutScrollView()
+        
         let spaceBetweenFilters: CGFloat = 30
         NSLayoutConstraint.activate([
-            cuisineLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            cuisineLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            cuisineLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: spaceBetweenFilters),
+            cuisineLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            cuisineLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            cuisineLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: spaceBetweenFilters),
             
-            cuisineFieldContainer.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            cuisineFieldContainer.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            cuisineFieldContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            cuisineFieldContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             cuisineFieldContainer.topAnchor.constraint(equalTo: cuisineLabel.bottomAnchor, constant: 10),
             cuisineFieldContainer.heightAnchor.constraint(equalToConstant: 55),
             
-            dietLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            dietLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            dietLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            dietLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             dietLabel.topAnchor.constraint(equalTo: cuisineFieldContainer.bottomAnchor, constant: spaceBetweenFilters),
             
-            dietFieldContainer.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            dietFieldContainer.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            dietFieldContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            dietFieldContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             dietFieldContainer.topAnchor.constraint(equalTo: dietLabel.bottomAnchor, constant: 10),
             dietFieldContainer.heightAnchor.constraint(equalToConstant: 50),
             
-            intolerancesLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            intolerancesLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            intolerancesLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            intolerancesLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             intolerancesLabel.topAnchor.constraint(equalTo: dietFieldContainer.bottomAnchor, constant: spaceBetweenFilters),
             
-            intolerancesView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            intolerancesView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            intolerancesView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            intolerancesView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             intolerancesView.topAnchor.constraint(equalTo: intolerancesLabel.bottomAnchor, constant: 10),
             
-            caloriesLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            caloriesLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            caloriesLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            caloriesLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             caloriesLabel.topAnchor.constraint(equalTo: intolerancesView.bottomAnchor, constant: spaceBetweenFilters),
             
-            caloriesSlider.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            caloriesSlider.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            caloriesSlider.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            caloriesSlider.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             caloriesSlider.topAnchor.constraint(equalTo: caloriesLabel.bottomAnchor, constant: 10),
+            
+            currentCalories.trailingAnchor.constraint(equalTo: caloriesSlider.trailingAnchor),
+            currentCalories.bottomAnchor.constraint(equalTo: caloriesSlider.topAnchor, constant: -3),
             
             leftCaloriesLabel.leadingAnchor.constraint(equalTo: caloriesSlider.leadingAnchor),
             leftCaloriesLabel.topAnchor.constraint(equalTo: caloriesSlider.bottomAnchor, constant: 3),
+            leftCaloriesLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
             rightCaloriesLabel.trailingAnchor.constraint(equalTo: caloriesSlider.trailingAnchor),
             rightCaloriesLabel.topAnchor.constraint(equalTo: caloriesSlider.bottomAnchor, constant: 3),
-            
-            currentCalories.trailingAnchor.constraint(equalTo: caloriesSlider.trailingAnchor),
-            currentCalories.bottomAnchor.constraint(equalTo: caloriesSlider.topAnchor, constant: -3)
+            rightCaloriesLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
 }
@@ -205,5 +224,20 @@ private extension FilterView {
         label.font = .preferredFont(forTextStyle: .callout)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }
+    
+    func layoutScrollView() {
+        NSLayoutConstraint.activate([
+            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            contentView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
+            contentView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
+            contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor)
+        ])
     }
 }

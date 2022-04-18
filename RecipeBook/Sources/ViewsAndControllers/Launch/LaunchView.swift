@@ -15,23 +15,22 @@ protocol LaunchViewDelegate: AnyObject {
 class LaunchView: CView {
     weak var delegate: LaunchViewDelegate?
     
-    let backgroundImageView: UIImageView = {
-        let imageView = UIImageView()
-        
+    let backgroundGradientCover: CAGradientLayer = {
         let gradient = CAGradientLayer()
         let firstColor = UIColor.black.withAlphaComponent(0).cgColor
         let secondColor = UIColor.black.withAlphaComponent(0.7).cgColor
         
-        gradient.frame = UIScreen.main.bounds
         gradient.colors = [firstColor, secondColor]
         gradient.startPoint = CGPoint(x: 0.5, y: 0)
         gradient.endPoint = CGPoint(x: 0.5, y: 1)
-        imageView.layer.insertSublayer(gradient, at: 0)
-        
+        return gradient
+    }()
+    
+    let backgroundImageView: UIImageView = {
+        let imageView = UIImageView()
         imageView.contentMode  = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        
         return imageView
     }()
     
@@ -80,6 +79,7 @@ class LaunchView: CView {
     
     override func setViews() {
         super.setViews()
+        backgroundImageView.layer.addSublayer(backgroundGradientCover)
         addSubview(backgroundImageView)
         textFrameView.addSubview(titleTextLabel)
         textFrameView.addSubview(bodyTextLabel)

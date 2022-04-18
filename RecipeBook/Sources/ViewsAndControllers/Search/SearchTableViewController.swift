@@ -203,8 +203,6 @@ private extension SearchTableViewController {
         searchController.searchBar.filterDelegate = self
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
-        // TODO: Fix bug with oversized search bar
-        // NOTE: This is temporary solution
         searchController.searchBar.setShowsScope(true, animated: false)
     }
     
