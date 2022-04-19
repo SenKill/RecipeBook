@@ -25,24 +25,6 @@ extension ConfigurableCell {
 class RecipesCollectionViewController: UIViewController {
     var recipes: [Recipe] = []
     private let localService = LocalService()
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self, name: .favoriteChanged, object: nil)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(favoriteChanged(_:)), name: .favoriteChanged, object: nil)
-    }
-}
-
-// MARK: - Internal
-private extension RecipesCollectionViewController {
-    @objc func favoriteChanged(_ notification: Notification) {
-        print("xd")
-        print(notification.object as? [String: Any] ?? [:])
-        print(notification.userInfo?["userInfo"] as? [String: Any] ?? [:])
-    }
 }
 
 // MARK: - FavoriteButtonDelegate

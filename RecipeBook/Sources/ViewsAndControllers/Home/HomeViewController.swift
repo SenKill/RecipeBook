@@ -15,6 +15,12 @@ class HomeViewController: CViewController<HomeView> {
     private var mealVC: RecipesCollectionViewController!
     private var popularVC: RecipesCollectionViewController!
     
+    private let notificationCenter = NotificationCenter.default
+    
+    deinit {
+        notificationCenter.removeObserver(self, name: .favoriteChanged, object: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,6 +34,8 @@ class HomeViewController: CViewController<HomeView> {
         customView.mealLabel.text = meal
         
         customView.backgroundCoverLayer.frame = customView.backgroundView.bounds
+        
+        notificationCenter.addObserver(self, selector: #selector(favoriteChanged(_:)), name: .favoriteChanged, object: nil)
     }
     
     override func viewDidLayoutSubviews() {
@@ -98,5 +106,27 @@ private extension HomeViewController {
         welcomingText = labelTexts[0]
         meal = labelTexts[1]
     }
+    
+    @objc func favoriteChanged(_ notification: Notification) {
+        guard let value = notification.object as? Bool,
+              let id = notification.userInfo?[Notification.UserInfoKeys.id] as? Int else {
+            return
+        }
+        
+        print("Changing value from post")
+        toggleFavoriteRecipe(for: mealVC, with: id, value: value)
+        toggleFavoriteRecipe(for: popularVC, with: id, value: value)
+        customView.mealCollectionView.reloadData()
+        customView.popularCollectionView.reloadData()
+    }
+    
+    func toggleFavoriteRecipe(
+        for viewController: RecipesCollectionViewController,
+        with id: Int, value: Bool) {
+        for i in 0 ..< viewController.recipes.count {
+            if viewController.recipes[i].id == id {
+                viewController.recipes[i].isFavorite = value
+            }
+        }
+    }
 }
-

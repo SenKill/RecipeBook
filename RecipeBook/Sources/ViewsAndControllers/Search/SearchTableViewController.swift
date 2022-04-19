@@ -31,7 +31,13 @@ class SearchTableViewController: UITableViewController {
         return scopeTitles[selectedSegment]
     }
     
+    private let notificationCenter = NotificationCenter.default
+    
     // MARK: - Life cycle
+    deinit {
+        notificationCenter.removeObserver(self, name: .favoriteChanged, object: nil)
+    }
+    
     override func loadView() {
         tableView = SearchTableView()
     }
@@ -42,6 +48,7 @@ class SearchTableViewController: UITableViewController {
         configureSearchController()
         configureFilterViewController()
         definesPresentationContext = true
+        notificationCenter.addObserver(self, selector: #selector(favoriteChanged(_:)), name: .favoriteChanged, object: nil)
     }
 }
 
@@ -255,5 +262,24 @@ private extension SearchTableViewController {
         let button: UIButton = searchController.searchBar.filterButton
         button.tintColor = firstColor
         button.backgroundColor = secondColor
+    }
+    
+    @objc func favoriteChanged(_ notification: Notification) {
+        guard let value = notification.object as? Bool,
+              let id = notification.userInfo?[Notification.UserInfoKeys.id] as? Int else {
+            return
+        }
+        
+        for i in 0 ..< randomRecipes.count {
+            if randomRecipes[i].id == id {
+                randomRecipes[i].isFavorite = value
+            }
+        }
+        for i in 0 ..< fetchedRecipes.count {
+            if fetchedRecipes[i].id == id {
+                fetchedRecipes[i].isFavorite = value
+            }
+        }
+        tableView.reloadData()
     }
 }

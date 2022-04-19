@@ -26,9 +26,10 @@ class FavoritesTableViewController: UITableViewController {
 
 // MARK: - Internal
 private extension FavoritesTableViewController {
+    // Posting the changed favorite value with recipe id to all ViewControllers that observe notifications
+    // To change their old value to the new one
     func postToNotificationCenter(_ id: Int, value: Bool) {
-        print("postToNotificationCenter")
-        NotificationCenter.default.post(name: .favoriteChanged, object: value, userInfo: ["id": id])
+        NotificationCenter.default.post(name: .favoriteChanged, object: value, userInfo: [Notification.UserInfoKeys.id: id])
     }
 }
 
@@ -36,6 +37,7 @@ private extension FavoritesTableViewController {
 extension FavoritesTableViewController: DetailViewControllerDelegate {
     func detailViewController(didToggleFavoriteWithIndex index: IndexPath, value: Bool, cell: RecipesCollectionViewCell?) {
         recipes[index.row].isFavorite = value
+        NotificationCenter.default.post(name: .favoriteChanged, object: value, userInfo: [Notification.UserInfoKeys.id: recipes[index.row].id])
     }
 }
 
