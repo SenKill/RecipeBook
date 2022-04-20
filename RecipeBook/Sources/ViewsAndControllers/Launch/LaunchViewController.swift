@@ -43,7 +43,7 @@ class LaunchViewController: CViewController<LaunchView> {
         switch page {
         case .first:
             customView.titleTextLabel.text = "Welcome to the «RecipeBook!»"
-            customView.bodyTextLabel.text = "Cook tasty food with our recipes!"
+            customView.bodyTextLabel.text = "Cook tasty food with our recipes!\n(You can scroll screen horizontally)"
         case .second:
             customView.titleTextLabel.text = "Smart search"
             customView.bodyTextLabel.text = "Search recipes with ingredients you currently have, by nutrients, or just write a name of a dish!"
@@ -64,6 +64,7 @@ extension LaunchViewController: LaunchViewDelegate {
         let tabBarController = RecipeTabBarController()
         tabBarController.modalPresentationStyle = .fullScreen
         tabBarController.modalTransitionStyle = .partialCurl
+        // show(tabBarController, sender: self)
         present(tabBarController, animated: true)
     }
 }

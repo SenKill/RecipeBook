@@ -14,7 +14,7 @@ class FavoritesTableView: UITableView {
         
         backgroundColor = UIColor.theme.background
         register(FavoritesTableViewCell.self, forCellReuseIdentifier: FavoritesTableViewCell.reuseId)
-        rowHeight = 125
+        rowHeight = 130
     }
     
     required init?(coder: NSCoder) {

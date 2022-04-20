@@ -111,7 +111,7 @@ class LaunchView: CView {
             
             readyButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
             readyButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
-            readyButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
+            readyButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20),
             readyButton.heightAnchor.constraint(equalTo: readyButton.widthAnchor, multiplier: 1/6)
         ])
     }

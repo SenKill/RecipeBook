@@ -13,7 +13,7 @@ class SearchTableView: UITableView {
         
         backgroundColor = UIColor.theme.background
         register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.reuseId)
-        rowHeight = 125
+        rowHeight = 130
     }
     
     required init?(coder: NSCoder) {

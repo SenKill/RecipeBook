@@ -11,6 +11,9 @@ import UIKit
 class RecipeTabBarController: UITabBarController {
     
     override func viewDidLoad() {
+        modalPresentationStyle = .automatic
+        modalTransitionStyle = .crossDissolve
+        
         let homeNavigationController = UINavigationController(rootViewController: HomeViewController())
         let searchNavigationController = UINavigationController(rootViewController: SearchTableViewController())
         let favoritesNavigationController = UINavigationController(rootViewController: FavoritesTableViewController())

@@ -30,6 +30,7 @@ class RecipesCollectionViewController: UIViewController {
 // MARK: - FavoriteButtonDelegate
 extension RecipesCollectionViewController: FavoriteButtonDelegate {
     func didTapFavoriteButton(_ sender: FavoriteButton, index: IndexPath) {
+        guard !recipes.isEmpty else { return }
         let recipe = recipes[index.row]
         if sender.tintColor == UIColor.systemRed {
             localService.removeObjectFromFavorites(with: recipe.id)
@@ -128,7 +129,7 @@ extension RecipesCollectionViewController: UICollectionViewDataSource {
 extension RecipesCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView.tag == 1 {
-            return CGSize(width: Constants.mealItemWidth, height: collectionView.frame.height)
+            return CGSize(width: Constants.mealItemWidth, height: Constants.mealCollectionHeight)
         }
         return CGSize(width: Constants.popularItemWidth, height: Constants.popularItemHeight)
     }

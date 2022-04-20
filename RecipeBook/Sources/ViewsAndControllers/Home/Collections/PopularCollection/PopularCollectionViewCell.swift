@@ -138,7 +138,7 @@ extension PopularCollectionViewCell: ConfigurableCell {
         recipeNameLabel.text = recipe.title
         authorNameLabel.text = "by: " + (recipe.sourceName ?? "uknown")
         prepTimeLabel.text = "\(recipe.readyInMinutes) Min"
-        servingsLabel.text = "\(recipe.servings) Servings"
+        servingsLabel.text = String(recipe.servings) + (recipe.servings == 1 ? " Serving" : " Servings")
         if let isFavorite = recipe.isFavorite, isFavorite {
             favoriteButton.setActive()
         }

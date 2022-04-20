@@ -12,6 +12,16 @@ class HomeView: CView {
     let mealCollectionView = MealCollectionView()
     let popularCollectionView = PopularCollectionView()
     
+    let backgroundView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage.images.homeBackground
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.masksToBounds = true
+        imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
     let backgroundCoverLayer: CALayer = {
         let coverLayer = CALayer()
         coverLayer.backgroundColor = UIColor.black.cgColor
@@ -38,6 +48,7 @@ class HomeView: CView {
         label.text = "Good morning!🌅"
         label.font = UIFont.preferredFont(forTextStyle: .title2)
         label.textColor = .white
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -46,6 +57,7 @@ class HomeView: CView {
        let label = UILabel()
         label.text = "What are we going to cook today?"
         label.textColor = .white
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -57,15 +69,6 @@ class HomeView: CView {
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
-    }()
-    
-    let backgroundView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage.images.homeBackground
-        imageView.contentMode = .scaleAspectFill
-        
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
     }()
     
     private let popularLabel: UILabel = {
@@ -108,11 +111,11 @@ class HomeView: CView {
             backgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             backgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             backgroundView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            backgroundView.heightAnchor.constraint(equalTo: scrollView.heightAnchor, multiplier: 0.5),
+            backgroundView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.4),
             
             firstWelcomingLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance),
             firstWelcomingLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.leftDistance),
-            firstWelcomingLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 150 + safeAreaInsets.top),
+            firstWelcomingLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 50),
             
             secondWelcomingLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance),
             secondWelcomingLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.leftDistance),
@@ -135,7 +138,7 @@ class HomeView: CView {
             popularCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             popularCollectionView.topAnchor.constraint(equalTo: popularLabel.bottomAnchor, constant: 15),
             popularCollectionView.heightAnchor.constraint(equalToConstant: Constants.popularCollectionHeight),
-            popularCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            popularCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
     
