@@ -10,12 +10,6 @@ import UIKit
 import TagListView
 
 class FilterView: CView {
-    private let scrollView: UIScrollView = {
-        let view = UIScrollView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     private let contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -114,8 +108,7 @@ class FilterView: CView {
     
     override func setViews() {
         super.setViews()
-        addSubview(scrollView)
-        scrollView.addSubview(contentView)
+        addSubview(contentView)
         contentView.addSubview(cuisineLabel)
         contentView.addSubview(cuisineFieldContainer)
         contentView.addSubview(dietLabel)
@@ -138,13 +131,16 @@ class FilterView: CView {
     override func layoutViews() {
         super.layoutViews()
         
-        layoutScrollView()
-        
         let spaceBetweenFilters: CGFloat = 30
         NSLayoutConstraint.activate([
+            contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            contentView.topAnchor.constraint(equalTo: topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
             cuisineLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             cuisineLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            cuisineLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: spaceBetweenFilters),
+            cuisineLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: spaceBetweenFilters),
             
             cuisineFieldContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             cuisineFieldContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
@@ -181,11 +177,9 @@ class FilterView: CView {
             
             leftCaloriesLabel.leadingAnchor.constraint(equalTo: caloriesSlider.leadingAnchor),
             leftCaloriesLabel.topAnchor.constraint(equalTo: caloriesSlider.bottomAnchor, constant: 3),
-            leftCaloriesLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
             rightCaloriesLabel.trailingAnchor.constraint(equalTo: caloriesSlider.trailingAnchor),
-            rightCaloriesLabel.topAnchor.constraint(equalTo: caloriesSlider.bottomAnchor, constant: 3),
-            rightCaloriesLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            rightCaloriesLabel.topAnchor.constraint(equalTo: caloriesSlider.bottomAnchor, constant: 3)
         ])
     }
 }
@@ -224,20 +218,5 @@ private extension FilterView {
         label.font = .preferredFont(forTextStyle: .callout)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
-    }
-    
-    func layoutScrollView() {
-        NSLayoutConstraint.activate([
-            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            scrollView.topAnchor.constraint(equalTo: topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            
-            contentView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
-            contentView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
-            contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor)
-        ])
     }
 }

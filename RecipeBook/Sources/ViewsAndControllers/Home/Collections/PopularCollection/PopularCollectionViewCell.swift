@@ -61,10 +61,10 @@ class PopularCollectionViewCell: RecipesCollectionViewCell {
     
     override func setViews() {
         super.setViews()
-        backgroundColor = UIColor.systemBackground
+        backgroundColor = UIColor.theme.popularCell
         
         layer.cornerRadius = 10
-        layer.shadowColor = UIColor.label.cgColor
+        layer.shadowColor = UIColor.black.cgColor
         layer.shadowRadius = 2
         layer.shadowOpacity = 0.1
         

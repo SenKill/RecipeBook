@@ -134,7 +134,7 @@ class DetailView: CView {
         return tagList
     }()
     
-    let nutritionLabel: UILabel = {
+    let nutritionTitleLabel: UILabel = {
         createTitleLabel(with: "Nutrition")
     }()
     
@@ -144,7 +144,7 @@ class DetailView: CView {
     
     var nutritionCombinedView: NutritionCombinedView?
     
-    private let ingredientsLabel: UILabel = {
+    private let ingredientsTitleLabel: UILabel = {
         createTitleLabel(with: "Ingredients")
     }()
     
@@ -156,14 +156,14 @@ class DetailView: CView {
     
     let ingredientsInfoLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 13)
+        label.font = UIFont.preferredFont(forTextStyle: .body)
         label.textColor = .label
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private let prepLabel: UILabel = {
+    private let prepTitleLabel: UILabel = {
         createTitleLabel(with: "Preparation")
     }()
     
@@ -186,16 +186,16 @@ class DetailView: CView {
         contentView.addSubview(sourceLabel)
         contentView.addSubview(tagsListView)
         if let nutritionView = nutritionCombinedView {
-            contentView.addSubview(nutritionLabel)
+            contentView.addSubview(nutritionTitleLabel)
             contentView.addSubview(nutritionDivider)
             contentView.addSubview(nutritionView)
         }
-        contentView.addSubview(ingredientsLabel)
+        contentView.addSubview(ingredientsTitleLabel)
         contentView.addSubview(ingredientsDivider)
         contentView.addSubview(ingredientsCollectionView)
         contentView.addSubview(ingredientsInfoLabel)
         
-        contentView.addSubview(prepLabel)
+        contentView.addSubview(prepTitleLabel)
         contentView.addSubview(prepDivider)
         
         backButton.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
@@ -256,13 +256,13 @@ class DetailView: CView {
         var viewBottomAnchor = tagsListView.bottomAnchor
         if let nutritionView = nutritionCombinedView {
             NSLayoutConstraint.activate([
-                nutritionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance),
-                nutritionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.rightDistance),
-                nutritionLabel.topAnchor.constraint(equalTo: tagsListView.bottomAnchor, constant: 15),
+                nutritionTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance),
+                nutritionTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.rightDistance),
+                nutritionTitleLabel.topAnchor.constraint(equalTo: tagsListView.bottomAnchor, constant: 15),
                 
                 nutritionDivider.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance),
                 nutritionDivider.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.rightDistance),
-                nutritionDivider.topAnchor.constraint(equalTo: nutritionLabel.bottomAnchor, constant: 10),
+                nutritionDivider.topAnchor.constraint(equalTo: nutritionTitleLabel.bottomAnchor, constant: 10),
                 
                 nutritionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance),
                 nutritionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.rightDistance),
@@ -273,13 +273,13 @@ class DetailView: CView {
         
         ingredientsCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            ingredientsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance),
-            ingredientsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.rightDistance),
-            ingredientsLabel.topAnchor.constraint(equalTo: viewBottomAnchor, constant: 25),
+            ingredientsTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance),
+            ingredientsTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.rightDistance),
+            ingredientsTitleLabel.topAnchor.constraint(equalTo: viewBottomAnchor, constant: 25),
             
             ingredientsDivider.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance),
             ingredientsDivider.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.rightDistance),
-            ingredientsDivider.topAnchor.constraint(equalTo: ingredientsLabel.bottomAnchor, constant: 10),
+            ingredientsDivider.topAnchor.constraint(equalTo: ingredientsTitleLabel.bottomAnchor, constant: 10),
             
             ingredientsCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             ingredientsCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
@@ -290,13 +290,13 @@ class DetailView: CView {
             ingredientsInfoLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.rightDistance),
             ingredientsInfoLabel.topAnchor.constraint(equalTo: ingredientsCollectionView.bottomAnchor, constant: 10),
             
-            prepLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance),
-            prepLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.rightDistance),
-            prepLabel.topAnchor.constraint(equalTo: ingredientsInfoLabel.bottomAnchor, constant: 25),
+            prepTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance),
+            prepTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.rightDistance),
+            prepTitleLabel.topAnchor.constraint(equalTo: ingredientsInfoLabel.bottomAnchor, constant: 25),
             
             prepDivider.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftDistance),
             prepDivider.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.rightDistance),
-            prepDivider.topAnchor.constraint(equalTo: prepLabel.bottomAnchor, constant: 10),
+            prepDivider.topAnchor.constraint(equalTo: prepTitleLabel.bottomAnchor, constant: 10),
         ])
     }
 }
@@ -330,7 +330,7 @@ extension DetailView {
     
     func buildInstructions(with text: String) {
         let prepInfoLabel = UILabel()
-        prepInfoLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        prepInfoLabel.font = UIFont.preferredFont(forTextStyle: .body)
         prepInfoLabel.textColor = .label
         prepInfoLabel.numberOfLines = 0
         prepInfoLabel.text = text
@@ -348,7 +348,7 @@ extension DetailView {
 private extension DetailView {
     static func createTitleLabel(with text: String) -> UILabel {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 22, weight: .medium)
         label.textColor = .label
         label.text = text
         label.translatesAutoresizingMaskIntoConstraints = false

@@ -14,10 +14,9 @@ extension UIColor {
 
 class ColorTheme {
     let background = UIColor(named: "BackgroundColor")!
-    let gradientBackgroundFirst = UIColor(named: "GradientColorFirst")!
-    let gradientBackgroundSecond = UIColor(named: "GradientColorSecond")!
     let tagViewBackground = UIColor(named: "TagViewBackground")!
     let tagViewBackgroundSelected = UIColor(named: "TagViewBackgroundSelected")!
+    let popularCell = UIColor(named: "PopularCellColor")!
     
     let divider = UIColor.systemGray2.withAlphaComponent(0.5)
     
