@@ -6,9 +6,10 @@ RecipeBook allows users to search for any recipes they want using pretty yet han
 
 That's my first application where I've built the User Interface with the UIKit programmatically completely without a storyboard. Also, I've used Auto Layout Constraints for that.
 
-## Preview Gif
+## Preview
 
 ![](https://github.com/SenKill/RecipeBook/blob/0ba637510c20b6f98273a55e8ff302834de5572c/GifsAndPictures/Preview.gif)
+![](https://github.com/SenKill/RecipeBook/blob/5514b62d27557e6c8563c17f7c05df26f5c27308/GifsAndPictures/DarkPreview.gif)
 
 ## Features
 
