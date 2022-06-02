@@ -198,6 +198,7 @@ private extension DetailViewController {
         customView.ingredientsInfoLabel.text = finalString
     }
     
+    // MARK: - The funny thing
     func populatePreparationInfo(with instructions: [Instruction]) {
         let funny: Bool = false
         guard !funny else {

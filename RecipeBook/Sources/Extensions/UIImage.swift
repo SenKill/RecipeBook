@@ -16,7 +16,7 @@ struct Images {
     let homeBackground = UIImage(named: "homeBackgroundImage")
     
     let calories = UIImage(systemName: "flame.fill")!
-    let carbs = UIImage(systemName: "leaf.fill")!
+    let carbs = UIImage(systemName: "leaf.fill") ?? UIImage(systemName: "bolt.fill")!
     let protein = UIImage(systemName: "shield.fill")!
-    let fats = UIImage(systemName: "bolt.fill")!
+    let fats = UIImage(systemName: "drop.fill") ?? UIImage(systemName: "capsule.fill")!
 }

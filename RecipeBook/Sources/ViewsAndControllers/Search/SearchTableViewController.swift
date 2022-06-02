@@ -164,13 +164,12 @@ extension SearchTableViewController {
 extension SearchTableViewController: UISearchBarDelegate {
     // Presents searched recipes
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        if let text = searchBar.text {
-            fetchRecipesForSearchText(text.lowercased())
-            if isChangingFilters {
-                toggleFilterView()
-            }
-            isSearching = true
+        let text = searchBar.text ?? ""
+        fetchRecipesForSearchText(text.lowercased())
+        if isChangingFilters {
+            toggleFilterView()
         }
+        isSearching = true
     }
     
     // Presents default recipes
@@ -179,6 +178,8 @@ extension SearchTableViewController: UISearchBarDelegate {
         if let text = searchBar.text, text.isEmpty && isSearching {
             isSearching = false
             tableView?.reloadData()
+            let topRow = IndexPath(row: 0, section: 0)
+            tableView.scrollToRow(at: topRow, at: .top, animated: false)
         }
     }
     
@@ -260,8 +261,13 @@ private extension SearchTableViewController {
     
     func changeFilterButtonAppearance(with firstColor: UIColor, and secondColor: UIColor) {
         let button: UIButton = searchController.searchBar.filterButton
-        button.tintColor = firstColor
-        button.backgroundColor = secondColor
+        // TODO: Animate here
+        let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeIn) {
+            button.tintColor = firstColor
+            button.backgroundColor = secondColor
+        }
+        animator.startAnimation()
+        
     }
     
     @objc func favoriteChanged(_ notification: Notification) {

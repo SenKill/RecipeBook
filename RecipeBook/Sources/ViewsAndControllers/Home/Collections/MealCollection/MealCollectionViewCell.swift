@@ -30,8 +30,8 @@ class MealCollectionViewCell: RecipesCollectionViewCell {
     
     override func setViews() {
         super.setViews()
-        self.layer.cornerRadius = 10
-        self.layer.shadowRadius = 5
+        layer.cornerRadius = 10
+        layer.shadowRadius = 5
         layer.shadowOpacity = 0.2
         
         contentView.addSubview(mainImageView)

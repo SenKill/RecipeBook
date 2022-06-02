@@ -48,7 +48,11 @@ class HomeView: CView {
         label.text = "Good morning!🌅"
         label.font = UIFont.preferredFont(forTextStyle: .title2)
         label.textColor = .white
-        label.numberOfLines = 0
+        label.layer.shadowColor = UIColor.black.cgColor
+        label.layer.shadowRadius = 3.0
+        label.layer.shadowOpacity = 1.0
+        label.layer.shadowOffset = CGSize(width: 4, height: 4)
+        label.layer.masksToBounds = false
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -58,6 +62,11 @@ class HomeView: CView {
         label.text = "What are we going to cook today?"
         label.textColor = .white
         label.numberOfLines = 0
+        label.layer.shadowColor = UIColor.black.cgColor
+        label.layer.shadowRadius = 3.0
+        label.layer.shadowOpacity = 1.0
+        label.layer.shadowOffset = CGSize(width: 4, height: 4)
+        label.layer.masksToBounds = false
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -67,6 +76,11 @@ class HomeView: CView {
         label.text = "Breakfast"
         label.font = UIFont.systemFont(ofSize: 27, weight: .semibold)
         label.textColor = .white
+        label.layer.shadowColor = UIColor.black.cgColor
+        label.layer.shadowRadius = 1.0
+        label.layer.shadowOpacity = 1
+        label.layer.shadowOffset = CGSize(width: 1, height: 1)
+        label.layer.masksToBounds = false
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -101,7 +115,6 @@ class HomeView: CView {
     
     override func layoutViews() {
         super.layoutViews()
-        
         layoutScrollView()
         
         mealCollectionView.translatesAutoresizingMaskIntoConstraints = false

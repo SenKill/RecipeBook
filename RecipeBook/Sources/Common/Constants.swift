@@ -12,7 +12,7 @@ import UIKit
 struct Constants {
     static let mealCount: Int = 15
     static let popularCount: Int = 10
-    static let searchDefaultCount: Int = 3
+    static let searchDefaultCount: Int = 5
     static let searchCount: Int = 10
     
     static let leftDistance: CGFloat = 20

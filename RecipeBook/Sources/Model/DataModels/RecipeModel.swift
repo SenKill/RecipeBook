@@ -25,7 +25,7 @@ struct Recipe: Codable, Equatable {
     let gaps: String
     let lowFodmap: Bool
     let aggregateLikes: Int
-    let spoonacularScore: Int
+    let spoonacularScore: Int?
     let healthScore: Int
     let creditsText: String?
     let license: String?

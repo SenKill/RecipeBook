@@ -15,6 +15,7 @@ class CViewController<V: CView>: UIViewController {
         view = V()
     }
     
+    // To access view use this computed property
     var customView: V {
         view as! V
     }
