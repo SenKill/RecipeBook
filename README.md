@@ -98,3 +98,8 @@ If you want to see the practical use of this approach, you can open my files in 
 [HomeView.swift](https://github.com/SenKill/RecipeBook/blob/90df40945993665724828cdee6f37d895218ec28/RecipeBook/Sources/ViewsAndControllers/Home/HomeView.swift)
 
 [HomeViewController.swift](https://github.com/SenKill/RecipeBook/blob/90df40945993665724828cdee6f37d895218ec28/RecipeBook/Sources/ViewsAndControllers/Home/HomeViewController.swift)
+
+## License
+### ATTENTION!
+
+The app is just for presentation, not for a contribution, all the source code is under the default copyright laws of the GitHub so please do not reproduce, distribute, or create derivative works from my work.
