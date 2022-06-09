@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 final class NetworkService {
     static func fetchRecipes(_ endpoint: Endpoint, then handler: @escaping (Result<RecipeModel, Error>) -> Void)  {
@@ -69,7 +68,7 @@ final class NetworkService {
                 handler(.failure(NetworkError.notFoundData))
                 return
             }
-            
+            print("Loading image...")
             handler(.success(data))
         }
         .resume()

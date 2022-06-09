@@ -117,24 +117,12 @@ class PopularCollectionViewCell: RecipesCollectionViewCell {
             favoriteButton.widthAnchor.constraint(equalTo: favoriteButton.heightAnchor),
         ])
     }
-}
-
-extension PopularCollectionViewCell: ConfigurableCell {
-    func configureCell(for recipe: Recipe?, with image: UIImage?) {
-        // Setting up spinner if image didn't load yet
-        if let image = image {
-            isImageLoaded = true
-            spinner.removeFromSuperview()
-            mainImageView.image = image
-        } else {
-            addSubview(spinner)
-            spinner.setUpSpinner(loadingImageView: mainImageView)
-        }
-        
+    
+    override func configureCell(for recipe: Recipe?, with image: UIImage?) {
+        super.configureCell(for: recipe, with: image)
         guard let recipe = recipe else {
             return
         }
-        
         recipeNameLabel.text = recipe.title
         authorNameLabel.text = "by: " + (recipe.sourceName ?? "uknown")
         prepTimeLabel.text = "\(recipe.readyInMinutes) Min"
@@ -143,7 +131,10 @@ extension PopularCollectionViewCell: ConfigurableCell {
             favoriteButton.setActive()
         }
     }
-    
+}
+
+// MARK: - Cell Life Cycle
+extension PopularCollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         mainImageView.image = nil

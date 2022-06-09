@@ -112,7 +112,7 @@ class RecipesTableViewCell: UITableViewCell {
         }
         
         cell.infoLabel.text = "\(prepTime)m" + dishTypes
-        cell.authorLabel.text = "by: " + (recipe.sourceName ?? "")
+        cell.authorLabel.text = "by: " + (recipe.sourceName ?? "Uknown chef")
     }
 }
 

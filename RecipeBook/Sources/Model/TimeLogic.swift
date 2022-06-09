@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TimeLogic {
+struct TimeLogic {
     static func getLabels(from hours: Int) -> [String] {
         var result = ["Good morning!🌅", "Breakfast"]
         

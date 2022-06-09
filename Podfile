@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '9.0'
+platform :ios, '13.0'
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
@@ -15,7 +15,9 @@ target 'RecipeBook' do
   
   # Pods for RecipeBook
   
-  pod 'TagListView', '~> 1.0'
+  pod 'TagListView'
+  pod 'Alamofire'
+  pod 'AlamofireImage'
   
   target 'RecipeBookTests' do
     inherit! :search_paths

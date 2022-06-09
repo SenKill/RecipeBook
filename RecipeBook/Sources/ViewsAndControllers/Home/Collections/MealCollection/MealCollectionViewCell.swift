@@ -61,33 +61,22 @@ class MealCollectionViewCell: RecipesCollectionViewCell {
             favoriteButton.widthAnchor.constraint(equalTo: favoriteButton.heightAnchor)
         ])
     }
-}
-
-// MARK: - Cell Life Cycle
-extension MealCollectionViewCell: ConfigurableCell {
-    func configureCell(for recipe: Recipe?, with image: UIImage?) {
-        // Setting up spinner if image didn't load yet
-        if let image = image {
-            isImageLoaded = true
-            spinner.removeFromSuperview()
-            mainImageView.image = image
-        } else {
-            mainImageView.addSubview(spinner)
-            // Custom method from extension
-            spinner.setUpSpinner(loadingImageView: mainImageView)
-        }
-        
+    
+    override func configureCell(for recipe: Recipe?, with image: UIImage?) {
+        super.configureCell(for: recipe, with: image)
         guard let recipe = recipe else {
             return
         }
-        
         authorNameLabel.text = "by: " + (recipe.sourceName ?? "uknown")
         recipeNameLabel.text = recipe.title
         if let isFavorite = recipe.isFavorite, isFavorite {
             favoriteButton.setActive()
         }
     }
-    
+}
+
+// MARK: - Cell Life Cycle
+extension MealCollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         mainImageView.image = nil

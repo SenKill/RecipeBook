@@ -10,7 +10,6 @@ import UIKit
 
 class RecipesCollectionViewCell: UICollectionViewCell {
     var index: IndexPath!
-    var isImageLoaded: Bool = false
     weak var delegate: FavoriteButtonDelegate?
     
     let spinner: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
@@ -53,6 +52,17 @@ class RecipesCollectionViewCell: UICollectionViewCell {
     
     func layoutViews() {
         
+    }
+    
+    func configureCell(for recipe: Recipe?, with image: UIImage?) {
+        // Setting up spinner if image didn't load yet
+        if let image = image {
+            spinner.removeFromSuperview()
+            mainImageView.image = image
+        } else {
+            addSubview(spinner)
+            spinner.setUpSpinner(loadingImageView: mainImageView)
+        }
     }
 }
 

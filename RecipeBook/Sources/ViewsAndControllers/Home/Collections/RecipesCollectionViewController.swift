@@ -7,21 +7,6 @@
 
 import UIKit
 
-protocol ConfigurableCell where Self: UICollectionViewCell {
-    func configureCell(for recipe: Recipe?, with image: UIImage?)
-}
-
-extension ConfigurableCell {
-    var isImageLoaded: Bool {
-        if let cell = self as? MealCollectionViewCell {
-            return cell.isImageLoaded
-        } else if let cell = self as? PopularCollectionViewCell {
-            return cell.isImageLoaded
-        }
-        return false
-    }
-}
-
 class RecipesCollectionViewController: UIViewController {
     var recipes: [Recipe] = []
     private let localService = LocalService()
@@ -85,7 +70,7 @@ extension RecipesCollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Giving to the cell protocol type for using it's method configureCell()
-        var cell: ConfigurableCell!
+        var cell: RecipesCollectionViewCell!
         
         if collectionView.tag == 1,
            let mealCell = collectionView.dequeueReusableCell(withReuseIdentifier: MealCollectionViewCell.reuseId, for: indexPath) as? MealCollectionViewCell {

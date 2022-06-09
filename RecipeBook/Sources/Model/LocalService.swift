@@ -7,7 +7,7 @@
 
 import Foundation
 
-class LocalService {
+final class LocalService {
     static let shared = LocalService()
     
     private let defaults = UserDefaults.standard
