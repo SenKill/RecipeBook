@@ -12,6 +12,7 @@ class FavoritesTableViewController: UITableViewController {
     
     private var recipes: [Recipe] = []
     private let localService = LocalService()
+    private let networkService = NetworkService.shared
     
     override func loadView() {
         tableView = FavoritesTableView()
@@ -90,7 +91,7 @@ extension FavoritesTableViewController {
             return newCell
         }
         
-        NetworkService.fetchImage(for: .recipe, with: image.changeImageSize(to: ImageSizes.verySmall), size: nil) { result in
+        networkService.fetchImage(for: .recipe, with: image.changeImageSize(to: ImageSizes.verySmall), size: nil) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let data):

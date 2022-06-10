@@ -15,6 +15,7 @@ class PopularCollectionViewCell: RecipesCollectionViewCell {
         label.font = UIFont.preferredFont(forTextStyle: .headline)
         label.numberOfLines = 2
         label.textColor = .label
+        label.backgroundColor = .systemGray4
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -23,6 +24,7 @@ class PopularCollectionViewCell: RecipesCollectionViewCell {
        let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.textColor = UIColor.secondaryLabel
+        label.backgroundColor = .systemGray4
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -39,6 +41,7 @@ class PopularCollectionViewCell: RecipesCollectionViewCell {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .footnote)
         label.textColor = .label
+        label.backgroundColor = .systemGray4
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -55,6 +58,7 @@ class PopularCollectionViewCell: RecipesCollectionViewCell {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .footnote)
         label.textColor = .label
+        label.backgroundColor = .systemGray4
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -90,8 +94,9 @@ class PopularCollectionViewCell: RecipesCollectionViewCell {
             recipeNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             
             authorNameLabel.leadingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: 10),
-            authorNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            authorNameLabel.topAnchor.constraint(equalTo: recipeNameLabel.bottomAnchor, constant: 3),
+            authorNameLabel.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -15),
+            authorNameLabel.topAnchor.constraint(equalTo: recipeNameLabel.bottomAnchor, constant: 5),
+            authorNameLabel.heightAnchor.constraint(equalToConstant: 15),
             
             prepTimeImageView.leadingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: 10),
             prepTimeImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
@@ -99,15 +104,17 @@ class PopularCollectionViewCell: RecipesCollectionViewCell {
             prepTimeImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1/5),
             
             prepTimeLabel.leadingAnchor.constraint(equalTo: prepTimeImageView.trailingAnchor, constant: 5),
-            prepTimeLabel.topAnchor.constraint(equalTo: prepTimeImageView.topAnchor),
-            prepTimeLabel.bottomAnchor.constraint(equalTo: prepTimeImageView.bottomAnchor),
+            prepTimeLabel.topAnchor.constraint(equalTo: prepTimeImageView.topAnchor, constant: 5),
+            prepTimeLabel.bottomAnchor.constraint(equalTo: prepTimeImageView.bottomAnchor, constant: -5),
+            prepTimeLabel.widthAnchor.constraint(equalToConstant: 50),
             
             servingsLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            servingsLabel.topAnchor.constraint(equalTo: servingsImageView.topAnchor),
-            servingsLabel.bottomAnchor.constraint(equalTo: servingsImageView.bottomAnchor),
+            servingsLabel.topAnchor.constraint(equalTo: servingsImageView.topAnchor, constant: 5),
+            servingsLabel.bottomAnchor.constraint(equalTo: servingsImageView.bottomAnchor, constant: -5),
+            servingsLabel.widthAnchor.constraint(equalToConstant: 75),
             
             servingsImageView.trailingAnchor.constraint(equalTo: servingsLabel.leadingAnchor, constant: -5),
-            servingsImageView.topAnchor.constraint(equalTo: prepTimeLabel.topAnchor),
+            servingsImageView.centerYAnchor.constraint(equalTo: prepTimeImageView.centerYAnchor),
             servingsImageView.widthAnchor.constraint(equalTo: prepTimeImageView.widthAnchor),
             servingsImageView.heightAnchor.constraint(equalTo: prepTimeImageView.heightAnchor),
             
@@ -120,6 +127,12 @@ class PopularCollectionViewCell: RecipesCollectionViewCell {
     
     override func configureCell(for recipe: Recipe?, with image: UIImage?) {
         super.configureCell(for: recipe, with: image)
+        
+        recipeNameLabel.backgroundColor = .clear
+        authorNameLabel.backgroundColor = .clear
+        servingsLabel.backgroundColor = .clear
+        prepTimeLabel.backgroundColor = .clear
+        
         guard let recipe = recipe else {
             return
         }

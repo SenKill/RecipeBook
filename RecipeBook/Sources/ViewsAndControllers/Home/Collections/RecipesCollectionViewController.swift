@@ -10,6 +10,7 @@ import UIKit
 class RecipesCollectionViewController: UIViewController {
     var recipes: [Recipe] = []
     private let localService = LocalService()
+    private let networkService = NetworkService.shared
 }
 
 // MARK: - FavoriteButtonDelegate
@@ -92,7 +93,7 @@ extension RecipesCollectionViewController: UICollectionViewDataSource {
         
         // Checking image property that stored in model, and fetching if it exists
         if let imageName = recipe.image {
-            NetworkService.fetchImage(for: .recipe, with: imageName, size: nil) { result in
+            networkService.fetchImage(for: .recipe, with: imageName, size: nil) { [weak self] result in
                 switch result {
                 case .success(let data):
                     DispatchQueue.main.async {
@@ -100,7 +101,7 @@ extension RecipesCollectionViewController: UICollectionViewDataSource {
                     }
                 case .failure(let error):
                     let alert = UIAlertController.errorAlert(title: "Loading image error", message: error.localizedDescription)
-                    self.present(alert, animated: true, completion: nil)
+                    self?.present(alert, animated: true, completion: nil)
                 }
             }
         } else {

@@ -125,6 +125,7 @@ class DetailView: CView {
         tagList.textColor = .secondaryLabel
         tagList.tagBackgroundColor = .secondaryLabel.withAlphaComponent(0.15)
         tagList.textFont = UIFont.preferredFont(forTextStyle: .subheadline)
+        tagList.isUserInteractionEnabled = false
         
         tagList.paddingY = 7
         tagList.paddingX = 11

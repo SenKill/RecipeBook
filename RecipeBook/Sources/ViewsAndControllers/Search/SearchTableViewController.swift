@@ -32,6 +32,7 @@ class SearchTableViewController: UITableViewController {
     }
     
     private let notificationCenter = NotificationCenter.default
+    private let networkService = NetworkService()
     
     // MARK: - Life cycle
     deinit {
@@ -141,7 +142,7 @@ extension SearchTableViewController {
         newCell.delegate = self
         
         if let image = recipe?.image {
-            NetworkService.fetchImage(for: .recipe, with: image.changeImageSize(to: ImageSizes.verySmall), size: nil) { result in
+            networkService.fetchImage(for: .recipe, with: image.changeImageSize(to: ImageSizes.verySmall), size: nil) { result in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let data):
@@ -223,7 +224,7 @@ private extension SearchTableViewController {
         var filterParameters = FilterParameters()
         filterParameters.sort = "random"
         
-        NetworkService.fetchRecipes(.searchWithFilter(filterParameters, query: nil, number: Constants.searchDefaultCount)) { result in
+        networkService.fetchRecipes(.searchWithFilter(filterParameters, query: nil, number: Constants.searchDefaultCount)) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let data):
@@ -243,7 +244,7 @@ private extension SearchTableViewController {
         var filterParameters = filterViewController.getFilterParameters()
         filterParameters.type = selectedMealType
         
-        NetworkService.fetchRecipes(.searchWithFilter(filterParameters, query: searchText, number: Constants.searchCount)) { result in
+        networkService.fetchRecipes(.searchWithFilter(filterParameters, query: searchText, number: Constants.searchCount)) { result in
             switch result {
             case .success(let data):
                 if let recipes = data.results {

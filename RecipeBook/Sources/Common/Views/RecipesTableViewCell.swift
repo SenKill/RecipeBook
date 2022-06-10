@@ -16,6 +16,7 @@ class RecipesTableViewCell: UITableViewCell {
         imageView.layer.cornerRadius = 15
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        imageView.backgroundColor = .systemGray4
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -25,6 +26,9 @@ class RecipesTableViewCell: UITableViewCell {
         label.numberOfLines = 2
         label.font = UIFont.preferredFont(forTextStyle: .title3)
         label.textColor = .label
+        label.backgroundColor = .systemGray4
+        label.clipsToBounds = false
+        label.layer.masksToBounds = false
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -34,6 +38,7 @@ class RecipesTableViewCell: UITableViewCell {
         label.numberOfLines = 1
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.textColor = UIColor.secondaryLabel
+        label.backgroundColor = .systemGray4
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -43,6 +48,7 @@ class RecipesTableViewCell: UITableViewCell {
         label.numberOfLines = 1
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.textColor = UIColor.secondaryLabel
+        label.backgroundColor = .systemGray4
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -77,30 +83,38 @@ class RecipesTableViewCell: UITableViewCell {
             recipeNameLabel.topAnchor.constraint(equalTo: mainImageView.topAnchor, constant: 3),
             
             infoLabel.leadingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: 15),
-            infoLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.rightDistance),
+            infoLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
             infoLabel.topAnchor.constraint(equalTo: recipeNameLabel.bottomAnchor, constant: 10),
+            infoLabel.heightAnchor.constraint(equalToConstant: 15),
             
             authorLabel.leadingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: 15),
-            authorLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.rightDistance),
-            authorLabel.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 10)
+            authorLabel.widthAnchor.constraint(equalToConstant: 100),
+            authorLabel.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 10),
+            authorLabel.heightAnchor.constraint(equalToConstant: 15)
         ])
     }
     
     func configureCell(for recipe: Recipe?, with image: UIImage?) {
-        let cell = self
-        
         // Setting up spinner if image didn't load yet
         if let image = image {
             spinner.removeFromSuperview()
-            cell.mainImageView.image = image
+            mainImageView.alpha = 0.5
+            UIView.animate(withDuration: 0.55) {
+                self.mainImageView.image = image
+                self.mainImageView.alpha = 1
+            }
         } else {
-            cell.mainImageView.addSubview(spinner)
+            mainImageView.addSubview(spinner)
             spinner.setUpSpinner(loadingImageView: mainImageView)
         }
         
         guard let recipe = recipe else {
             return
         }
+        
+        recipeNameLabel.backgroundColor = .clear
+        infoLabel.backgroundColor = .clear
+        authorLabel.backgroundColor = .clear
         
         recipeNameLabel.text = recipe.title
         
@@ -111,8 +125,8 @@ class RecipesTableViewCell: UITableViewCell {
             dishTypes += " · " + dishType
         }
         
-        cell.infoLabel.text = "\(prepTime)m" + dishTypes
-        cell.authorLabel.text = "by: " + (recipe.sourceName ?? "Uknown chef")
+        infoLabel.text = "\(prepTime)m" + dishTypes
+        authorLabel.text = "by: " + (recipe.sourceName ?? "Uknown chef")
     }
 }
 

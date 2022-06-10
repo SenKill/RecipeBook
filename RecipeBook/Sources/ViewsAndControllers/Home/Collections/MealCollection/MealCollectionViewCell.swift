@@ -13,8 +13,8 @@ class MealCollectionViewCell: RecipesCollectionViewCell {
     private let recipeNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        label.text = "Loading..."
         label.textColor = .label
+        label.backgroundColor = .systemGray4
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -23,17 +23,13 @@ class MealCollectionViewCell: RecipesCollectionViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 10)
         label.textColor = .secondaryLabel
-        label.text = "by: "
+        label.backgroundColor = .systemGray4
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     override func setViews() {
         super.setViews()
-        layer.cornerRadius = 10
-        layer.shadowRadius = 5
-        layer.shadowOpacity = 0.2
-        
         contentView.addSubview(mainImageView)
         contentView.addSubview(recipeNameLabel)
         contentView.addSubview(authorNameLabel)
@@ -47,13 +43,15 @@ class MealCollectionViewCell: RecipesCollectionViewCell {
             mainImageView.topAnchor.constraint(equalTo: topAnchor),
             mainImageView.heightAnchor.constraint(equalTo: mainImageView.widthAnchor),
             
-            recipeNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            recipeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-            recipeNameLabel.topAnchor.constraint(equalTo: mainImageView.bottomAnchor, constant: 5),
+            recipeNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            recipeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            recipeNameLabel.topAnchor.constraint(equalTo: mainImageView.bottomAnchor, constant: 10),
+            recipeNameLabel.heightAnchor.constraint(equalToConstant: 15),
             
-            authorNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            authorNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-            authorNameLabel.topAnchor.constraint(equalTo: recipeNameLabel.bottomAnchor, constant: 3),
+            authorNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            authorNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            authorNameLabel.topAnchor.constraint(equalTo: recipeNameLabel.bottomAnchor, constant: 5),
+            authorNameLabel.heightAnchor.constraint(equalToConstant: 13),
             
             favoriteButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
             favoriteButton.topAnchor.constraint(equalTo: topAnchor, constant: 5),
@@ -67,6 +65,9 @@ class MealCollectionViewCell: RecipesCollectionViewCell {
         guard let recipe = recipe else {
             return
         }
+        recipeNameLabel.backgroundColor = .clear
+        authorNameLabel.backgroundColor = .clear
+        
         authorNameLabel.text = "by: " + (recipe.sourceName ?? "uknown")
         recipeNameLabel.text = recipe.title
         if let isFavorite = recipe.isFavorite, isFavorite {

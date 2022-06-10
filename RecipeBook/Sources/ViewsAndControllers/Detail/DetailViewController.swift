@@ -27,6 +27,8 @@ class DetailViewController: CViewController<DetailView> {
     private var sourceUrl: URL?
     private var index: IndexPath!
     
+    private let networkService = NetworkService.shared
+    
     init(with recipeData: Recipe, index: IndexPath) {
         self.recipeData = recipeData
         if let ingredients = recipeData.extendedIngredients {
@@ -106,7 +108,7 @@ extension DetailViewController: UICollectionViewDataSource {
         cell.configureCell(for: ingredient.name, with: nil)
         
         if let imageName = ingredient.image {
-            NetworkService.fetchImage(for: .ingredient, with: imageName, size: IngredientsSizes.small) { result in
+            networkService.fetchImage(for: .ingredient, with: imageName, size: IngredientsSizes.small) { result in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let imageData):
@@ -134,7 +136,7 @@ private extension DetailViewController {
     func loadRecipeImage(with name: String?) {
         guard let imageName = name else { return }
         
-        NetworkService.fetchImage(for: .recipe, with: imageName.changeImageSize(to: ImageSizes.huge), size: nil) { result in
+        networkService.fetchImage(for: .recipe, with: imageName.changeImageSize(to: ImageSizes.huge), size: nil) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let data):

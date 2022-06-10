@@ -16,6 +16,7 @@ class HomeViewController: CViewController<HomeView> {
     private var popularVC: RecipesCollectionViewController!
     
     private let notificationCenter = NotificationCenter.default
+    private let networkService = NetworkService.shared
     
     deinit {
         notificationCenter.removeObserver(self, name: .favoriteChanged, object: nil)
@@ -65,7 +66,7 @@ private extension HomeViewController {
     }
     
     func fetchData() {
-        NetworkService.fetchRecipes(.randomSearch(number: Constants.mealCount, tags: [meal])) { result in
+        networkService.fetchRecipes(.randomSearch(number: Constants.mealCount, tags: [meal])) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let data):
@@ -74,13 +75,13 @@ private extension HomeViewController {
                         self.customView.mealCollectionView.reloadData()
                     }
                 case .failure(let error):
-                    let alert = UIAlertController.errorAlert(title: "Meal recipes loading failure", message: error.localizedDescription)
+                    let alert = UIAlertController.errorAlert(title: "Recipes loading failure", message: error.localizedDescription)
                     self.present(alert, animated: true, completion: nil)
                 }
             }
         }
         
-        NetworkService.fetchRecipes(.randomSearch(number: Constants.popularCount)) { result in
+        networkService.fetchRecipes(.randomSearch(number: Constants.popularCount)) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let data):
@@ -89,7 +90,7 @@ private extension HomeViewController {
                         self.customView.popularCollectionView.reloadData()
                     }
                 case .failure(let error):
-                    let alert = UIAlertController.errorAlert(title: "Popular recipes loading failure", message: error.localizedDescription)
+                    let alert = UIAlertController.errorAlert(title: "Recipes loading failure", message: error.localizedDescription)
                     self.present(alert, animated: true, completion: nil)
                 }
             }

@@ -11,6 +11,7 @@ enum NetworkError: LocalizedError {
     case wrongUrl
     case notFoundData
     case wrongImageType
+    case wrongStatusCode
 }
 
 extension NetworkError {
@@ -22,6 +23,8 @@ extension NetworkError {
             return NSLocalizedString("Cannot find any data from network call", comment: "")
         case .wrongImageType:
             return NSLocalizedString("Undefined image type was find while fetching image", comment: "")
+        case .wrongStatusCode:
+            return NSLocalizedString("Wrong status code response", comment: "")
         }
     }
 }

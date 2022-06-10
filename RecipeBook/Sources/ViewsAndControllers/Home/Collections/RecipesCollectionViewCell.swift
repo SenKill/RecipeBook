@@ -19,6 +19,7 @@ class RecipesCollectionViewCell: UICollectionViewCell {
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
+        imageView.backgroundColor = .systemGray4
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -58,7 +59,11 @@ class RecipesCollectionViewCell: UICollectionViewCell {
         // Setting up spinner if image didn't load yet
         if let image = image {
             spinner.removeFromSuperview()
-            mainImageView.image = image
+            self.mainImageView.alpha = 0.5
+            UIView.animate(withDuration: 0.55) {
+                self.mainImageView.image = image
+                self.mainImageView.alpha = 1
+            }
         } else {
             addSubview(spinner)
             spinner.setUpSpinner(loadingImageView: mainImageView)

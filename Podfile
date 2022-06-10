@@ -16,8 +16,6 @@ target 'RecipeBook' do
   # Pods for RecipeBook
   
   pod 'TagListView'
-  pod 'Alamofire'
-  pod 'AlamofireImage'
   
   target 'RecipeBookTests' do
     inherit! :search_paths
